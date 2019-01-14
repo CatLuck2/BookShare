@@ -23,6 +23,8 @@
 		D787E4CD21E85C3D00025EDE /* DetailBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = D787E4CC21E85C3D00025EDE /* DetailBook.swift */; };
 		D787E4CF21E85C4B00025EDE /* DetailBooks.swift in Sources */ = {isa = PBXBuildFile; fileRef = D787E4CE21E85C4B00025EDE /* DetailBooks.swift */; };
 		D787E4D121E85C8E00025EDE /* OtherPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D787E4D021E85C8E00025EDE /* OtherPage.swift */; };
+		D7EFBA7221E9A82C002DD6A2 /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EFBA7021E9A82C002DD6A2 /* NotificationCell.swift */; };
+		D7EFBA7321E9A82C002DD6A2 /* NotificationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7EFBA7121E9A82C002DD6A2 /* NotificationCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +46,8 @@
 		D787E4CC21E85C3D00025EDE /* DetailBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBook.swift; sourceTree = "<group>"; };
 		D787E4CE21E85C4B00025EDE /* DetailBooks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBooks.swift; sourceTree = "<group>"; };
 		D787E4D021E85C8E00025EDE /* OtherPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherPage.swift; sourceTree = "<group>"; };
+		D7EFBA7021E9A82C002DD6A2 /* NotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
+		D7EFBA7121E9A82C002DD6A2 /* NotificationCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotificationCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +94,8 @@
 				D74D884621E8CF5900229972 /* SearchResult.swift */,
 				D74D884821E8CF6800229972 /* SearchCategory.swift */,
 				D787E4AC21E857C900025EDE /* Main.storyboard */,
+				D7EFBA7021E9A82C002DD6A2 /* NotificationCell.swift */,
+				D7EFBA7121E9A82C002DD6A2 /* NotificationCell.xib */,
 				D787E4AF21E857CB00025EDE /* Assets.xcassets */,
 				D787E4B121E857CB00025EDE /* LaunchScreen.storyboard */,
 				D787E4B421E857CB00025EDE /* Info.plist */,
@@ -155,6 +161,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7EFBA7321E9A82C002DD6A2 /* NotificationCell.xib in Resources */,
 				D787E4B321E857CB00025EDE /* LaunchScreen.storyboard in Resources */,
 				D787E4B021E857CB00025EDE /* Assets.xcassets in Resources */,
 				D787E4AE21E857C900025EDE /* Main.storyboard in Resources */,
@@ -174,6 +181,7 @@
 				D787E4D121E85C8E00025EDE /* OtherPage.swift in Sources */,
 				D787E4C321E85B3600025EDE /* MyPage.swift in Sources */,
 				D787E4C121E85B2700025EDE /* Notification.swift in Sources */,
+				D7EFBA7221E9A82C002DD6A2 /* NotificationCell.swift in Sources */,
 				D787E4BD21E85ACE00025EDE /* GoodList.swift in Sources */,
 				D74D884721E8CF5900229972 /* SearchResult.swift in Sources */,
 				D787E4C921E85C2500025EDE /* SellBook.swift in Sources */,

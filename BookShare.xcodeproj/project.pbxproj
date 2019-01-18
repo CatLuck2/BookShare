@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1232251F6D906BF3775357D8 /* Pods_BookShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAABD3944FEC7FD8F4873ED8 /* Pods_BookShare.framework */; };
+		D713421421F0584E006DAE4C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D713421321F0584E006DAE4C /* GoogleService-Info.plist */; };
 		D74D884521E8CB5F00229972 /* DetailBooks2.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74D884421E8CB5F00229972 /* DetailBooks2.swift */; };
 		D74D884721E8CF5900229972 /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74D884621E8CF5900229972 /* SearchResult.swift */; };
 		D74D884921E8CF6800229972 /* SearchCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74D884821E8CF6800229972 /* SearchCategory.swift */; };
@@ -23,11 +25,16 @@
 		D787E4CD21E85C3D00025EDE /* DetailBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = D787E4CC21E85C3D00025EDE /* DetailBook.swift */; };
 		D787E4CF21E85C4B00025EDE /* DetailBooks.swift in Sources */ = {isa = PBXBuildFile; fileRef = D787E4CE21E85C4B00025EDE /* DetailBooks.swift */; };
 		D787E4D121E85C8E00025EDE /* OtherPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D787E4D021E85C8E00025EDE /* OtherPage.swift */; };
+		D7AE788D21F1BE2D00215844 /* BookItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AE788C21F1BE2D00215844 /* BookItem.swift */; };
 		D7EFBA7221E9A82C002DD6A2 /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EFBA7021E9A82C002DD6A2 /* NotificationCell.swift */; };
 		D7EFBA7321E9A82C002DD6A2 /* NotificationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7EFBA7121E9A82C002DD6A2 /* NotificationCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8E38B32A67BB6A0776C7F920 /* Pods-BookShare.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookShare.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BookShare/Pods-BookShare.debug.xcconfig"; sourceTree = "<group>"; };
+		BAABD3944FEC7FD8F4873ED8 /* Pods_BookShare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BookShare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D46476F66A8ECA6BBB77A6DB /* Pods-BookShare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookShare.release.xcconfig"; path = "Pods/Target Support Files/Pods-BookShare/Pods-BookShare.release.xcconfig"; sourceTree = "<group>"; };
+		D713421321F0584E006DAE4C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D74D884421E8CB5F00229972 /* DetailBooks2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBooks2.swift; sourceTree = "<group>"; };
 		D74D884621E8CF5900229972 /* SearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
 		D74D884821E8CF6800229972 /* SearchCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCategory.swift; sourceTree = "<group>"; };
@@ -46,6 +53,7 @@
 		D787E4CC21E85C3D00025EDE /* DetailBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBook.swift; sourceTree = "<group>"; };
 		D787E4CE21E85C4B00025EDE /* DetailBooks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBooks.swift; sourceTree = "<group>"; };
 		D787E4D021E85C8E00025EDE /* OtherPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherPage.swift; sourceTree = "<group>"; };
+		D7AE788C21F1BE2D00215844 /* BookItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookItem.swift; sourceTree = "<group>"; };
 		D7EFBA7021E9A82C002DD6A2 /* NotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
 		D7EFBA7121E9A82C002DD6A2 /* NotificationCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotificationCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -55,17 +63,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1232251F6D906BF3775357D8 /* Pods_BookShare.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A2AB0A2E7DB411D5E87FEA93 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BAABD3944FEC7FD8F4873ED8 /* Pods_BookShare.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CC18050124657917BBBCD14B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8E38B32A67BB6A0776C7F920 /* Pods-BookShare.debug.xcconfig */,
+				D46476F66A8ECA6BBB77A6DB /* Pods-BookShare.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		D787E49C21E857C900025EDE = {
 			isa = PBXGroup;
 			children = (
 				D787E4A721E857C900025EDE /* BookShare */,
 				D787E4A621E857C900025EDE /* Products */,
+				CC18050124657917BBBCD14B /* Pods */,
+				A2AB0A2E7DB411D5E87FEA93 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -81,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				D787E4A821E857C900025EDE /* AppDelegate.swift */,
+				D7AE788C21F1BE2D00215844 /* BookItem.swift */,
 				D787E4C421E85B4200025EDE /* Home.swift */,
 				D787E4BC21E85ACE00025EDE /* GoodList.swift */,
 				D787E4C021E85B2700025EDE /* Notification.swift */,
@@ -99,6 +128,7 @@
 				D787E4AF21E857CB00025EDE /* Assets.xcassets */,
 				D787E4B121E857CB00025EDE /* LaunchScreen.storyboard */,
 				D787E4B421E857CB00025EDE /* Info.plist */,
+				D713421321F0584E006DAE4C /* GoogleService-Info.plist */,
 			);
 			path = BookShare;
 			sourceTree = "<group>";
@@ -110,9 +140,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D787E4B721E857CB00025EDE /* Build configuration list for PBXNativeTarget "BookShare" */;
 			buildPhases = (
+				98A70EDCE21C6DFD44114534 /* [CP] Check Pods Manifest.lock */,
 				D787E4A121E857C900025EDE /* Sources */,
 				D787E4A221E857C900025EDE /* Frameworks */,
 				D787E4A321E857C900025EDE /* Resources */,
+				60C41589240DE5F335A786FF /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -163,12 +195,82 @@
 			files = (
 				D7EFBA7321E9A82C002DD6A2 /* NotificationCell.xib in Resources */,
 				D787E4B321E857CB00025EDE /* LaunchScreen.storyboard in Resources */,
+				D713421421F0584E006DAE4C /* GoogleService-Info.plist in Resources */,
 				D787E4B021E857CB00025EDE /* Assets.xcassets in Resources */,
 				D787E4AE21E857C900025EDE /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		60C41589240DE5F335A786FF /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-BookShare/Pods-BookShare-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
+				"${BUILT_PRODUCTS_DIR}/EMAlertController/EMAlertController.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-ProtoRPC/ProtoRPC.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-RxLibrary/RxLibrary.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EMAlertController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProtoRPC.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxLibrary.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BookShare/Pods-BookShare-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		98A70EDCE21C6DFD44114534 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BookShare-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D787E4A121E857C900025EDE /* Sources */ = {
@@ -182,6 +284,7 @@
 				D787E4C321E85B3600025EDE /* MyPage.swift in Sources */,
 				D787E4C121E85B2700025EDE /* Notification.swift in Sources */,
 				D7EFBA7221E9A82C002DD6A2 /* NotificationCell.swift in Sources */,
+				D7AE788D21F1BE2D00215844 /* BookItem.swift in Sources */,
 				D787E4BD21E85ACE00025EDE /* GoodList.swift in Sources */,
 				D74D884721E8CF5900229972 /* SearchResult.swift in Sources */,
 				D787E4C921E85C2500025EDE /* SellBook.swift in Sources */,
@@ -332,6 +435,7 @@
 		};
 		D787E4B821E857CB00025EDE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8E38B32A67BB6A0776C7F920 /* Pods-BookShare.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -350,6 +454,7 @@
 		};
 		D787E4B921E857CB00025EDE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D46476F66A8ECA6BBB77A6DB /* Pods-BookShare.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

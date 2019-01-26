@@ -9,10 +9,15 @@
 import UIKit
 
 class NotificationCell: UITableViewCell {
-
+    
+    @IBOutlet weak var icon: UIImageView!
+    @IBOutlet weak var message: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        //丸くする
+        icon.layer.cornerRadius = 20
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

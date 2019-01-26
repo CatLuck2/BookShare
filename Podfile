@@ -9,6 +9,7 @@ target 'BookShare' do
   pod 'Firebase/Core'
   pod 'Firebase/Firestore'
   pod 'Firebase/Storage'
+  pod 'FirebaseUI/Storage'
   pod 'Firebase/Auth'
   pod 'SDWebImage'
   pod 'FirebaseDatabase'

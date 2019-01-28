@@ -158,10 +158,3 @@ class MyPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSour
     }
 
 }
-
-//UIImageのファイル名を取得
-extension UIImageView {
-    func getFileName() -> String? {
-        return self.image!.accessibilityIdentifier
-    }
-}

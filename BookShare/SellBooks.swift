@@ -27,9 +27,12 @@ class SellBooks: UIViewController,UITableViewDataSource,UITableViewDelegate,UITe
         tableView.dataSource = self
         //空のセルを削除
         tableView.tableFooterView = UIView()
-        
-        imageView.image = UIImage(named: "placeholderbook.png")
-        // Do any additional setup after loading the view.
+       
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -43,6 +46,7 @@ class SellBooks: UIViewController,UITableViewDataSource,UITableViewDelegate,UITe
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = array[indexPath.row]
+        cell.detailTextLabel?.text = settingArray[indexPath.row]
         return cell
     }
     
@@ -62,6 +66,8 @@ class SellBooks: UIViewController,UITableViewDataSource,UITableViewDelegate,UITe
                         } else {
                             //textFieldに入力した内容をsettingArray[0]に格納
                             self.settingArray[0] = textField.text!
+                            print(self.settingArray)
+                            tableView.reloadData()
                             titleAlert.dismiss(animated: true, completion: nil)
                         }
                     default: break
@@ -80,41 +86,17 @@ class SellBooks: UIViewController,UITableViewDataSource,UITableViewDelegate,UITe
             titleAlert.addAction(cancelAction)
             self.present(titleAlert, animated: true, completion: nil)
         case 1:
-            let alert = UIAlertController(title: "メニュー", message:  nil, preferredStyle: .alert)
-            //ログアウト
-            let logoutAction = UIAlertAction(title: "ログアウト", style: .default) { (action) in
-                NCMBUser.logOutInBackground({ (error) in
-                    if error != nil {
-                        print("logout error")
-                    } else {
-                        //ログアウト
-                        self.syncronize()
-                    }
-                })
-            }
-            //退会
-            let deleteAction = UIAlertAction(title: "退会", style: .destructive) { (action) in
-                let user = NCMBUser.current()
-                user?.deleteInBackground({ (error) in
-                    if error != nil {
-                        print("delete error")
-                    } else {
-                        //ログアウト
-                        self.syncronize()
-                    }
-                })
-            }
-            let cancelAction = UIAlertAction(title: "キャンセル", style: .cancel) { (action) in
-                alert.dismiss(animated: true, completion: nil)
-            }
-            alert.addAction(logoutAction)
-            alert.addAction(deleteAction)
-            alert.addAction(cancelAction)
-            self.present(alert, animated: true, completion: nil)
+            //選択肢をセルで表示したTableViewに遷移
+            let vc = storyboard?.instantiateViewController(withIdentifier: "setting") as! SettingDataOfBook
+            vc.flag = "カテゴリ"
+            self.navigationController?.pushViewController(vc, animated: true)
         case 2:
-            <#code#>
+            //選択肢をセルで表示したTableViewに遷移
+            let vc = storyboard?.instantiateViewController(withIdentifier: "setting") as! SettingDataOfBook
+            vc.flag = "本の状態"
+            self.navigationController?.pushViewController(vc, animated: true)
         default:
-            <#code#>
+            break
         }
     }
     
@@ -134,13 +116,13 @@ class SellBooks: UIViewController,UITableViewDataSource,UITableViewDelegate,UITe
     }
     
     @IBAction func finishSetting(_ sender: Any) {
-        let vc = storyboard?.instantiateViewController(withIdentifier: "sellbook") as! SellBook
-        vc.book[0] = settingArray[0]
-        vc.book[1] = settingArray[1]
-        vc.book[2] = settingArray[2]
+        let vc = self.navigationController!.viewControllers[0] as! SellBook
+        vc.book = settingArray
         vc.books[numberOfBook] = vc.book
-        vc.book = []
-        self.navigationController?.pushViewController(vc, animated: true)
+        vc.book = ["","",""]
+        vc.imagesOfBook[numberOfBook] = imageView.image
+        vc.filenamesOfBook[numberOfBook] = (imageView.getFileName()!)
+        self.navigationController?.popViewController(animated: true)
     }
     
     @objc func imagePickerController
@@ -148,11 +130,18 @@ class SellBooks: UIViewController,UITableViewDataSource,UITableViewDelegate,UITe
          didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         //imageにアルバムで選択した画像が格納される
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            //ImageViewに表示
+            //ImageViewに
             self.imageView.image = image
             //アルバム画面を閉じる
             self.dismiss(animated: true, completion: nil)
         }
     }
     
+}
+
+//UIImageのファイル名を取得
+extension UIImageView {
+    func getFileName() -> String? {
+        return self.image?.accessibilityIdentifier
+    }
 }

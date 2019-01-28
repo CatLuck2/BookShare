@@ -23,11 +23,17 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
     @IBOutlet weak var tableView: UITableView!
     
     //出品する本の数々
-    var books = [[],[],[],[],[]] as! [[String]]
+    var books = [["","",""],["","",""],["","",""],["","",""],["","",""]]
     //出品する本
-    var book = [] as! [String]
+    var book = ["","",""]
     //出品する本の画像
-    var imagesOfBook:[UIImage]!
+    var imagesOfBook = [UIImage(named: ""),
+                        UIImage(named: ""),
+                        UIImage(named: ""),
+                        UIImage(named: ""),
+                        UIImage(named: "")]
+    //出品する本の画像のファイル名
+    var filenamesOfBook = ["","","","",""]
     //userID
     var userID:String!
     //tableViewの中身
@@ -42,6 +48,13 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
         imageView.image = UIImage(named: "placeholder_book.png")
         //空のセルを削除
         tableView.tableFooterView = UIView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+        print(imagesOfBook)
+        print(filenamesOfBook)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -59,28 +72,28 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
         switch cell.textLabel?.text {
         case "配送情報":
             cell.textLabel?.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.bold)
-            cell.detailTextLabel?.text = ""
         case "出品する本":
             cell.textLabel?.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.bold)
-            cell.detailTextLabel?.text = ""
         case "本を追加":
+//            print("aaaa")
+//            print(cell.detailTextLabel!.text)
             cell.textLabel?.textAlignment = .center
             cell.textLabel?.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.thin)
             cell.detailTextLabel?.text = ""
         case "本":
             cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.thin)
-            cell.detailTextLabel?.text = "タイトル"
+            cell.detailTextLabel?.text = self.books[indexPath.row - 1][0]
         case "配送料の負担":
             cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.thin)
-            cell.detailTextLabel?.text = "出品者"
+//            cell.detailTextLabel?.text = "出品者"
         case "発送の方法":
             cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.thin)
-            cell.detailTextLabel?.text = "ヤマト"
+//            cell.detailTextLabel?.text = "ヤマト"
         case "発送日の目安":
             cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.thin)
-            cell.detailTextLabel?.text = "1~2日で発想"
+//            cell.detailTextLabel?.text = "1~2日で発想"
         default:
-            cell.detailTextLabel?.text = ""
+            break
         }
         return cell
     }
@@ -95,7 +108,12 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
         //本1~本5をタップした場合
         } else if cellArray[indexPath.row].count == 1 && cellArray[indexPath.row].contains("本") {
             let vc = storyboard?.instantiateViewController(withIdentifier: "sellbooks") as! SellBooks
-            vc.numberOfBook = indexPath.row
+            vc.numberOfBook = indexPath.row - 1
+            if let _ = books[indexPath.row - 1] as? [String] {
+                vc.settingArray = books[indexPath.row - 1]
+            } else {
+                vc.settingArray = ["","IT","目立った傷なし"]
+            }
             self.navigationController?.pushViewController(vc, animated: true)
         }
         tableView.reloadData()
@@ -107,8 +125,16 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
             //本1~本５以外には適用しない
             if cellArray[indexPath.row] == "本" {
                 cellArray.remove(at: indexPath.row)
+                self.books.remove(at: indexPath.row - 1)
+                self.books.append(["","",""])
+                self.imagesOfBook.remove(at: indexPath.row - 1)
+                self.imagesOfBook.append(UIImage(named: ""))
+                self.filenamesOfBook.remove(at: indexPath.row - 1)
+                self.filenamesOfBook.append("")
                 tableView.deleteRows(at: [indexPath], with: .fade)
+                //もし本のセルが5つ以下になったら
                 if cellArray.count <= 10 {
+                    //既に”本の追加”のセルがあるか
                     if cellArray.contains("本を追加") == false {
                         cellArray.insert("本を追加", at: 5)
                         tableView.reloadData()

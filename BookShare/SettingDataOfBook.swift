@@ -40,8 +40,10 @@ class SettingDataOfBook: UIViewController,UITableViewDataSource,UITableViewDeleg
         //選択した項目でセルの内容をかえる
         if flag == "カテゴリ" {
             array = ["文学","人文","社会","IT","科学","フィクション","ノンフィクション","スポーツ","語学","旅行","料理","ビジネス","投資"]
+            self.navigationController?.title = "カテゴリ"
         } else if flag == "本の状態" {
             array = ["新品","目立った傷なし","ボロボロ"]
+            self.navigationController?.title = "本の状態"
         }
         return array.count
     }

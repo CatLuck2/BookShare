@@ -19,6 +19,10 @@ class SellBooks: UIViewController,UITableViewDataSource,UITableViewDelegate,UITe
     let array = ["タイトル","カテゴリ","本の状態"]
     //出品画面に渡す配列
     var settingArray = ["","",""]
+    //出品する本の表示画像の名前に使用するユーザーID
+    var userID = ""
+    //出品する本の表紙画像名
+    var fileName = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,7 +70,6 @@ class SellBooks: UIViewController,UITableViewDataSource,UITableViewDelegate,UITe
                         } else {
                             //textFieldに入力した内容をsettingArray[0]に格納
                             self.settingArray[0] = textField.text!
-                            print(self.settingArray)
                             tableView.reloadData()
                             titleAlert.dismiss(animated: true, completion: nil)
                         }
@@ -120,16 +123,20 @@ class SellBooks: UIViewController,UITableViewDataSource,UITableViewDelegate,UITe
         vc.book = settingArray
         vc.books[numberOfBook] = vc.book
         vc.book = ["","",""]
-        vc.imagesOfBook[numberOfBook] = imageView.image
-        vc.filenamesOfBook[numberOfBook] = (imageView.getFileName()!)
+        if let _ = imageView.image {vc.imagesOfBook[numberOfBook] = imageView.image!} else {}
+        if fileName == "" {fileName = "sample.png"}
+        vc.filenamesOfBook[numberOfBook] = fileName
         self.navigationController?.popViewController(animated: true)
     }
     
     @objc func imagePickerController
         (_ picker: UIImagePickerController,
          didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        //imageにアルバムで選択した画像が格納される
+        //imageにアルwバムで選択した画像が格納される
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            guard let fileURL = info[UIImagePickerController.InfoKey.imageURL] as? URL else { return }
+            //選択した画像名を取得
+            fileName = fileURL.lastPathComponent
             //ImageViewに
             self.imageView.image = image
             //アルバム画面を閉じる
@@ -140,8 +147,8 @@ class SellBooks: UIViewController,UITableViewDataSource,UITableViewDelegate,UITe
 }
 
 //UIImageのファイル名を取得
-extension UIImageView {
-    func getFileName() -> String? {
-        return self.image?.accessibilityIdentifier
-    }
-}
+//extension UIImageView {
+//    func getFileName() -> String? {
+//        return self.accessibilityIdentifier
+//    }
+//}

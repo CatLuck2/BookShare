@@ -6,11 +6,19 @@
 //  Copyright © 2019年 NEKOKICHI. All rights reserved.
 //
 /*
-本の末尾　挿入する位置　要素の数
-1 3 7 1
-3 4 8 2
- 
- 
+ "Title":books[i][0],
+ "Category":books[i][1],
+ "State":books[i][2],
+ "ItemID":books[i][3], //ID
+ "Date":books[i][4], //出品日時
+ "Status":"display", //出品中？売り切れ？
+ "Good":books[i][6], //いいね数
+ "UserName":books[i][7], //出品者の名前
+ "UserID":books[i][8], //出品者のID
+ "DeliveryArea":books[i][9], //発送元地域
+ "DeliveryBurden":books[i][10], //配送料の負担
+ "DeliveryWay":books[i][11], //配送方法
+ "DeliveryDay":books[i][12] //発送日の目安
  */
 
 import UIKit
@@ -23,7 +31,11 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
     @IBOutlet weak var tableView: UITableView!
     
     //出品する本の数々
-    var books = [["","",""],["","",""],["","",""],["","",""],["","",""]]
+    var books = [["","","","","","","","","","","",""],
+                 ["","","","","","","","","","","",""],
+                 ["","","","","","","","","","","",""],
+                 ["","","","","","","","","","","",""],
+                 ["","","","","","","","","","","",""]]
     //出品する本
     var book = ["","",""]
     //出品する本の画像
@@ -34,8 +46,12 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
                         UIImage(named: "")]
     //出品する本の画像のファイル名
     var filenamesOfBook = ["","","","",""]
+    //配送情報の各項目
+    var deliveryInformation = ["","",""]
+    //userName
+    var userName = ""
     //userID
-    var userID:String!
+    var userID = ""
     //tableViewの中身
     var cellArray = ["出品する本","本","本を追加","配送情報","配送料の負担","発送の方法","発送日の目安"]
 
@@ -53,6 +69,8 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
+        imageView.image = imagesOfBook[0]
+        print(deliveryInformation)
         print(imagesOfBook)
         print(filenamesOfBook)
     }
@@ -85,13 +103,13 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
             cell.detailTextLabel?.text = self.books[indexPath.row - 1][0]
         case "配送料の負担":
             cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.thin)
-//            cell.detailTextLabel?.text = "出品者"
+            cell.detailTextLabel?.text = deliveryInformation[0]
         case "発送の方法":
             cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.thin)
-//            cell.detailTextLabel?.text = "ヤマト"
+            cell.detailTextLabel?.text = deliveryInformation[1]
         case "発送日の目安":
             cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.thin)
-//            cell.detailTextLabel?.text = "1~2日で発想"
+            cell.detailTextLabel?.text = deliveryInformation[2]
         default:
             break
         }
@@ -100,21 +118,38 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //"本を追加"をタップした場合
-        if cellArray[indexPath.row] == "本を追加" {
+        switch cellArray[indexPath.row] {
+        case "本を追加":
             cellArray[indexPath.row] = "本"
             if cellArray.count < 10 {
                 cellArray.insert("本を追加", at: cellArray.count - 4)
             }
-        //本1~本5をタップした場合
-        } else if cellArray[indexPath.row].count == 1 && cellArray[indexPath.row].contains("本") {
+        case "本":
             let vc = storyboard?.instantiateViewController(withIdentifier: "sellbooks") as! SellBooks
+            //何番目の本かを示す数字
             vc.numberOfBook = indexPath.row - 1
+            //表紙画像
+            if let _ = imagesOfBook[indexPath.row - 1] {
+                vc.imageView.image = imagesOfBook[indexPath.row - 1]!
+            } else {}
             if let _ = books[indexPath.row - 1] as? [String] {
                 vc.settingArray = books[indexPath.row - 1]
-            } else {
-                vc.settingArray = ["","IT","目立った傷なし"]
-            }
+            } else {vc.settingArray = ["","IT","目立った傷なし"]}
             self.navigationController?.pushViewController(vc, animated: true)
+        case "配送料の負担":
+            let vc = storyboard?.instantiateViewController(withIdentifier: "settingDelivery") as! SettingDeliveryInformation
+            vc.flag = "配送料の負担"
+            self.navigationController?.pushViewController(vc, animated: true)
+        case "発送の方法":
+            let vc = storyboard?.instantiateViewController(withIdentifier: "settingDelivery") as! SettingDeliveryInformation
+            vc.flag = "発送の方法"
+                self.navigationController?.pushViewController(vc, animated: true)
+        case "発送日の目安":
+            let vc = storyboard?.instantiateViewController(withIdentifier: "settingDelivery") as! SettingDeliveryInformation
+            vc.flag = "発送日の目安"
+                self.navigationController?.pushViewController(vc, animated: true)
+        default:
+            break
         }
         tableView.reloadData()
     }
@@ -141,40 +176,120 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
                     }
                 }
             }
-        }
+        } else {}
     }
 
     @IBAction func sellBook(_ sender: Any) {
-        if books.count == 0 {
-            //アラート
+        //４つの項目が入力されている本をカウント
+        var n = 0
+        for i in 0...4 {
+            //表紙画像、タイトル、カテゴリ、状態、の４つが全て入力されてるか
+            if imagesOfBook[i] != nil && filenamesOfBook[i] != "" && books[i][0] != "" && books[i][1] != "" && books[i][2] != ""  {n+=1}
+            //最後のループ時
+            if i == 4 {
+                //出品できる本が１つもない時
+                if n < 1 {
+                    let alert = UIAlertController(title: "エラー", message: "出品する本に未入力の項目があります", preferredStyle: .alert)
+                    let dismiss = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                    alert.addAction(dismiss)
+                    self.present(alert, animated: true, completion: nil)
+                    return
+                }
+                //配送情報が
+                if deliveryInformation[0] == "" || deliveryInformation[1] == "" || deliveryInformation[2] == "" {
+                    //アラート
+                    let alert = UIAlertController(title: "エラー", message: "配送情報に未入力の項目があります", preferredStyle: .alert)
+                    let dismiss = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                    alert.addAction(dismiss)
+                    self.present(alert, animated: true, completion: nil)
+                    return
+                }
+            }
         }
+        
         //出品する本の数々
-        var items:[[String:String]]!
+        var items = [["":""],["":""],["":""],["":""],["":""]]
+        //出品する本
+        var item = ["":""]
         //Database参照
         let ref = Database.database().reference()
-        //Item階層
-        ref.child("Item")
-        //出品する本の数だけitemを宣言&格納
-        for i in 0..<books.count {
-            //1冊のデータを格納
-            var item = ["Title":books[i][0],
-                        "Category":books[i][1],
-                        "State":books[i][2],
-                        "ItemID":books[i][3],
-                        "Date":books[i][4],
-                        "Status":"display",
-                        "Good":books[i][6],
-                        "UserName":books[i][7],
-                        "UserID":books[i][8],
-                        "DeliveryArea":books[i][9],
-                        "DeliveryBurden":books[i][10],
-                        "DeliveryWay":books[i][11],
-                        "DeliveryDay":books[i][12],] as! [String : String]
-            //保存用の配列に格納
-            items.append(item)
+        //booksの各要素に保存に必要なデータを入れていく
+        for i in 0...4 {
+            for n in 3...11 {
+                switch n {
+                case 3:
+                    let f = DateFormatter()
+                    f.timeStyle = .medium
+                    f.dateStyle = .medium
+                    f.locale = Locale(identifier: "ja_JP")
+                    books[i][n] = f.string(from: Date())
+                case 4:
+                    books[i][n] = "display"
+                case 5:
+                    books[i][n] = "0"
+                case 6:
+                    books[i][n] = userName
+                case 7:
+                    books[i][n] = userID
+                case 8:
+                    books[i][n] = deliveryInformation[0]
+                case 9:
+                    books[i][n] = deliveryInformation[1]
+                case 10:
+                    books[i][n] = deliveryInformation[2]
+                default:
+                    break
+                }
+            }
         }
-        //保存
-        ref.setValue(items)
+        //出品する本の数だけitemを宣言&格納
+        for i in 0...4 {
+            //1冊のデータを格納
+            //もし未入力の本があれば
+            if imagesOfBook[i] != nil && filenamesOfBook[i] != "" && books[i][0] != "" && books[i][1] != "" && books[i][2] != "" {
+                item = ["Title":books[i][0],
+                            "Category":books[i][1],
+                            "State":books[i][2],
+                            "Date":books[i][3],
+                            "Status":books[i][4],
+                            "Good":books[i][5],
+                            "UserName":books[i][6],
+                            "UserID":books[i][7],
+                            "DeliveryBurden":books[i][8],
+                            "DeliveryWay":books[i][9],
+                            "DeliveryDay":books[i][10]]
+            } else {
+                item = ["?":"?"]
+                
+            }
+            //保存用の配列に格納
+            print(items)
+            print(item)
+            items[i] = item
+        }
+        
+        //ItemIDを生成
+        //乱数の生成に使用する文字
+        let characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        //乱数を格納する配列
+        var randomArray:String!
+        //charactersの中からランダムに選出した要素番号を格納する
+        var len = Int()
+        //乱数(文字)をいくつか追加し、最終的に乱数(文字列)となる変数
+        var randomCharacters = String()
+        //乱数が9文字になるまで続く
+        for _ in 1...9 {
+            //charactersの要素番号をランダムに選出
+            len = Int(arc4random_uniform(UInt32(characters.count)))
+            //aからlen番目の文字をrandomCharactersに追加する
+            //1ループ/1文字、追加される
+            randomCharacters += String(characters[characters.index(characters.startIndex,offsetBy: len)])
+        }
+        
+        //出品
+        ref.child("Item").child(randomCharacters).setValue(items)
+        //User階層に保存
+        ref.child("User").child("uesrID").child("Item").setValue(randomCharacters)
         
         //画像を保存
         //アイコン画像をNSDataに変換

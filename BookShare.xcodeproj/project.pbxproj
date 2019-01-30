@@ -9,7 +9,8 @@
 /* Begin PBXBuildFile section */
 		1232251F6D906BF3775357D8 /* Pods_BookShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAABD3944FEC7FD8F4873ED8 /* Pods_BookShare.framework */; };
 		D713421421F0584E006DAE4C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D713421321F0584E006DAE4C /* GoogleService-Info.plist */; };
-		D74339C721F9D5B90067A6EC /* placeholderbook.png in Resources */ = {isa = PBXBuildFile; fileRef = D74339C621F9D5B90067A6EC /* placeholderbook.png */; };
+		D731CB372201347400D80A83 /* SettingDeliveryInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D731CB362201347400D80A83 /* SettingDeliveryInformation.swift */; };
+		D74339C721F9D5B90067A6EC /* sample.png in Resources */ = {isa = PBXBuildFile; fileRef = D74339C621F9D5B90067A6EC /* sample.png */; };
 		D74D884521E8CB5F00229972 /* DetailBooks2.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74D884421E8CB5F00229972 /* DetailBooks2.swift */; };
 		D74D884721E8CF5900229972 /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74D884621E8CF5900229972 /* SearchResult.swift */; };
 		D74D884921E8CF6800229972 /* SearchCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74D884821E8CF6800229972 /* SearchCategory.swift */; };
@@ -43,7 +44,8 @@
 		BAABD3944FEC7FD8F4873ED8 /* Pods_BookShare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BookShare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D46476F66A8ECA6BBB77A6DB /* Pods-BookShare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookShare.release.xcconfig"; path = "Pods/Target Support Files/Pods-BookShare/Pods-BookShare.release.xcconfig"; sourceTree = "<group>"; };
 		D713421321F0584E006DAE4C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		D74339C621F9D5B90067A6EC /* placeholderbook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholderbook.png; sourceTree = "<group>"; };
+		D731CB362201347400D80A83 /* SettingDeliveryInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingDeliveryInformation.swift; sourceTree = "<group>"; };
+		D74339C621F9D5B90067A6EC /* sample.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sample.png; sourceTree = "<group>"; };
 		D74D884421E8CB5F00229972 /* DetailBooks2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBooks2.swift; sourceTree = "<group>"; };
 		D74D884621E8CF5900229972 /* SearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
 		D74D884821E8CF6800229972 /* SearchCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCategory.swift; sourceTree = "<group>"; };
@@ -125,7 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				D7AE788E21F2131300215844 /* placeholder.png */,
-				D74339C621F9D5B90067A6EC /* placeholderbook.png */,
+				D74339C621F9D5B90067A6EC /* sample.png */,
 				D7669B9A21FC6AC000A066E1 /* good.png */,
 				D7669B9D21FC6C2F00A066E1 /* home.png */,
 				D7669B9E21FC6C2F00A066E1 /* notification.png */,
@@ -140,6 +142,7 @@
 				D787E4D021E85C8E00025EDE /* OtherPage.swift */,
 				D787E4C821E85C2500025EDE /* SellBook.swift */,
 				D787E4CA21E85C3000025EDE /* SellBooks.swift */,
+				D731CB362201347400D80A83 /* SettingDeliveryInformation.swift */,
 				D787E4CC21E85C3D00025EDE /* DetailBook.swift */,
 				D787E4CE21E85C4B00025EDE /* DetailBooks.swift */,
 				D74D884421E8CB5F00229972 /* DetailBooks2.swift */,
@@ -226,7 +229,7 @@
 				D7669BA021FC6C3100A066E1 /* product.png in Resources */,
 				D787E4B021E857CB00025EDE /* Assets.xcassets in Resources */,
 				D7669BA121FC6C3100A066E1 /* home.png in Resources */,
-				D74339C721F9D5B90067A6EC /* placeholderbook.png in Resources */,
+				D74339C721F9D5B90067A6EC /* sample.png in Resources */,
 				D787E4AE21E857C900025EDE /* Main.storyboard in Resources */,
 				D7AE788F21F2131300215844 /* placeholder.png in Resources */,
 			);
@@ -324,6 +327,7 @@
 				D787E4C521E85B4200025EDE /* Home.swift in Sources */,
 				D787E4CF21E85C4B00025EDE /* DetailBooks.swift in Sources */,
 				D74D884921E8CF6800229972 /* SearchCategory.swift in Sources */,
+				D731CB372201347400D80A83 /* SettingDeliveryInformation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

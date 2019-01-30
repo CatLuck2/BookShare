@@ -316,7 +316,7 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tGt-jS-Xy2">
                                 <rect key="frame" x="0.0" y="64" width="375" height="667"/>
                                 <subviews>
-                                    <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholderbook.png" translatesAutoresizingMaskIntoConstraints="NO" id="crO-Xb-hEb">
+                                    <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="crO-Xb-hEb">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="360"/>
                                         <gestureRecognizers/>
                                         <constraints>
@@ -727,6 +727,42 @@
             </objects>
             <point key="canvasLocation" x="3304.8000000000002" y="1219.3403298350825"/>
         </scene>
+        <!--配送情報の入力-->
+        <scene sceneID="eM7-kc-0qM">
+            <objects>
+                <viewController storyboardIdentifier="settingDelivery" useStoryboardIdentifierAsRestorationIdentifier="YES" id="1Ub-UA-AP3" customClass="SettingDeliveryInformation" customModule="BookShare" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1CG-0F-XtM">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="JXH-x0-D7X">
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="Igi-ih-LZr">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Igi-ih-LZr" id="hq3-Ge-9E3">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="MWe-Th-x0b"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="配送情報の入力" id="Lq5-mY-BbA"/>
+                    <connections>
+                        <outlet property="tableView" destination="JXH-x0-D7X" id="dah-Lb-vRX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MTy-7s-x0c" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4221.6000000000004" y="1720.3898050974515"/>
+        </scene>
         <!--出品-->
         <scene sceneID="GQu-Da-ULV">
             <objects>
@@ -738,7 +774,7 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GOj-Ky-j7J">
                                 <rect key="frame" x="0.0" y="64" width="375" height="967"/>
                                 <subviews>
-                                    <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholderbook.png" translatesAutoresizingMaskIntoConstraints="NO" id="v2o-lM-SBk">
+                                    <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="v2o-lM-SBk">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="360"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="360" id="V5Y-J5-3qJ"/>
@@ -821,6 +857,7 @@
                         <outlet property="imageView" destination="v2o-lM-SBk" id="Spf-NO-oRZ"/>
                         <outlet property="tableView" destination="W04-gD-EEe" id="kBL-4I-cm2"/>
                         <segue destination="sMS-is-HGi" kind="show" identifier="settingBook" id="15y-WE-T6x"/>
+                        <segue destination="1Ub-UA-AP3" kind="show" identifier="settingDelivery" id="uTG-sx-YIN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DEv-fE-jn5" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1330,7 +1367,6 @@
         <image name="home.png" width="24" height="24"/>
         <image name="notification.png" width="24" height="24"/>
         <image name="person.png" width="24" height="24"/>
-        <image name="placeholderbook.png" width="64" height="64"/>
         <image name="product.png" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>

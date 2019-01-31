@@ -39,19 +39,19 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
     //出品する本
     var book = ["","",""]
     //出品する本の画像
-    var imagesOfBook = [UIImage(named: ""),
-                        UIImage(named: ""),
-                        UIImage(named: ""),
-                        UIImage(named: ""),
-                        UIImage(named: "")]
+    var imagesOfBook = [UIImage(named: "sample.png"),
+                        UIImage(named: "sample.png"),
+                        UIImage(named: "sample.png"),
+                        UIImage(named: "sample.png"),
+                        UIImage(named: "sample.png")] as! [UIImage]
     //出品する本の画像のファイル名
     var filenamesOfBook = ["","","","",""]
     //配送情報の各項目
     var deliveryInformation = ["","",""]
     //userName
-    var userName = ""
+    var userName = "userName"
     //userID
-    var userID = ""
+    var userID = "userID"
     //tableViewの中身
     var cellArray = ["出品する本","本","本を追加","配送情報","配送料の負担","発送の方法","発送日の目安"]
 
@@ -129,8 +129,10 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
             //何番目の本かを示す数字
             vc.numberOfBook = indexPath.row - 1
             //表紙画像
-            if let _ = imagesOfBook[indexPath.row - 1] {
-                vc.imageView.image = imagesOfBook[indexPath.row - 1]!
+            if let _ = imagesOfBook[indexPath.row - 1] as? UIImage {
+                print(imagesOfBook[indexPath.row - 1])
+                
+                vc.getImage = imagesOfBook[indexPath.row - 1]
             } else {}
             if let _ = books[indexPath.row - 1] as? [String] {
                 vc.settingArray = books[indexPath.row - 1]
@@ -163,7 +165,7 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
                 self.books.remove(at: indexPath.row - 1)
                 self.books.append(["","",""])
                 self.imagesOfBook.remove(at: indexPath.row - 1)
-                self.imagesOfBook.append(UIImage(named: ""))
+                self.imagesOfBook.append(UIImage(named: "")!)
                 self.filenamesOfBook.remove(at: indexPath.row - 1)
                 self.filenamesOfBook.append("")
                 tableView.deleteRows(at: [indexPath], with: .fade)
@@ -212,7 +214,7 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
         //出品する本
         var item = ["":""]
         //Database参照
-        let ref = Database.database().reference()
+        let ref = Database.database().reference(fromURL: "https://bookshare-b78b4.firebaseio.com/")
         //booksの各要素に保存に必要なデータを入れていく
         for i in 0...4 {
             for n in 3...11 {
@@ -289,10 +291,23 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
         //出品
         ref.child("Item").child(randomCharacters).setValue(items)
         //User階層に保存
-        ref.child("User").child("uesrID").child("Item").setValue(randomCharacters)
+            ref.child("User").child(userID).child("Item").setValue(randomCharacters)
         
-        //画像を保存
-        //アイコン画像をNSDataに変換
+        //imagesOfBookにある画像を順番に取り出し、順番に保存していく
+        for i in 0...4 {
+            print("1")
+            //もし画像があるなら
+            if imagesOfBook[i] != nil {
+                print("2")
+                if let image = imagesOfBook[i] as? UIImage {
+                    //画像をアップロード
+                    print("3")
+                    uploadItemImage(childString: randomCharacters, image: image)
+                }
+            }
+        }
+    
+//        アイコン画像をNSDataに変換
 //        if let imageData = iconImae.image?.pngData() {
 //            //ストレージパスを生成
 //            let storageRef = Storage.storage().reference(forURL: "gs://bookshare-b78b4.appspot.com")
@@ -307,5 +322,18 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
 //        }
     }
     
+    //画像をアップロード
+    func uploadItemImage(childString:String, image:UIImage) {
+        //画像を保存
+        let storageref = Storage.storage().reference(forURL: "gs://bookshare-b78b4.appspot.com").child(userID).child("Item").child(childString)
+        var data = NSData()
+        data = image.jpegData(compressionQuality: 1.0)! as NSData
+        storageref.putData(data as Data, metadata: nil) { (data, error) in
+            if error != nil {
+                return
+            }
+        }
+        self.dismiss(animated: true, completion: nil)
+    }
 
 }

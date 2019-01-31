@@ -23,10 +23,13 @@ class SellBooks: UIViewController,UITableViewDataSource,UITableViewDelegate,UITe
     var userID = ""
     //出品する本の表紙画像名
     var fileName = ""
+    //SellBookから画像を受け取る
+    var getImage = UIImage()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        imageView.image = getImage
         tableView.delegate = self
         tableView.dataSource = self
         //空のセルを削除
@@ -123,7 +126,7 @@ class SellBooks: UIViewController,UITableViewDataSource,UITableViewDelegate,UITe
         vc.book = settingArray
         vc.books[numberOfBook] = vc.book
         vc.book = ["","",""]
-        if let _ = imageView.image {vc.imagesOfBook[numberOfBook] = imageView.image!} else {}
+        if let _ = imageView.image as? UIImage{vc.imagesOfBook[numberOfBook] = imageView.image!} else {}
         if fileName == "" {fileName = "sample.png"}
         vc.filenamesOfBook[numberOfBook] = fileName
         self.navigationController?.popViewController(animated: true)

@@ -213,6 +213,23 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
         var items = [["":""],["":""],["":""],["":""],["":""]]
         //出品する本
         var item = ["":""]
+        //ItemIDを生成
+        //乱数の生成に使用する文字
+        let characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        //乱数を格納する配列
+        var randomArray:String!
+        //charactersの中からランダムに選出した要素番号を格納する
+        var len = Int()
+        //乱数(文字)をいくつか追加し、最終的に乱数(文字列)となる変数
+        var randomCharacters = String()
+        //乱数が9文字になるまで続く
+        for _ in 1...9 {
+            //charactersの要素番号をランダムに選出
+            len = Int(arc4random_uniform(UInt32(characters.count)))
+            //aからlen番目の文字をrandomCharactersに追加する
+            //1ループ/1文字、追加される
+            randomCharacters += String(characters[characters.index(characters.startIndex,offsetBy: len)])
+        }
         //Database参照
         let ref = Database.database().reference(fromURL: "https://bookshare-b78b4.firebaseio.com/")
         //booksの各要素に保存に必要なデータを入れていく
@@ -239,6 +256,8 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
                     books[i][n] = deliveryInformation[1]
                 case 10:
                     books[i][n] = deliveryInformation[2]
+                case 11:
+                    books[i][n] = randomCharacters
                 default:
                     break
                 }
@@ -259,7 +278,8 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
                             "UserID":books[i][7],
                             "DeliveryBurden":books[i][8],
                             "DeliveryWay":books[i][9],
-                            "DeliveryDay":books[i][10]]
+                            "DeliveryDay":books[i][10],
+                            "ItemID":books[i][11]]
             } else {
                 item = ["?":"?"]
                 
@@ -268,24 +288,6 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
             print(items)
             print(item)
             items[i] = item
-        }
-        
-        //ItemIDを生成
-        //乱数の生成に使用する文字
-        let characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-        //乱数を格納する配列
-        var randomArray:String!
-        //charactersの中からランダムに選出した要素番号を格納する
-        var len = Int()
-        //乱数(文字)をいくつか追加し、最終的に乱数(文字列)となる変数
-        var randomCharacters = String()
-        //乱数が9文字になるまで続く
-        for _ in 1...9 {
-            //charactersの要素番号をランダムに選出
-            len = Int(arc4random_uniform(UInt32(characters.count)))
-            //aからlen番目の文字をrandomCharactersに追加する
-            //1ループ/1文字、追加される
-            randomCharacters += String(characters[characters.index(characters.startIndex,offsetBy: len)])
         }
         
         //出品
@@ -306,20 +308,7 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
                 }
             }
         }
-    
-//        アイコン画像をNSDataに変換
-//        if let imageData = iconImae.image?.pngData() {
-//            //ストレージパスを生成
-//            let storageRef = Storage.storage().reference(forURL: "gs://bookshare-b78b4.appspot.com")
-//            let iconRef = storageRef.child("image/" + userID.text!)
-//            //アイコン画像を保存
-//            iconRef.putData(imageData, metadata: nil) { (metadata, error) in
-//                //エラー処理
-//                guard let _ = metadata else  {
-//                    return
-//                }
-//            }
-//        }
+        
     }
     
     //画像をアップロード

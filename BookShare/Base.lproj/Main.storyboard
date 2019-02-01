@@ -31,13 +31,24 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="tfx-n1-V0D">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="tfx-n1-V0D">
                                         <rect key="frame" x="0.0" y="0.0" width="185" height="200"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="185" height="200"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TZE-cB-E2o">
+                                                    <rect key="frame" x="0.0" y="0.0" width="185" height="200"/>
+                                                </imageView>
+                                            </subviews>
                                         </view>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="TZE-cB-E2o" secondAttribute="bottom" id="Diu-jg-aEY"/>
+                                            <constraint firstItem="TZE-cB-E2o" firstAttribute="leading" secondItem="tfx-n1-V0D" secondAttribute="leading" id="WAO-JM-krR"/>
+                                            <constraint firstAttribute="trailing" secondItem="TZE-cB-E2o" secondAttribute="trailing" id="ah5-VQ-C2U"/>
+                                            <constraint firstItem="TZE-cB-E2o" firstAttribute="top" secondItem="tfx-n1-V0D" secondAttribute="top" id="fCu-Tz-gx4"/>
+                                        </constraints>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
@@ -58,6 +69,9 @@
                     <navigationItem key="navigationItem" title="ホーム" id="jIO-Ga-bTd">
                         <barButtonItem key="rightBarButtonItem" systemItem="search" id="WqJ-Ng-G0H"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="collectionView" destination="O1r-wh-xQK" id="q4H-0j-KnL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

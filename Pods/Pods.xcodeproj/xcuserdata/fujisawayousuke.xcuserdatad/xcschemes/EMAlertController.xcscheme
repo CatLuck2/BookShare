@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "46D48ED0EAC5F0D860F3637F68592345"
+               BlueprintIdentifier = "835B916842833BDC41873E3911FEA828"
                BuildableName = "EMAlertController.framework"
                BlueprintName = "EMAlertController"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "46D48ED0EAC5F0D860F3637F68592345"
+            BlueprintIdentifier = "835B916842833BDC41873E3911FEA828"
             BuildableName = "EMAlertController.framework"
             BlueprintName = "EMAlertController"
             ReferencedContainer = "container:Pods.xcodeproj">

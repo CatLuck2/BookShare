@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import FirebaseUI
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,6 +19,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
+        
+        
+        //UserDefault
+        let ud = UserDefaults.standard
+        let isLogin = ud.bool(forKey: "loginStatus")
+        
+        //ログイン状態の確認
+        if Auth.auth().currentUser != nil {
+            ud.set(true, forKey: "loginStatus")
+        } else {
+            ud.set(false, forKey: "loginStatus")
+        }
+        
+        //ログイン状態によって分岐
+        //ログイン中：Main.StoryBoardへ
+        if isLogin == true {
+            self.window = UIWindow(frame: UIScreen.main.bounds)
+            let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+            let rootViewController = storyboard.instantiateViewController(withIdentifier: "Main")
+            self.window?.rootViewController = rootViewController
+            self.window?.backgroundColor = UIColor.white
+            self.window?.makeKeyAndVisible()
+        //未ログイン：SignIn.StoryBoardへ
+        } else {
+            self.window = UIWindow(frame: UIScreen.main.bounds)
+            let storyboard = UIStoryboard(name: "SignUpIn", bundle: Bundle.main)
+            let rootViewController = storyboard.instantiateViewController(withIdentifier: "gosignin")
+            self.window?.rootViewController = rootViewController
+            self.window?.backgroundColor = UIColor.white
+            self.window?.makeKeyAndVisible()
+        }
+        
         return true
     }
 

@@ -3,9 +3,10 @@
 </p>
 
 [![Language](https://img.shields.io/badge/Swift-4-orange.svg)]()
-[![license](https://img.shields.io/github/license/mashape/apistatus.svg)]()
-[![CocoaPods](https://img.shields.io/cocoapods/v/EMAlertController.svg)]()
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](/LICENSE)
+[![CocoaPods](https://img.shields.io/cocoapods/v/EMAlertController.svg)](http://cocoadocs.org/docsets/EMAlertController/1.0.1/)
 [![GitHub stars](https://img.shields.io/github/stars/egmoll7/EMAlertController.svg)](https://github.com/egmoll7/EMAlertController/stargazers)
+[![CocoaPods](https://img.shields.io/cocoapods/dt/EMAlertController.svg)]()
 
 EMAlertController is a beautiful alternative to the stock iOS UIAlertController. This library is fully customizable with an implementation like the native UIAlertController.
 
@@ -34,6 +35,7 @@ EMAlertController is a beautiful alternative to the stock iOS UIAlertController.
 * [x] Alert Image (Optional)
 * [x] Title
 * [x] Scrollable Message (Optional)
+* [x] Text Fields
 * [x] Closure when a button is pressed
 * [x] Fully Customizable
 * [x] CocoaPods
@@ -114,6 +116,17 @@ alert.messageColor = UIColor.red
 // Default color = UIColor.black
 ```
 
+### Message Data Detector Types
+```swift
+alert.dataDetectorTypes = .all
+```
+
+### Messages Make Message Selectable 
+```swift
+alert.isMessageSelectable = true
+// This must be set to `true` in order to highlight the detected data types
+```
+
 ### Corner Radius
 ```swift
 alert.cornerRadius = 10
@@ -171,8 +184,22 @@ alert.buttonSpacing = 0
 // Default spacing = 15
 ```
 
+### TextFields
+----------------
+
+### Adding a Text Field
+```swift
+ alert.addTextField { (textField) in
+   textField?.placeholder = "Username"
+ }
+ ```
+ 
+### Getting Text from Text Field
+```swift
+gaurd let username = alert.textFields.first?.text else { return }
+```
+
 ## TODO
-* [ ] Textfield Support
 * [ ] Carthage Support
 * [ ] Actions Scroll Support
 

@@ -17,7 +17,8 @@ class NotificationCell: UITableViewCell {
         super.awakeFromNib()
         
         //丸くする
-        icon.layer.cornerRadius = 20
+        icon.layer.cornerRadius = 30
+        icon.layer.masksToBounds = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import FirebaseUI
+import SDWebImage
 
 class Home: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource {
     
@@ -16,11 +17,40 @@ class Home: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource
     
     //Firebaseから取得したItemIDを格納する
     var photos = [String]()
-    //photosの長さを保持
-    var photosCount = Int()
+    //cellForItemAtが実行されたカウント
+    var count_cellfunc = 0
+    
+    @IBOutlet weak var sc: UIScrollView!
+    
+    //スクロールビューに配置するView
+    var vc = UIView()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //vcのframe
+        vc.frame = CGRect(x: 0, y: 0, width: 600, height: 55)
+        //上部のスクロールビューに多数のボタンを配置
+        for i in 0...6 {
+            let button = UIButton()
+            //サイズ
+            button.frame = CGRect(x: (i*80), y: 0, width: 90, height: 55)
+            //タグ
+            button.tag = i
+            //buttonに文字を挿入
+            setTitleForButton(tag: button.tag, button: button)
+            //button.titleの色
+            button.setTitleColor(.black, for: .normal)
+            //buttonに処理を追加
+//            button.addTarget(<#T##target: Any?##Any?#>, action: <#T##Selector#>, for: <#T##UIControl.Event#>)
+            //vcに載せる
+            vc.addSubview(button)
+        }
+        
+        //スクロールビューにvcを配置
+        sc.addSubview(vc)
+        sc.contentSize = vc.bounds.size
 
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -36,17 +66,35 @@ class Home: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        count_cellfunc += 1
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
         //imageViewを宣言
         let imageView = cell.contentView.viewWithTag(1) as! UIImageView
         let storageref = Storage.storage().reference(forURL: "gs://bookshare-b78b4.appspot.com").child("userID").child("Item").child(photos[indexPath.row])
-        //画像をセット
         imageView.sd_setImage(with: storageref)
-        if self.photosCount - 1 == indexPath.row {
-            self.photos = [String]()
-            self.photosCount = Int()
-        }
         return cell
+    }
+    
+    //スクロールビューのボタンに文字を入れる
+    func setTitleForButton(tag:Int, button:UIButton){
+        switch tag {
+        case 0:
+            button.setTitle("最新", for: .normal)
+        case 1:
+            button.setTitle("人気", for: .normal)
+        case 2:
+            button.setTitle("フォロー", for: .normal)
+        case 3:
+            button.setTitle("文学", for: .normal)
+        case 4:
+            button.setTitle("社会", for: .normal)
+        case 5:
+            button.setTitle("科学", for: .normal)
+        case 6:
+            button.setTitle("ビジネス", for: .normal)
+        default:
+            break
+        }
     }
     
     //FirebaseからItemのURLを取得する
@@ -54,36 +102,25 @@ class Home: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource
         let ref = Database.database().reference(fromURL: "https://bookshare-b78b4.firebaseio.com/")
         self.photos = [String]()
         ref.child("Item").observe(.value) { (snap) in
+            print("---")
+            print("-------")
             for item in snap.children {
                 let snapdata = item as! DataSnapshot
+                //１つのデータ
+                print(snapdata)
                 let item = snapdata.value as! [[String:String]]
-                print("----")
-                print(item[0]["ItemID"]!)
                 self.photos.append(item[0]["ItemID"]!)
-                print("-------")
-                print(1111)
                 print(self.photos)
             }
-            self.photosCount = self.photos.count
+//            self.photosCount = self.photos.count
             self.collectionView.reloadData()
         }
-//        ref.child("Item").observeSingleEvent(of: .value) { (snap, error) in
-//
-//
-//        }
+    }
+    
+    @IBAction func signout(_ sender: Any) {
+        let signclass = SignOut()
+        signclass.signout()
     }
 
 }
 
-/*
- 
- [["Status": "display", "UserID": "userID", "Title": "gfdsf",
- "DeliveryBurden": "着払い(受取人)", "Date": "2019/02/01 12:17:34",
- "ItemID": "hTykeCfet", "State": "ボロボロ", "Category": "スポーツ",
- "UserName": "userName", "DeliveryDay": "5~6日", "DeliveryWay": "普通郵便", "Good": "0"],
- ["?": "?"],
- ["?": "?"],
- ["?": "?"],
- ["?": "?"]]
- 
- */

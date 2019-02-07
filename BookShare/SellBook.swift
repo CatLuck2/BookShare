@@ -293,7 +293,7 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
         //出品
         ref.child("Item").child(randomCharacters).setValue(items)
         //User階層に保存
-            ref.child("User").child(userID).child("Item").setValue(randomCharacters)
+        ref.child("User").child(userID).child("Item").setValue(randomCharacters)
         
         //imagesOfBookにある画像を順番に取り出し、順番に保存していく
         for i in 0...4 {

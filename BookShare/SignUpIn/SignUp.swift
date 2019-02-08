@@ -19,6 +19,11 @@ class SignUp: UIViewController,UITextFieldDelegate {
 
         mailForm.delegate = self
         passForm.delegate = self
+        
+        mailForm.layer.borderWidth = 1
+        mailForm.layer.cornerRadius = 10
+        passForm.layer.borderWidth = 1
+        passForm.layer.cornerRadius = 10
     }
     
     @IBAction func signup(_ sender: Any) {
@@ -37,7 +42,7 @@ class SignUp: UIViewController,UITextFieldDelegate {
                         print(error)
                     }
                 }
-            //入力したパスワードが6文字以上の場合
+            //入力したパスワードが6文字以下の場合
             } else {
                 let alert = UIAlertController(title: "エラー", message: "7文字以上のパスワードを入力してください。", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -54,6 +59,16 @@ class SignUp: UIViewController,UITextFieldDelegate {
     //ログイン画面に移行
     @IBAction func changeToLogin(_ sender: Any) {
         performSegue(withIdentifier: "gosignin", sender: nil)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        mailForm.resignFirstResponder()
+        passForm.resignFirstResponder()
     }
     
 }

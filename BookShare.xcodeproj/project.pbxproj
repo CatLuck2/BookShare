@@ -113,6 +113,82 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		D727563C220D532400FADCEE /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				D787E4C421E85B4200025EDE /* Home.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		D727563D220D533400FADCEE /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				D787E4C021E85B2700025EDE /* Notification.swift */,
+				D7EFBA7021E9A82C002DD6A2 /* NotificationCell.swift */,
+				D7EFBA7121E9A82C002DD6A2 /* NotificationCell.xib */,
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
+		D727563E220D534300FADCEE /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				D787E4C221E85B3600025EDE /* MyPage.swift */,
+				D787E4D021E85C8E00025EDE /* OtherPage.swift */,
+			);
+			path = MyPage;
+			sourceTree = "<group>";
+		};
+		D727563F220D534600FADCEE /* Sell */ = {
+			isa = PBXGroup;
+			children = (
+				D787E4C821E85C2500025EDE /* SellBook.swift */,
+				D787E4CA21E85C3000025EDE /* SellBooks.swift */,
+				D731CB362201347400D80A83 /* SettingDeliveryInformation.swift */,
+				D7669B9821FC51C200A066E1 /* SettingDataOfBook.swift */,
+			);
+			path = Sell;
+			sourceTree = "<group>";
+		};
+		D7275640220D534700FADCEE /* GoodList */ = {
+			isa = PBXGroup;
+			children = (
+				D787E4BC21E85ACE00025EDE /* GoodList.swift */,
+			);
+			path = GoodList;
+			sourceTree = "<group>";
+		};
+		D7275641220D535D00FADCEE /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				D787E4CC21E85C3D00025EDE /* DetailBook.swift */,
+				D787E4CE21E85C4B00025EDE /* DetailBooks.swift */,
+				D74D884421E8CB5F00229972 /* DetailBooks2.swift */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
+		D7275642220D536500FADCEE /* SignUpIn */ = {
+			isa = PBXGroup;
+			children = (
+				D769B6EE220BEAF200D325B9 /* SignUpIn.storyboard */,
+				D7649BFA220A8DEF00AD2E70 /* SignUp.swift */,
+				D7AC786E220BF23B0037EE63 /* SignIn.swift */,
+				D7AC7872220BF71F0037EE63 /* SignOutClass.swift */,
+			);
+			path = SignUpIn;
+			sourceTree = "<group>";
+		};
+		D7275643220D53B100FADCEE /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				D74D884621E8CF5900229972 /* SearchResult.swift */,
+				D74D884821E8CF6800229972 /* SearchCategory.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 		D787E49C21E857C900025EDE = {
 			isa = PBXGroup;
 			children = (
@@ -134,6 +210,14 @@
 		D787E4A721E857C900025EDE /* BookShare */ = {
 			isa = PBXGroup;
 			children = (
+				D727563C220D532400FADCEE /* Home */,
+				D7275640220D534700FADCEE /* GoodList */,
+				D727563F220D534600FADCEE /* Sell */,
+				D727563D220D533400FADCEE /* Notification */,
+				D727563E220D534300FADCEE /* MyPage */,
+				D7275641220D535D00FADCEE /* Detail */,
+				D7275643220D53B100FADCEE /* Search */,
+				D7275642220D536500FADCEE /* SignUpIn */,
 				D7AE788E21F2131300215844 /* placeholder.png */,
 				D74339C621F9D5B90067A6EC /* sample.png */,
 				D7669B9A21FC6AC000A066E1 /* good.png */,
@@ -142,28 +226,8 @@
 				D7669B9F21FC6C3000A066E1 /* person.png */,
 				D7669B9C21FC6C2E00A066E1 /* product.png */,
 				D787E4A821E857C900025EDE /* AppDelegate.swift */,
-				D7649BFA220A8DEF00AD2E70 /* SignUp.swift */,
-				D7AC786E220BF23B0037EE63 /* SignIn.swift */,
-				D7AC7872220BF71F0037EE63 /* SignOutClass.swift */,
 				D7AE788C21F1BE2D00215844 /* BookItem.swift */,
-				D787E4C421E85B4200025EDE /* Home.swift */,
-				D787E4BC21E85ACE00025EDE /* GoodList.swift */,
-				D787E4C021E85B2700025EDE /* Notification.swift */,
-				D787E4C221E85B3600025EDE /* MyPage.swift */,
-				D787E4D021E85C8E00025EDE /* OtherPage.swift */,
-				D787E4C821E85C2500025EDE /* SellBook.swift */,
-				D787E4CA21E85C3000025EDE /* SellBooks.swift */,
-				D731CB362201347400D80A83 /* SettingDeliveryInformation.swift */,
-				D787E4CC21E85C3D00025EDE /* DetailBook.swift */,
-				D787E4CE21E85C4B00025EDE /* DetailBooks.swift */,
-				D74D884421E8CB5F00229972 /* DetailBooks2.swift */,
-				D74D884621E8CF5900229972 /* SearchResult.swift */,
-				D74D884821E8CF6800229972 /* SearchCategory.swift */,
-				D7669B9821FC51C200A066E1 /* SettingDataOfBook.swift */,
 				D787E4AC21E857C900025EDE /* Main.storyboard */,
-				D769B6EE220BEAF200D325B9 /* SignUpIn.storyboard */,
-				D7EFBA7021E9A82C002DD6A2 /* NotificationCell.swift */,
-				D7EFBA7121E9A82C002DD6A2 /* NotificationCell.xib */,
 				D787E4AF21E857CB00025EDE /* Assets.xcassets */,
 				D787E4B121E857CB00025EDE /* LaunchScreen.storyboard */,
 				D787E4B421E857CB00025EDE /* Info.plist */,

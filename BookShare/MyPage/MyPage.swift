@@ -33,10 +33,8 @@ class MyPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSour
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         collectionItem.delegate = self
         collectionItem.dataSource = self
-
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {

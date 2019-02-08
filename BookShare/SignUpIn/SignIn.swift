@@ -9,16 +9,21 @@
 import UIKit
 import Firebase
 
-class SignIn: UIViewController {
+class SignIn: UIViewController,UITextFieldDelegate {
     
     @IBOutlet weak var mailForm: UITextField!
     @IBOutlet weak var passForm: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        mailForm.delegate = self
+        passForm.delegate = self
 
         mailForm.layer.borderWidth = 1
         mailForm.layer.cornerRadius = 10
+        passForm.layer.borderWidth = 1
+        passForm.layer.cornerRadius = 10
         // Do any additional setup after loading the view.
     }
     
@@ -64,7 +69,7 @@ class SignIn: UIViewController {
             Auth.auth().sendPasswordReset(withEmail: resetEmail!, completion: { (error) in
                 DispatchQueue.main.async {
                     if let error = error {
-                        let resetFailedAlert = UIAlertController(title: "エラー", message: error.localizedDescription, preferredStyle: .alert)
+                        let resetFailedAlert = UIAlertController(title: "エラー", message: "このメールアドレスは登録されてません。", preferredStyle: .alert)
                         resetFailedAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                         self.present(resetFailedAlert, animated: true, completion: nil)
                     } else {
@@ -76,6 +81,16 @@ class SignIn: UIViewController {
             })
         }))
         self.present(forgotPasswordAlert, animated: true, completion: nil)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        mailForm.resignFirstResponder()
+        passForm.resignFirstResponder()
     }
     
 }

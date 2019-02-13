@@ -54,7 +54,7 @@ class Home: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource
 
         collectionView.delegate = self
         collectionView.dataSource = self
-        downloadImageData()
+//        downloadImageData()
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -66,7 +66,6 @@ class Home: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        count_cellfunc += 1
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
         //imageViewを宣言
         let imageView = cell.contentView.viewWithTag(1) as! UIImageView
@@ -98,25 +97,22 @@ class Home: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource
     }
     
     //FirebaseからItemのURLを取得する
-    func downloadImageData() {
-        let ref = Database.database().reference(fromURL: "https://bookshare-b78b4.firebaseio.com/")
-        self.photos = [String]()
-        ref.child("Item").observe(.value) { (snap) in
-            print("---")
-            print("-------")
-            for item in snap.children {
-                let snapdata = item as! DataSnapshot
-                //１つのデータ
-                print(snapdata)
-                let item = snapdata.value as! [[String:String]]
-                self.photos.append(item[0]["ItemID"]!)
-                print(self.photos)
-            }
-//            self.photosCount = self.photos.count
-            self.collectionView.reloadData()
-        }
-    }
+//    func downloadImageData() {
+//        let ref = Database.database().reference(fromURL: "https://bookshare-b78b4.firebaseio.com/")
+//        self.photos = [String]()
+//        ref.child("Item").observe(.value) { (snap) in
+//            for item in snap.children {
+//                let snapdata = item as! DataSnapshot
+//                //１つのデータ
+//                let item = snapdata.value as! [[String:String]]
+//                self.photos.append(item[0]["ItemID"]!)
+//            }
+////            self.photosCount = self.photos.count
+//            self.collectionView.reloadData()
+//        }
+//    }
     
+    //ログアウト
     @IBAction func signout(_ sender: Any) {
         let signclass = SignOut()
         signclass.signout()

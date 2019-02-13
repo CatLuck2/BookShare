@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import FirebaseUI
 
-class MyPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource{
+class MyPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate{
     
     @IBOutlet weak var collectionItem: UICollectionView!
     @IBOutlet weak var iconImage: UIImageView!
@@ -25,16 +25,27 @@ class MyPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSour
     
     //評価数
     var grade:String!
-    
     //商品
-    var item:[String:String]!
-    //全ての商品
-    var items:[[String:String]]!
+    var item = [String]()
+    var items = [[String]]()
+    //userDataID
+    let userDataID = UserDefaults.standard.string(forKey: "userDataID")
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        //userNameとuserIDを取得
+//        if let user = Auth.auth().currentUser {
+//            userName.text = user.displayName
+//            userID.text = "@" + user.uid
+//            print(user.displayName)
+//        } else {}
+        //アイコンを角丸に
+        iconImage.layer.cornerRadius = 10
+        iconImage.layer.masksToBounds = true
         collectionItem.delegate = self
         collectionItem.dataSource = self
+        //ユーザーデータを取得
+        readMyData()
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -43,7 +54,6 @@ class MyPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSour
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 1
-
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -61,8 +71,96 @@ class MyPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSour
     @IBAction func sortGot(_ sender: Any) {
     }
     
-    //マイページ情報をFirebaseから読みこむ
-    //読み込むもの(アイコン画像、ユーザー名、ユーザーID、評価数、５つの数値、プロフィール、アイテム)
+    //ImageViewをタップした時
+    @IBAction func tapImageView(_ sender: Any) {
+        //アルバムを開く
+        let sourceType:UIImagePickerController.SourceType
+            = UIImagePickerController.SourceType.photoLibrary
+        //アルバムを立ち上げる
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary){
+            // インスタンスの作成
+            let cameraPicker = UIImagePickerController()
+            cameraPicker.sourceType = sourceType
+            cameraPicker.delegate = self
+            //アルバム画面を開く
+            self.present(cameraPicker, animated: true, completion: nil)
+        }
+    }
+    
+    @objc func imagePickerController
+        (_ picker: UIImagePickerController,
+         didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        //imageにアルバムで選択した画像が格納される
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            //iconImageに選択した画像を格納
+            self.iconImage.image = image
+            //Storageに画像を保存
+            //アルバム画面を閉じる
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    //Firebaseからユーザーデータとアイコンを取得する
+    func readMyData() {
+        //ユーザーデータを取得
+        let ref = Database.database().reference(fromURL: "https://bookshare-b78b4.firebaseio.com/")
+        ref.child("User")
+            .child(UserDefaults.standard.string(forKey: "userDataID")!)
+//            .queryOrdered(byChild: )
+            .observe(.value) { (snap, error) in
+//                let snapdata = snap.value as!
+                let snapdata = snap.value as? Dictionary<String,String>
+                if snapdata == nil {
+                    return
+                }
+//                item,itemsを初期化
+//                self.item = []
+//                self.items = [[]]
+                for key in snapdata!.keys.sorted() {
+//                    let read_data =
+//                    print(key)
+//                    print(snapdata![key]!)
+//                    データを格納して行く
+                    switch key {
+                    case "UserName":
+                        self.userName.text = snapdata![key]
+                    case "UserID":
+                        self.userID.text = snapdata![key]
+                    case "Follow":
+                        self.amountOfFollow.text = snapdata![key]
+                    case "Follower":
+                        self.amountOfFollower.text = snapdata![key]
+                    case "Good":
+                        self.amountOfGood.text = snapdata![key]
+                    case "Share":
+                        self.amountOfShare.text = snapdata![key]
+                    case "Get":
+                        self.amountOfGet.text = snapdata![key]
+                    case "Profile":
+                        self.profile.text = snapdata![key]
+                    default:
+                        break
+                    }
+//                    if key == "UserName" ||
+//                        key == "UserID" ||
+//                        key == "Follow" ||
+//                        key == "Follower" ||
+//                        key == "Good" ||
+//                        key == "Share" ||
+//                        key == "Get" ||
+//                        key == "Profile" {
+//
+//                    }
+                }
+        }
+        //アイコン画像を取得
+        //画像パスを生成
+        let storageRef = Storage.storage().reference(forURL: "gs://bookshare-b78b4.appspot.com").child("userDataID").child(userDataID!).child("Icon")
+        //取得したらその画像を、出来なかったらプレースホルダー画像をセット
+        self.iconImage.sd_setImage(with: storageRef, placeholderImage: UIImage(named: "placeholderImage"))
+    }
+    
+    //Databaseにユーザーデータを保存
     func saveMyData() {
         //ユーザーデータを取得
         //ref1:ユーザーデータ
@@ -71,17 +169,20 @@ class MyPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSour
         databaseRef.child("User").child("@" + userID.text!)
         //保存するデータを宣言
         let userData = ["UserName":userName.text!,
-                         "UserID":userID.text!,
-                         "Grade":grade,
-                         "Follow":amountOfFollow.text!,
-                         "Follwer":amountOfFollower.text!,
-                         "Good":amountOfGood.text!,
-                         "Share":amountOfShare.text!,
-                         "Get":amountOfGet.text!,
-                         "Profile":profile.text!] as! [String : String]
+                        "UserID":userID.text!,
+                        "Grade":grade,
+                        "Follow":amountOfFollow.text!,
+                        "Follwer":amountOfFollower.text!,
+                        "Good":amountOfGood.text!,
+                        "Share":amountOfShare.text!,
+                        "Get":amountOfGet.text!,
+                        "Profile":profile.text!] as! [String : String]
         //保存
         databaseRef.setValue(userData)
-        
+    }
+    
+    //Storageに画像を保存
+    func saveIconImage() {
         //画像を保存
         //アイコン画像をNSDataに変換
         if let imageData = iconImage.image?.pngData() {
@@ -96,63 +197,6 @@ class MyPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSour
                 }
             }
         }
-        
-    }
-    
-    //マイページ情報をFirebaseに保存
-    //保存するもの(アイコン画像、ユーザー名、プロフィール)
-    func readMyData() {
-        //ユーザーデータを取得
-        let ref = Database.database().reference()
-         ref.child("User")
-            .queryOrdered(byChild: userID.text!)
-            .observe(.value) { (snap, error) in
-                let snapdata = snap.value as! [String:NSDictionary]
-                if snapdata != nil {
-                    return
-                }
-                //item,itemsを初期化
-//                self.item = []
-//                self.items = [[]]
-                for key in snapdata.keys.sorted() {
-                    let read_data = snapdata[key]
-                    //データを格納して行く
-                    if let username = read_data!["UserName"] as? String,
-                        let userid = read_data!["UserID"] as? String,
-                        let grade = read_data!["Grade"] as? String,
-                        let follow = read_data!["Follow"] as? String,
-                        let follower = read_data!["Follower"] as? String,
-                        let good = read_data!["Good"] as? String,
-                        let share = read_data!["Share"] as? String,
-                        let get = read_data!["Get"] as? String,
-                        let proFile = read_data!["Profile"] as? String {
-                        self.userName.text = username
-                        self.userID.text = userid
-                        self.grade = grade
-                        self.amountOfFollow.text = follow
-                        self.amountOfFollower.text = follower
-                        self.amountOfGood.text = good
-                        self.amountOfShare.text = share
-                        self.amountOfGet.text = get
-                        self.profile.text = proFile
-                    }
-                }
-        }
-        
-        //画像を取得
-        //画像パスを生成
-        let storageRef = Storage.storage().reference(forURL: "gs://bookshare-b78b4.appspot.com")
-        //画像を取得
-        let iconRef = storageRef.child("image/" + userID.text!)
-        //プレースホルダー画像
-        let placeholderImage = UIImage(named: "placeholder.png")
-        //取得したらその画像を、出来なかったら予備の画像をセット
-        self.iconImage.sd_setImage(with: iconRef, placeholderImage: placeholderImage)
-        
-        //アイテムを取得
-        //Item - UserName,UserID：２つが一致するItemだけを取得
-        
-                
     }
 
 }

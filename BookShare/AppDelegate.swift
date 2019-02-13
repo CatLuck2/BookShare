@@ -23,14 +23,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //UserDefault
         let ud = UserDefaults.standard
-        let isLogin = ud.bool(forKey: "loginStatus")
-        
         //ログイン状態の確認
         if Auth.auth().currentUser != nil {
             ud.set(true, forKey: "loginStatus")
         } else {
             ud.set(false, forKey: "loginStatus")
         }
+        let isLogin = ud.bool(forKey: "loginStatus")
         
         //ログイン状態によって分岐
         //ログイン中：Main.StoryBoardへ

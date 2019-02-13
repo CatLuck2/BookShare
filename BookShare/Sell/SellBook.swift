@@ -70,9 +70,6 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
         super.viewWillAppear(animated)
         tableView.reloadData()
         imageView.image = imagesOfBook[0]
-        print(deliveryInformation)
-        print(imagesOfBook)
-        print(filenamesOfBook)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -93,8 +90,6 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
         case "出品する本":
             cell.textLabel?.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.bold)
         case "本を追加":
-//            print("aaaa")
-//            print(cell.detailTextLabel!.text)
             cell.textLabel?.textAlignment = .center
             cell.textLabel?.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.thin)
             cell.detailTextLabel?.text = ""
@@ -282,11 +277,8 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
                             "ItemID":books[i][11]]
             } else {
                 item = ["?":"?"]
-                
             }
             //保存用の配列に格納
-            print(items)
-            print(item)
             items[i] = item
         }
         

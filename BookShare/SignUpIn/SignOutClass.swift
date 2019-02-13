@@ -16,9 +16,8 @@ class SignOut {
             let firebaseAuth = Auth.auth()
             do {
                 try firebaseAuth.signOut()
-                print("success logout")
             } catch let signOutError as NSError {
-                print ("Error signing out: %@", signOutError)
+                print (signOutError)
             }
         } else {
             return
@@ -26,15 +25,13 @@ class SignOut {
         
         //ログイン状態をfalseに
         let ud = UserDefaults.standard
-        ud.set(false, forKey: "isLogin")
+        ud.set(false, forKey: "loginStatus")
         ud.synchronize()
         
         //ログイン画面に移行
         let storyboard = UIStoryboard(name: "SignUpIn", bundle:Bundle.main)
         let rootViewController = storyboard.instantiateViewController(withIdentifier: "gosignin")
         UIApplication.shared.keyWindow?.rootViewController = rootViewController
-        
-        
         
     }
 }

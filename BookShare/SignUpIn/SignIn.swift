@@ -32,24 +32,23 @@ class SignIn: UIViewController,UITextFieldDelegate {
         if mailForm.text != "" && passForm.text != "" {
             Auth.auth().signIn(withEmail: mailForm.text!, password: passForm.text!) { (user, error) in
                 if error == nil {
-                    //ログイン状態をtrueに
+                    //UserDefaults
                     let ud = UserDefaults.standard
-                    ud.set(true, forKey: "isLogin")
+                    //ログイン状態をtrueに
+                    ud.set(true, forKey: "loginStatus")
+                    //userDataIDをセット
+                    ud.set((Auth.auth().currentUser?.uid)!, forKey: "userDataID")
                     ud.synchronize()
                     //ホーム画面へ移行
                     let storyboard = UIStoryboard(name: "Main", bundle:Bundle.main)
                     let rootViewController = storyboard.instantiateViewController(withIdentifier: "Main")
                     UIApplication.shared.keyWindow?.rootViewController = rootViewController
                 } else {
-                    let alert = UIAlertController(title: "エラー", message: "メールアドレスまたはパスワードが間違ってます。", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                    self.present(alert, animated: true, completion: nil)
+                    self.alert(title: "エラー", message: "メールアドレスまたはパスワードが間違ってます。", actiontitle: "OK")
                 }
             }
         } else {
-            let alert = UIAlertController(title: "エラー", message: "入力されてない箇所があります。", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+            self.alert(title: "エラー", message: "入力されてない箇所があります。", actiontitle: "OK")
         }
     }
     
@@ -69,18 +68,21 @@ class SignIn: UIViewController,UITextFieldDelegate {
             Auth.auth().sendPasswordReset(withEmail: resetEmail!, completion: { (error) in
                 DispatchQueue.main.async {
                     if let error = error {
-                        let resetFailedAlert = UIAlertController(title: "エラー", message: "このメールアドレスは登録されてません。", preferredStyle: .alert)
-                        resetFailedAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                        self.present(resetFailedAlert, animated: true, completion: nil)
+                        self.alert(title: "エラー", message: "このメールアドレスは登録されてません。", actiontitle: "OK")
                     } else {
-                        let resetEmailSentAlert = UIAlertController(title: "メールを送信しました。", message: "メールでパスワードの再設定を行ってください。", preferredStyle: .alert)
-                        resetEmailSentAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                        self.present(resetEmailSentAlert, animated: true, completion: nil)
+                        self.alert(title: "メールを送信しました。", message: "メールでパスワードの再設定を行ってください。", actiontitle: "OK")
                     }
                 }
             })
         }))
         self.present(forgotPasswordAlert, animated: true, completion: nil)
+    }
+    
+    //アラート
+    func alert(title:String,message:String,actiontitle:String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: actiontitle, style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

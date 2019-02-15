@@ -8,8 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		28786996A4CE7F0F67FC6E55 /* Pods_BookShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A02705B4BBEB21707C9BADEC /* Pods_BookShare.framework */; };
+		D70318BB22168857009D76F2 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70318BA22168857009D76F2 /* UserData.swift */; };
+		D70EB51F221542E500BA7C51 /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70EB51E221542E500BA7C51 /* Menu.swift */; };
 		D713421421F0584E006DAE4C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D713421321F0584E006DAE4C /* GoogleService-Info.plist */; };
 		D731CB372201347400D80A83 /* SettingDeliveryInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D731CB362201347400D80A83 /* SettingDeliveryInformation.swift */; };
+		D7379B2C22154A3800924E32 /* MenuView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7379B2B22154A3800924E32 /* MenuView.storyboard */; };
+		D7379B2E2215551600924E32 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7379B2D2215551600924E32 /* Contact.swift */; };
 		D74339C721F9D5B90067A6EC /* sample.png in Resources */ = {isa = PBXBuildFile; fileRef = D74339C621F9D5B90067A6EC /* sample.png */; };
 		D74D884521E8CB5F00229972 /* DetailBooks2.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74D884421E8CB5F00229972 /* DetailBooks2.swift */; };
 		D74D884721E8CF5900229972 /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74D884621E8CF5900229972 /* SearchResult.swift */; };
@@ -47,8 +51,12 @@
 		8E38B32A67BB6A0776C7F920 /* Pods-BookShare.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookShare.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BookShare/Pods-BookShare.debug.xcconfig"; sourceTree = "<group>"; };
 		A02705B4BBEB21707C9BADEC /* Pods_BookShare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BookShare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D46476F66A8ECA6BBB77A6DB /* Pods-BookShare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookShare.release.xcconfig"; path = "Pods/Target Support Files/Pods-BookShare/Pods-BookShare.release.xcconfig"; sourceTree = "<group>"; };
+		D70318BA22168857009D76F2 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		D70EB51E221542E500BA7C51 /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
 		D713421321F0584E006DAE4C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D731CB362201347400D80A83 /* SettingDeliveryInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingDeliveryInformation.swift; sourceTree = "<group>"; };
+		D7379B2B22154A3800924E32 /* MenuView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MenuView.storyboard; sourceTree = "<group>"; };
+		D7379B2D2215551600924E32 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		D74339C621F9D5B90067A6EC /* sample.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sample.png; sourceTree = "<group>"; };
 		D74D884421E8CB5F00229972 /* DetailBooks2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBooks2.swift; sourceTree = "<group>"; };
 		D74D884621E8CF5900229972 /* SearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
@@ -189,6 +197,18 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
+		D7379B26221549BC00924E32 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				D70EB51E221542E500BA7C51 /* Menu.swift */,
+				D7379B2B22154A3800924E32 /* MenuView.storyboard */,
+				D7AE788C21F1BE2D00215844 /* BookItem.swift */,
+				D7379B2D2215551600924E32 /* Contact.swift */,
+				D70318BA22168857009D76F2 /* UserData.swift */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
 		D787E49C21E857C900025EDE = {
 			isa = PBXGroup;
 			children = (
@@ -210,6 +230,13 @@
 		D787E4A721E857C900025EDE /* BookShare */ = {
 			isa = PBXGroup;
 			children = (
+				D7AE788E21F2131300215844 /* placeholder.png */,
+				D74339C621F9D5B90067A6EC /* sample.png */,
+				D7669B9A21FC6AC000A066E1 /* good.png */,
+				D7669B9D21FC6C2F00A066E1 /* home.png */,
+				D7669B9E21FC6C2F00A066E1 /* notification.png */,
+				D7669B9F21FC6C3000A066E1 /* person.png */,
+				D7669B9C21FC6C2E00A066E1 /* product.png */,
 				D727563C220D532400FADCEE /* Home */,
 				D7275640220D534700FADCEE /* GoodList */,
 				D727563F220D534600FADCEE /* Sell */,
@@ -218,15 +245,8 @@
 				D7275641220D535D00FADCEE /* Detail */,
 				D7275643220D53B100FADCEE /* Search */,
 				D7275642220D536500FADCEE /* SignUpIn */,
-				D7AE788E21F2131300215844 /* placeholder.png */,
-				D74339C621F9D5B90067A6EC /* sample.png */,
-				D7669B9A21FC6AC000A066E1 /* good.png */,
-				D7669B9D21FC6C2F00A066E1 /* home.png */,
-				D7669B9E21FC6C2F00A066E1 /* notification.png */,
-				D7669B9F21FC6C3000A066E1 /* person.png */,
-				D7669B9C21FC6C2E00A066E1 /* product.png */,
+				D7379B26221549BC00924E32 /* Other */,
 				D787E4A821E857C900025EDE /* AppDelegate.swift */,
-				D7AE788C21F1BE2D00215844 /* BookItem.swift */,
 				D787E4AC21E857C900025EDE /* Main.storyboard */,
 				D787E4AF21E857CB00025EDE /* Assets.xcassets */,
 				D787E4B121E857CB00025EDE /* LaunchScreen.storyboard */,
@@ -296,6 +316,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7379B2C22154A3800924E32 /* MenuView.storyboard in Resources */,
 				D769B6EF220BEAF200D325B9 /* SignUpIn.storyboard in Resources */,
 				D7669BA321FC6C3100A066E1 /* person.png in Resources */,
 				D7EFBA7321E9A82C002DD6A2 /* NotificationCell.xib in Resources */,
@@ -394,11 +415,14 @@
 				D7AE788D21F1BE2D00215844 /* BookItem.swift in Sources */,
 				D787E4BD21E85ACE00025EDE /* GoodList.swift in Sources */,
 				D74D884721E8CF5900229972 /* SearchResult.swift in Sources */,
+				D7379B2E2215551600924E32 /* Contact.swift in Sources */,
 				D7AC786F220BF23B0037EE63 /* SignIn.swift in Sources */,
+				D70318BB22168857009D76F2 /* UserData.swift in Sources */,
 				D7669B9921FC51C200A066E1 /* SettingDataOfBook.swift in Sources */,
 				D7AC7873220BF71F0037EE63 /* SignOutClass.swift in Sources */,
 				D787E4C921E85C2500025EDE /* SellBook.swift in Sources */,
 				D787E4A921E857C900025EDE /* AppDelegate.swift in Sources */,
+				D70EB51F221542E500BA7C51 /* Menu.swift in Sources */,
 				D787E4C521E85B4200025EDE /* Home.swift in Sources */,
 				D787E4CF21E85C4B00025EDE /* DetailBooks.swift in Sources */,
 				D74D884921E8CF6800229972 /* SearchCategory.swift in Sources */,

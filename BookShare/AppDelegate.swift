@@ -15,11 +15,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
-        
         
         //UserDefault
         let ud = UserDefaults.standard
@@ -49,6 +47,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window?.backgroundColor = UIColor.white
             self.window?.makeKeyAndVisible()
         }
+        
+        //ユーザーデータを取得
+//        let ref = Database.database().reference(fromURL: "https://bookshare-b78b4.firebaseio.com/")
+//        ref.child("User")
+//            .child(UserDefaults.standard.string(forKey: "userDataID")!)
+//            .observe(.value) { (snap, error) in
+//                let snapdata = snap.value as? Dictionary<String,String>
+//                if snapdata == nil {
+//                    return
+//                }
+//                for key in snapdata!.keys.sorted() {
+//                    switch key {
+//                    case "UserName":
+//                        UserData.userName = snapdata![key]
+//                    case "UserID":
+//                        self.userID.text = snapdata![key]
+//                    default:
+//                        break
+//                    }
+//                }
+//        }
         
         return true
     }

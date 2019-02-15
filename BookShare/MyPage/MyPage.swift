@@ -30,18 +30,18 @@ class MyPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSour
     var items = [[String]]()
     //userDataID
     let userDataID = UserDefaults.standard.string(forKey: "userDataID")
+    //FireStore
+    var ds:Firestore!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        //userNameとuserIDを取得
-//        if let user = Auth.auth().currentUser {
-//            userName.text = user.displayName
-//            userID.text = "@" + user.uid
-//            print(user.displayName)
-//        } else {}
         //アイコンを角丸に
-        iconImage.layer.cornerRadius = 10
+        iconImage.layer.cornerRadius = 40
         iconImage.layer.masksToBounds = true
+        //TextViewとCollectionViewに枠線を
+        profile.layer.borderWidth = 2
+        collectionItem.layer.borderWidth = 1
+        //delegate
         collectionItem.delegate = self
         collectionItem.dataSource = self
         //ユーザーデータを取得
@@ -92,9 +92,12 @@ class MyPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSour
          didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         //imageにアルバムで選択した画像が格納される
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            //圧縮
+//            let resizeImage = image.scale(byFactor:0.3)
             //iconImageに選択した画像を格納
             self.iconImage.image = image
             //Storageに画像を保存
+            saveIconImage()
             //アルバム画面を閉じる
             self.dismiss(animated: true, completion: nil)
         }
@@ -105,10 +108,8 @@ class MyPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSour
         //ユーザーデータを取得
         let ref = Database.database().reference(fromURL: "https://bookshare-b78b4.firebaseio.com/")
         ref.child("User")
-            .child(UserDefaults.standard.string(forKey: "userDataID")!)
-//            .queryOrdered(byChild: )
+            .child(userDataID!)
             .observe(.value) { (snap, error) in
-//                let snapdata = snap.value as!
                 let snapdata = snap.value as? Dictionary<String,String>
                 if snapdata == nil {
                     return
@@ -117,9 +118,6 @@ class MyPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSour
 //                self.item = []
 //                self.items = [[]]
                 for key in snapdata!.keys.sorted() {
-//                    let read_data =
-//                    print(key)
-//                    print(snapdata![key]!)
 //                    データを格納して行く
                     switch key {
                     case "UserName":
@@ -141,23 +139,13 @@ class MyPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSour
                     default:
                         break
                     }
-//                    if key == "UserName" ||
-//                        key == "UserID" ||
-//                        key == "Follow" ||
-//                        key == "Follower" ||
-//                        key == "Good" ||
-//                        key == "Share" ||
-//                        key == "Get" ||
-//                        key == "Profile" {
-//
-//                    }
                 }
         }
         //アイコン画像を取得
         //画像パスを生成
         let storageRef = Storage.storage().reference(forURL: "gs://bookshare-b78b4.appspot.com").child("userDataID").child(userDataID!).child("Icon")
         //取得したらその画像を、出来なかったらプレースホルダー画像をセット
-        self.iconImage.sd_setImage(with: storageRef, placeholderImage: UIImage(named: "placeholderImage"))
+       self.iconImage.sd_setImage(with: storageRef, placeholderImage: UIImage(named: "placeholder.png"))
     }
     
     //Databaseにユーザーデータを保存
@@ -185,16 +173,41 @@ class MyPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSour
     func saveIconImage() {
         //画像を保存
         //アイコン画像をNSDataに変換
-        if let imageData = iconImage.image?.pngData() {
-            //ストレージパスを生成
-            let storageRef = Storage.storage().reference(forURL: "gs://bookshare-b78b4.appspot.com")
-            let iconRef = storageRef.child("image/" + userID.text!)
-            //アイコン画像を保存
-            iconRef.putData(imageData, metadata: nil) { (metadata, error) in
-                //エラー処理
-                guard let _ = metadata else  {
-                    return
-                }
+//        if let imageData = iconImage.image?.pngData() {
+//            //ストレージパスを生成
+//            let storageRef = Storage.storage().reference(forURL: "gs://bookshare-b78b4.appspot.com").child("userDataID").child(userDataID!).child("Icon")
+//            //アイコン画像を保存
+//            storageRef.putData(imageData, metadata: nil) { (metadata, error) in
+//                //エラー処理
+//                guard let _ = metadata else  {
+//                    return
+//                }
+//            }
+//        }
+//        userImage.image = resizeImage
+        //保存するURLを指定
+        let storageRef = Storage.storage().reference(forURL: "gs://bookshare-b78b4.appspot.com").child("userDataID").child(userDataID!).child("Icon.png")
+        //NSDataに変換
+        let imageData = iconImage.image!.pngData()!
+        //保存を実行、metadataにURLがふくまれているらししい
+        storageRef.putData(imageData, metadata: nil) { (metadata, error) in
+            if error != nil {
+                print("アップロードに失敗しました")
+            } else {
+                //URL型をNSstring型に変換したい
+                storageRef.downloadURL(completion: { (url, error) in
+                    if  error  != nil {
+                        print("写真の保存に失敗")
+                    }  else {
+                        let imageURL = url?.absoluteString
+                        print("----")
+                        print(imageURL!)
+                        print(self.userDataID!)
+                        self.ds.collection("userDataID").document(self.userDataID!).updateData(["userimageURL": imageURL!])
+                        print("写真の保存に成功")
+                    }
+                })
+                
             }
         }
     }

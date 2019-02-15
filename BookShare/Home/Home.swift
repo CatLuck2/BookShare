@@ -97,25 +97,25 @@ class Home: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource
     }
     
     //FirebaseからItemのURLを取得する
-//    func downloadImageData() {
-//        let ref = Database.database().reference(fromURL: "https://bookshare-b78b4.firebaseio.com/")
-//        self.photos = [String]()
-//        ref.child("Item").observe(.value) { (snap) in
-//            for item in snap.children {
-//                let snapdata = item as! DataSnapshot
-//                //１つのデータ
-//                let item = snapdata.value as! [[String:String]]
-//                self.photos.append(item[0]["ItemID"]!)
-//            }
-////            self.photosCount = self.photos.count
-//            self.collectionView.reloadData()
-//        }
-//    }
+    func downloadImageData() {
+        let ref = Database.database().reference(fromURL: "https://bookshare-b78b4.firebaseio.com/")
+        self.photos = [String]()
+        ref.child("Item").observe(.value) { (snap) in
+            for item in snap.children {
+                let snapdata = item as! DataSnapshot
+                //１つのデータ
+                let item = snapdata.value as! [[String:String]]
+                self.photos.append(item[0]["ItemID"]!)
+            }
+//            self.photosCount = self.photos.count
+            self.collectionView.reloadData()
+        }
+    }
     
     //ログアウト
     @IBAction func signout(_ sender: Any) {
-        let signclass = SignOut()
-        signclass.signout()
+        let menu = Menu()
+        self.present(menu.menuAlert(), animated: true, completion: nil)
     }
 
 }

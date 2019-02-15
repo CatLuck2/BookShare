@@ -29,7 +29,7 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var tableView: UITableView!
-    
+    @IBOutlet weak var scrollView: UIScrollView!
     //出品する本の数々
     var books = [["","","","","","","","","","","",""],
                  ["","","","","","","","","","","",""],
@@ -314,6 +314,26 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
                 return
             }
         }
+        //現設定を全て初期化する
+        books = [["","","","","","","","","","","",""],
+                     ["","","","","","","","","","","",""],
+                     ["","","","","","","","","","","",""],
+                     ["","","","","","","","","","","",""],
+                     ["","","","","","","","","","","",""]]
+        imagesOfBook = [UIImage(named: "sample.png"),
+                            UIImage(named: "sample.png"),
+                            UIImage(named: "sample.png"),
+                            UIImage(named: "sample.png"),
+                            UIImage(named: "sample.png")] as! [UIImage]
+        imageView.image = UIImage(named: "sample.png")
+        filenamesOfBook = ["","","","",""]
+        deliveryInformation = ["","",""]
+        cellArray = ["出品する本","本","本を追加","配送情報","配送料の負担","発送の方法","発送日の目安"]
+        tableView.reloadData()
+        //1番上にスクロール
+        let bottomOffset = CGPoint(x: 0, y: 0)
+        scrollView.setContentOffset(bottomOffset, animated: false)
+        
         self.dismiss(animated: true, completion: nil)
     }
 

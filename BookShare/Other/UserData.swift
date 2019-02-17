@@ -9,6 +9,13 @@
 import UIKit
 
 class UserData: NSObject {
+    static let userClass = UserData()
     var userName = String()
     var userID = String()
+    var follow = String()
+    var follower = String()
+    var good = String()
+    var share = String()
+    var get = String()
+    var profile = String()
 }

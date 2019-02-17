@@ -20,7 +20,7 @@ class SignOut {
                 print (signOutError)
             }
         } else {
-            return
+            
         }
         
         //ログイン状態をfalseに

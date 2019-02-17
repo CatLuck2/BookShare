@@ -14,10 +14,16 @@ import FirebaseUI
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
+    override init() {
+        FirebaseApp.configure()
+        let db = Firestore.firestore()
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        FirebaseApp.configure()
+        
+//        FirebaseApp.configure()
         
         //UserDefault
         let ud = UserDefaults.standard
@@ -49,6 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         //ユーザーデータを取得
+//        var userData = UserData.userClass
 //        let ref = Database.database().reference(fromURL: "https://bookshare-b78b4.firebaseio.com/")
 //        ref.child("User")
 //            .child(UserDefaults.standard.string(forKey: "userDataID")!)
@@ -58,11 +65,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //                    return
 //                }
 //                for key in snapdata!.keys.sorted() {
+//                    //データを格納して行く
 //                    switch key {
 //                    case "UserName":
-//                        UserData.userName = snapdata![key]
+//                        userData.userName = snapdata![key]!
 //                    case "UserID":
-//                        self.userID.text = snapdata![key]
+//                        userData.userID = snapdata![key]!
+//                    case "Follow":
+//                        userData.follow = snapdata![key]!
+//                    case "Follower":
+//                        userData.follower = snapdata![key]!
+//                    case "Good":
+//                        userData.good = snapdata![key]!
+//                    case "Share":
+//                        userData.share = snapdata![key]!
+//                    case "Get":
+//                        userData.get = snapdata![key]!
+//                    case "Profile":
+//                        userData.profile = snapdata![key]!
 //                    default:
 //                        break
 //                    }

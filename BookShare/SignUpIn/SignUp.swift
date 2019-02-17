@@ -16,8 +16,11 @@ class SignUp: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var mailForm: UITextField!
     @IBOutlet weak var passForm: UITextField!
     
-    //userDataID
-    var userDataID = UserDefaults.standard.string(forKey: "userDataID")
+    //UserDataClass
+    var userDataClass = UserData.userClass
+    
+    //FireStore
+    let db = Firestore.firestore()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,8 +59,15 @@ class SignUp: UIViewController,UITextFieldDelegate {
                                     let changeRequest = user.createProfileChangeRequest()
                                     changeRequest.displayName = self.userNameForm.text!
                                 }
+                                //UserDefaultsとUserDataクラスにuserIDを保存
+                                ud.set((Auth.auth().currentUser?.uid)!, forKey: "userDataID")
+                                ud.synchronize()
+                                self.userDataClass.userID = ud.string(forKey: "userDataID")!
                                 //ユーザーデータを作成
                                 self.createUserData()
+                                //ユーザーデータを取得
+                                let readD = readData()
+                                readD.readMyData()
                                 //ホーム画面に遷移
                                 let storyboard = UIStoryboard(name: "Main", bundle:Bundle.main)
                                 let rootViewController = storyboard.instantiateViewController(withIdentifier: "Main")
@@ -92,33 +102,39 @@ class SignUp: UIViewController,UITextFieldDelegate {
     
     //ユーザーデータを新規作成
     func createUserData() {
-        //ref1:ユーザーデータ
-        let databaseRef = Database.database().reference(fromURL: "https://bookshare-b78b4.firebaseio.com/")
-        //User階層 - 各ユーザーのID
         //保存するデータを宣言
-        let userData = ["UserName":userNameForm.text!,
-                        "UserID":userIDForm.text!,
-                        "Grade":"0",
-                        "Follow":"0",
-                        "Follwer":"0",
-                        "Good":"0",
-                        "Share":"0",
-                        "Get":"0",
-                        "Profile":""]
-        let itemData = [["?":"?"],["?":"?"],["?":"?"],["?":"?"],["?":"?"]] as! [[String:String]]
-        //保存
-        databaseRef.child("User").child((Auth.auth().currentUser?.uid)!).setValue(userData)
-        databaseRef.child("Item").child((Auth.auth().currentUser?.uid)!).setValue(itemData)
-        
-        //UserDefaultsにuserIDを保存
-        let ud = UserDefaults.standard
-        ud.set((Auth.auth().currentUser?.uid)!, forKey: "userDataID")
-        ud.synchronize()
-        userDataID = UserDefaults.standard.string(forKey: "userDataID")
+        let userData : [String:String] = [
+            "UserName":userNameForm.text!,
+            "UserID":userIDForm.text!,
+            "Grade":"0",
+            "Follow":"0",
+            "Follower":"0",
+            "Good":"0",
+            "Share":"0",
+            "Get":"0",
+            "Profile":""
+        ]
+//        let itemData = [["?":"?"],["?":"?"],["?":"?"],["?":"?"],["?":"?"]] as! [[String:String]]
+        //ユーザーデータを保存
+        db.collection("User").document(userDataClass.userID).setData(userData, completion: { (err) in
+            if err != nil {
+                print("success")
+            } else {
+                print("fail")
+            }
+        })
+        //Itemを保存
+//        db.collection("Item").document(userDataID!).setData(userData, completion: { (err) in
+//            if err != nil {
+//                print("success")
+//            } else {
+//                print("fail")
+//            }
+//        })
         
         //Storageにプレースホルダー用の画像を保存
         //画像を保存
-        let storageref = Storage.storage().reference(forURL: "gs://bookshare-b78b4.appspot.com").child("userDataID").child(userDataID!).child("Icon")
+        let storageref = Storage.storage().reference(forURL: "gs://bookshare-b78b4.appspot.com").child("userDataID").child(userDataClass.userID).child("Icon")
         var data = NSData()
         data = UIImage(named: "placeholder.png")!.jpegData(compressionQuality: 1.0)! as NSData
         storageref.putData(data as Data, metadata: nil) { (data, error) in

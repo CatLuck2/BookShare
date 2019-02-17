@@ -14,6 +14,9 @@ class SignIn: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var mailForm: UITextField!
     @IBOutlet weak var passForm: UITextField!
     
+    //UserDataClass
+    var userDataClass = UserData.userClass
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,8 +40,13 @@ class SignIn: UIViewController,UITextFieldDelegate {
                     //ログイン状態をtrueに
                     ud.set(true, forKey: "loginStatus")
                     //userDataIDをセット
+                    //UserDefaultsとUserDataクラスにuserIDを保存
                     ud.set((Auth.auth().currentUser?.uid)!, forKey: "userDataID")
                     ud.synchronize()
+                    self.userDataClass.userID = ud.string(forKey: "userDataID")!
+                    //ユーザーデータを取得
+                    let readD = readData()
+                    readD.readMyData()
                     //ホーム画面へ移行
                     let storyboard = UIStoryboard(name: "Main", bundle:Bundle.main)
                     let rootViewController = storyboard.instantiateViewController(withIdentifier: "Main")

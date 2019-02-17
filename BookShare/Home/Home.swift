@@ -54,6 +54,11 @@ class Home: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource
 
         collectionView.delegate = self
         collectionView.dataSource = self
+        
+        //ユーザーデータを取得
+//        let readD = readData()
+//        readD.readMyData()
+        //本のデータを取得
 //        downloadImageData()
     }
     

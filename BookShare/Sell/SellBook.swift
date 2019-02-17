@@ -30,6 +30,9 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var scrollView: UIScrollView!
+    
+    //FireStore
+    let db = Firestore.firestore()
     //出品する本の数々
     var books = [["","","","","","","","","","","",""],
                  ["","","","","","","","","","","",""],
@@ -125,8 +128,6 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
             vc.numberOfBook = indexPath.row - 1
             //表紙画像
             if let _ = imagesOfBook[indexPath.row - 1] as? UIImage {
-                print(imagesOfBook[indexPath.row - 1])
-                
                 vc.getImage = imagesOfBook[indexPath.row - 1]
             } else {}
             if let _ = books[indexPath.row - 1] as? [String] {
@@ -281,6 +282,15 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
             //保存用の配列に格納
             items[i] = item
         }
+        
+        //
+//        db.collection("User").document(userDataID!).setData(userData, completion: { (err) in
+//            if err != nil {
+//                print("success")
+//            } else {
+//                print("fail")
+//            }
+//        })
         
         //出品
         ref.child("Item").child(randomCharacters).setValue(items)

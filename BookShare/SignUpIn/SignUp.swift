@@ -59,10 +59,10 @@ class SignUp: UIViewController,UITextFieldDelegate {
                                     let changeRequest = user.createProfileChangeRequest()
                                     changeRequest.displayName = self.userNameForm.text!
                                 }
-                                //UserDefaultsとUserDataクラスにuserIDを保存
+                                //UserDefaultsとUserDataクラスにuserDataIDを保存
                                 ud.set((Auth.auth().currentUser?.uid)!, forKey: "userDataID")
                                 ud.synchronize()
-                                self.userDataClass.userID = ud.string(forKey: "userDataID")!
+                                self.userDataClass.userDataID = ud.string(forKey: "userDataID")!
                                 //ユーザーデータを作成
                                 self.createUserData()
                                 //ユーザーデータを取得
@@ -106,6 +106,7 @@ class SignUp: UIViewController,UITextFieldDelegate {
         let userData : [String:String] = [
             "UserName":userNameForm.text!,
             "UserID":userIDForm.text!,
+            "UserDataID":self.userDataClass.userDataID,
             "Grade":"0",
             "Follow":"0",
             "Follower":"0",
@@ -114,33 +115,32 @@ class SignUp: UIViewController,UITextFieldDelegate {
             "Get":"0",
             "Profile":""
         ]
-//        let itemData = [["?":"?"],["?":"?"],["?":"?"],["?":"?"],["?":"?"]] as! [[String:String]]
+        
         //ユーザーデータを保存
-        db.collection("User").document(userDataClass.userID).setData(userData, completion: { (err) in
+        db.collection("User").document(userDataClass.userDataID).setData(userData, completion: { (err) in
             if err != nil {
                 print("success")
             } else {
                 print("fail")
             }
         })
-        //Itemを保存
-//        db.collection("Item").document(userDataID!).setData(userData, completion: { (err) in
-//            if err != nil {
-//                print("success")
-//            } else {
-//                print("fail")
-//            }
-//        })
-        
+
         //Storageにプレースホルダー用の画像を保存
         //画像を保存
-        let storageref = Storage.storage().reference(forURL: "gs://bookshare-b78b4.appspot.com").child("userDataID").child(userDataClass.userID).child("Icon")
+        let storageref = Storage.storage().reference(forURL: "gs://bookshare-b78b4.appspot.com").child("User").child(userDataClass.userDataID)
         var data = NSData()
-        data = UIImage(named: "placeholder.png")!.jpegData(compressionQuality: 1.0)! as NSData
-        storageref.putData(data as Data, metadata: nil) { (data, error) in
+        data = UIImage(named: "Icon.png")!.jpegData(compressionQuality: 1.0)! as NSData
+        storageref.putData(data as Data, metadata: nil) { (metadata, error) in
             if error != nil {
                 return
             }
+            storageref.downloadURL(completion: { (url, err) in
+                if let err = err {
+                    
+                } else {
+                    print(url)
+                }
+            })
         }
         self.dismiss(animated: true, completion: nil)
     }

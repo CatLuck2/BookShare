@@ -27,7 +27,6 @@ class SignIn: UIViewController,UITextFieldDelegate {
         mailForm.layer.cornerRadius = 10
         passForm.layer.borderWidth = 1
         passForm.layer.cornerRadius = 10
-        // Do any additional setup after loading the view.
     }
     
     @IBAction func signIn(_ sender: Any) {

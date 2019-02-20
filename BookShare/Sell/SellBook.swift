@@ -33,6 +33,11 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
     //FireStore
     let db = Firestore.firestore()
+    //UserDataClass
+    var userDataClass = UserData.userClass
+    var items = ["0":"","1":"","2":"","3":"","4":""] as! [String:Any]
+    //出品する本
+    var item = ["":""] as! [String:Any]
     //出品する本の数々
     var books = [["","","","","","","","","","","",""],
                  ["","","","","","","","","","","",""],
@@ -51,10 +56,6 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
     var filenamesOfBook = ["","","","",""]
     //配送情報の各項目
     var deliveryInformation = ["","",""]
-    //userName
-    var userName = "userName"
-    //userID
-    var userID = "userID"
     //tableViewの中身
     var cellArray = ["出品する本","本","本を追加","配送情報","配送料の負担","発送の方法","発送日の目安"]
 
@@ -206,9 +207,9 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
         }
         
         //出品する本の数々
-        var items = [["":""],["":""],["":""],["":""],["":""]]
+        items = ["0":"","1":"","2":"","3":"","4":""]
         //出品する本
-        var item = ["":""]
+        item = ["":""]
         //ItemIDを生成
         //乱数の生成に使用する文字
         let characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
@@ -226,8 +227,6 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
             //1ループ/1文字、追加される
             randomCharacters += String(characters[characters.index(characters.startIndex,offsetBy: len)])
         }
-        //Database参照
-        let ref = Database.database().reference(fromURL: "https://bookshare-b78b4.firebaseio.com/")
         //booksの各要素に保存に必要なデータを入れていく
         for i in 0...4 {
             for n in 3...11 {
@@ -243,17 +242,17 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
                 case 5:
                     books[i][n] = "0"
                 case 6:
-                    books[i][n] = userName
+                    books[i][n] = userDataClass.userName
                 case 7:
-                    books[i][n] = userID
+                    books[i][n] = userDataClass.userID
                 case 8:
-                    books[i][n] = deliveryInformation[0]
+                    books[i][n] = userDataClass.userDataID
                 case 9:
-                    books[i][n] = deliveryInformation[1]
+                    books[i][n] = deliveryInformation[0]
                 case 10:
-                    books[i][n] = deliveryInformation[2]
+                    books[i][n] = deliveryInformation[1]
                 case 11:
-                    books[i][n] = randomCharacters
+                    books[i][n] = deliveryInformation[2]
                 default:
                     break
                 }
@@ -272,41 +271,37 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
                             "Good":books[i][5],
                             "UserName":books[i][6],
                             "UserID":books[i][7],
-                            "DeliveryBurden":books[i][8],
-                            "DeliveryWay":books[i][9],
-                            "DeliveryDay":books[i][10],
-                            "ItemID":books[i][11]]
+                            "UserDataID":books[i][8],
+                            "DeliveryBurden":books[i][9],
+                            "DeliveryWay":books[i][10],
+                            "DeliveryDay":books[i][11]]
             } else {
                 item = ["?":"?"]
             }
             //保存用の配列に格納
-            items[i] = item
+            items["\(i)"] = item
         }
         
-        //
-//        db.collection("User").document(userDataID!).setData(userData, completion: { (err) in
-//            if err != nil {
-//                print("success")
-//            } else {
-//                print("fail")
-//            }
-//        })
-        
-        //出品
-        ref.child("Item").child(randomCharacters).setValue(items)
-        //User階層に保存
-        ref.child("User").child(userID).child("Item").setValue(randomCharacters)
+        //FireStoreに保存
+        DispatchQueue.main.async {
+            self.db.collection("Item").document(randomCharacters).setData(self.items, completion: { (err) in
+                if let _ = err {
+                    print("fail")
+                } else {
+                    print("success")
+                }
+            })
+        }
         
         //imagesOfBookにある画像を順番に取り出し、順番に保存していく
-        for i in 0...4 {
-            print("1")
-            //もし画像があるなら
-            if imagesOfBook[i] != nil {
-                print("2")
-                if let image = imagesOfBook[i] as? UIImage {
-                    //画像をアップロード
-                    print("3")
-                    uploadItemImage(childString: randomCharacters, image: image)
+        DispatchQueue.main.async {
+            for i in 0...4 {
+                //もし画像があるなら
+                if self.imagesOfBook[i] != nil {
+                    if let image = self.imagesOfBook[i] as? UIImage {
+                        //画像をアップロード
+                        self.uploadItemImage(childString: randomCharacters, image: image)
+                    }
                 }
             }
         }
@@ -316,13 +311,14 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
     //画像をアップロード
     func uploadItemImage(childString:String, image:UIImage) {
         //画像を保存
-        let storageref = Storage.storage().reference(forURL: "gs://bookshare-b78b4.appspot.com").child(userID).child("Item").child(childString)
+        let storageref = Storage.storage().reference(forURL: "gs://bookshare-b78b4.appspot.com").child("Item").child(childString)
         var data = NSData()
         data = image.jpegData(compressionQuality: 1.0)! as NSData
         storageref.putData(data as Data, metadata: nil) { (data, error) in
             if error != nil {
                 return
             }
+            print(data!)
         }
         //現設定を全て初期化する
         books = [["","","","","","","","","","","",""],

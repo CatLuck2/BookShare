@@ -19,38 +19,49 @@ class readData: UIViewController {
     
     //ユーザーデータを読み込む
     func readMyData() {
-        //データ取得開始
-        db.collection("User").document(userDataClass.userID).getDocument() { (snapdata, err) in
+        
+        //ユーザーデータ
+        db.collection("User").getDocuments() { (snapdata, err) in
             //エラー処理
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
+//                print(snapdata!)
                 //データを順に取り出していく
-                for key in snapdata!.data()!.keys.sorted() {
-                    //該当する値を対応する値に代入していく
-                    switch key {
-                    case "UserName":
-                        self.userDataClass.userName = snapdata![key]! as! String
-                    case "UserID":
-                        self.userDataClass.userID = snapdata![key]! as! String
-                    case "Follow":
-                        self.userDataClass.follow = snapdata![key]! as! String
-                    case "Follower":
-                        self.userDataClass.follower = snapdata![key]! as! String
-                    case "Good":
-                        self.userDataClass.good = snapdata![key]! as! String
-                    case "Share":
-                        self.userDataClass.share = snapdata![key]! as! String
-                    case "Get":
-                        self.userDataClass.get = snapdata![key]! as! String
-                    case "Profile":
-                        self.userDataClass.profile = snapdata![key]! as! String
-                    default:
-                        break
+                for data in snapdata!.documents{
+                    for key in data.data().keys {
+                        switch key {
+                        case "UserName":
+                            self.userDataClass.userName = data.data()[key]! as! String
+                        case "UserID":
+                            self.userDataClass.userID = data.data()[key]! as! String
+                        case "UserDataID":
+                            self.userDataClass.userDataID = data.data()[key]! as! String
+                        case "Follow":
+                            self.userDataClass.follow = data.data()[key]! as! String
+                        case "Follower":
+                            self.userDataClass.follower = data.data()[key]! as! String
+                        case "Good":
+                            self.userDataClass.good = data.data()[key]! as! String
+                        case "Share":
+                            self.userDataClass.share = data.data()[key]! as! String
+                        case "Get":
+                            self.userDataClass.get = data.data()[key]! as! String
+                        case "Profile":
+                            self.userDataClass.profile = data.data()[key]! as! String
+                        default:
+                            break
+                        }
                     }
                 }
             }
         }
+        
+        //ユーザーアイコン
+        func readMyIcon() {
+            
+        }
+        
     }
     
     //本のデータを読み込む

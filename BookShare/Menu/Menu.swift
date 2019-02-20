@@ -11,21 +11,32 @@ import Foundation
 
 class Menu: UIViewController {
     
+    //共有用のインスタンス
+    static let menu = Menu()
+    //遷移元のViewControllerを受け取る
+    var vc = UITabBarController()
+    
     //メニューを表示
     func menuAlert() -> UIAlertController {
         //アラート
         let alert = UIAlertController(title: "メニュー", message: nil, preferredStyle: .actionSheet)
         //このアプリについて
-        alert.addAction(UIAlertAction(title: "このアプリについて", style: .default, handler: { (action) in
+        alert.addAction(UIAlertAction(title: "BookShareについて", style: .default, handler: { (action) in
             self.goMenuView("about")
+            let aboutI = about.aboutVC
+            aboutI.vc = self.vc
         }))
         //このアプリの使い方
-        alert.addAction(UIAlertAction(title: "このアプリの使い方", style: .default, handler: { (action) in
+        alert.addAction(UIAlertAction(title: "BookShareの使い方", style: .default, handler: { (action) in
             self.goMenuView("howtouse")
+            let howtouseI = howtouse.howtouseVC
+            howtouseI.vc = self.vc
         }))
         //お問い合わせ
         alert.addAction(UIAlertAction(title: "お問い合わせ", style: .default, handler: { (action) in
             self.goMenuView("contact")
+            let ContactI = Contact.contactVC
+            ContactI.vc = self.vc
         }))
         //サインアウト
         alert.addAction(UIAlertAction(title: "サインアウト", style: .destructive, handler: { (action) in

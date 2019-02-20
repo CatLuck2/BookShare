@@ -18,6 +18,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     override init() {
         FirebaseApp.configure()
         let db = Firestore.firestore()
+//        //ユーザーデータを取得
+        let readD = readData()
+        readD.readMyData()
     }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -53,41 +56,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window?.backgroundColor = UIColor.white
             self.window?.makeKeyAndVisible()
         }
-        
-        //ユーザーデータを取得
-//        var userData = UserData.userClass
-//        let ref = Database.database().reference(fromURL: "https://bookshare-b78b4.firebaseio.com/")
-//        ref.child("User")
-//            .child(UserDefaults.standard.string(forKey: "userDataID")!)
-//            .observe(.value) { (snap, error) in
-//                let snapdata = snap.value as? Dictionary<String,String>
-//                if snapdata == nil {
-//                    return
-//                }
-//                for key in snapdata!.keys.sorted() {
-//                    //データを格納して行く
-//                    switch key {
-//                    case "UserName":
-//                        userData.userName = snapdata![key]!
-//                    case "UserID":
-//                        userData.userID = snapdata![key]!
-//                    case "Follow":
-//                        userData.follow = snapdata![key]!
-//                    case "Follower":
-//                        userData.follower = snapdata![key]!
-//                    case "Good":
-//                        userData.good = snapdata![key]!
-//                    case "Share":
-//                        userData.share = snapdata![key]!
-//                    case "Get":
-//                        userData.get = snapdata![key]!
-//                    case "Profile":
-//                        userData.profile = snapdata![key]!
-//                    default:
-//                        break
-//                    }
-//                }
-//        }
         
         return true
     }

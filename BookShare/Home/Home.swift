@@ -119,8 +119,16 @@ class Home: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource
     
     //ログアウト
     @IBAction func signout(_ sender: Any) {
-        let menu = Menu()
+        let menu = Menu.menu
         self.present(menu.menuAlert(), animated: true, completion: nil)
+        //Menuに遷移元のViewControllerを渡す
+        var window: UIWindow?
+        window = UIWindow(frame: UIScreen.main.bounds)
+        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let rootVC = storyboard.instantiateViewController(withIdentifier: "Main")
+//        let vc = self.presentingViewController as! UITabBarController
+//        let vc = UIApplication.shared.keyWindow?.rootViewController as! UITabBarController
+        menu.vc = rootVC as! UITabBarController
     }
 
 }

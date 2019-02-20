@@ -12,6 +12,7 @@ class UserData: NSObject {
     static let userClass = UserData()
     var userName = String()
     var userID = String()
+    var userDataID = String()
     var follow = String()
     var follower = String()
     var good = String()

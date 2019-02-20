@@ -11,6 +11,11 @@ import MessageUI
 
 class Contact: UIViewController,MFMailComposeViewControllerDelegate {
     
+    //共有用のインスタンス
+    static let contactVC = Contact()
+    //遷移元のViewControllerを受け取る
+    var vc = UIViewController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -50,8 +55,19 @@ class Contact: UIViewController,MFMailComposeViewControllerDelegate {
     //エラー処理
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         if error != nil {
+            //送信失敗
             print(error)
         } else {
+//            switch result {
+//            case .cancelled:
+//                //キャンセル
+//            case .saved:
+//                //下書き保存
+//            case .sent:
+//                //送信成功
+//            default:
+//                break
+//            }
             controller.dismiss(animated: true, completion: nil)
         }
     }

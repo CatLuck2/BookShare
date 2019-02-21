@@ -14,19 +14,20 @@ class readData: UIViewController {
     //FireStore
     let db = Firestore.firestore()
     var ref: DocumentReference? = nil
+    //Storageパス
+    let storageref = Storage.storage().reference(forURL: "gs://bookshare-b78b4.appspot.com").child("User")
     //UserDataClass
     var userDataClass = UserData.userClass
     
     //ユーザーデータを読み込む
     func readMyData() {
-        
         //ユーザーデータ
-        db.collection("User").getDocuments() { (snapdata, err) in
+        self.db.collection("User").getDocuments() { (snapdata, err) in
             //エラー処理
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
-//                print(snapdata!)
+                //                print(snapdata!)
                 //データを順に取り出していく
                 for data in snapdata!.documents{
                     for key in data.data().keys {
@@ -56,13 +57,27 @@ class readData: UIViewController {
                 }
             }
         }
-        
-        //ユーザーアイコン
-        func readMyIcon() {
-            
-        }
-        
+//        DispatchQueue.main.async {
+//
+//        }
     }
+    
+    //ユーザーアイコン
+    func readMyIcon() {
+        self.storageref.child("Icon").downloadURL(completion: { (url, error) in
+            if error != nil {
+            } else {
+                if url == nil {
+                    self.userDataClass.iconMetaData = "failfjawegja@"
+                } else {
+                    self.userDataClass.iconMetaData = url!.absoluteString
+                }
+            }
+        })
+    }
+    //            DispatchQueue.main.async {
+    //
+    //            }
     
     //本のデータを読み込む
     func readItemData() {

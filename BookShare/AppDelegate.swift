@@ -18,15 +18,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     override init() {
         FirebaseApp.configure()
         let db = Firestore.firestore()
-//        //ユーザーデータを取得
-        let readD = readData()
-        readD.readMyData()
     }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-//        FirebaseApp.configure()
+        //ユーザーデータを取得
+        let readD = readData()
+        readD.readMyData()
+        //画像パスを取得
+        readD.readMyIcon()
         
         //UserDefault
         let ud = UserDefaults.standard

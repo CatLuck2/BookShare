@@ -55,18 +55,7 @@ class MyPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSour
         collectionItem.delegate = self
         collectionItem.dataSource = self
         profile.delegate = self
-        //画像パスを取得
-        DispatchQueue.main.async {
-            self.storageref.child(self.userDataClass.userDataID).downloadURL(completion: { (url, error) in
-                if error != nil {
-                } else {
-                    self.imageRef = URL(string: (url?.absoluteString)!)
-                    print("------")
-                    print(self.imageRef!)
-                    print(url!)
-                }
-            })
-        }
+        print(userDataClass.iconMetaData)
         //ユーザーデータを取得
         readMyData()
     }
@@ -139,67 +128,62 @@ class MyPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSour
         self.profile.text = userDataClass.profile
         //アイコン画像を取得
         //取得したらその画像を、出来なかったらプレースホルダー画像をセット
-//        self.iconImage!.sd_setImage(with: imageURL, completed: nil)
+        self.iconImage!.sd_setImage(with: URL(string: self.userDataClass.iconMetaData), completed: nil)
 //        self.iconImage.sd_setImage(with: imageURL, completed: nil)
-//        self.iconImage.sd_setImage(with: storageref.child(userDataClass.userDataID), placeholderImage: UIImage(named: "placeholder.png"))
+//        self.iconImage.sd_setImage(with: storageref.child("Icon.png"), placeholderImage: UIImage(named: "placeholder.png"))
 //        self.iconImage.sd_setImage(with: imageURL, completed: nil)
-        DispatchQueue.main.async {
-            self.storageref.child(self.userDataClass.userDataID).getData(maxSize: 1 * 1024 * 1024) { (data, err) in
-                if let err = err {
-                    
-                } else {
-                    self.iconImage.image = UIImage(data: data!)
-                }
-            }
-
-        }
+//        https://firebasestorage.googleapis.com/v0/b/bookshare-b78b4.appspot.com/o/User%2FIcon.png?alt=media&token=e3e3a205-7dbd-4afc-9615-75afa1691ff1
         
     }
     
     //Databaseにユーザーデータを保存
     func saveMyData() {
+        
         //保存するデータを宣言
         let userData = ["UserName":userName.text!,
                         "UserID":userID.text!,
                         "Follow":amountOfFollow.text!,
-                        "Follwer":amountOfFollower.text!,
+                        "Follower":amountOfFollower.text!,
                         "Good":amountOfGood.text!,
                         "Share":amountOfShare.text!,
                         "Get":amountOfGet.text!,
-                        "Profile":profile.text!] as! [String : String]
-        DispatchQueue.main.async {
-            self.db.collection("User").document(self.userDataClass.userDataID).setData(userData) { (err) in
-                if let err = err {
-                    
-                } else {
-                    
-                }
+                        "Profile":profile.text!] as! [String : Any]
+        db.collection("User").document("\(userDataClass.userDataID)").setData(userData) { (err) in
+            if let err = err {
+                
+            } else {
+                
             }
         }
     }
     
     //Storageに画像を保存
+//    self.userDataClass.userDataID
     func saveIconImage() {
         //NSDataに変換
         let imageData = iconImage.image!.pngData()!
-        DispatchQueue.main.async {
-            //保存を実行、metadataにURLがふくまれているらししい
-            self.storageref.child(self.userDataClass.userDataID).putData(imageData, metadata: nil) { (metadata, error) in
-                if error != nil {
-                    print("アップロードに失敗しました")
-                } else {
-                    //URL型をNSstring型に変換したい
-                    self.storageref.child(self.userDataClass.userDataID).downloadURL(completion: { (url, error) in
-                        if  error  != nil {
-                            print("写真の保存に失敗")
-                        }  else {
-                            let imageURL = url?.absoluteString
-                            print(imageURL!)
-                        }
-                    })
-                }
+        let meta = StorageMetadata()
+        meta.contentType = "image/jpeg"
+        //保存を実行、metadataにURLがふくまれているらししい
+        self.storageref.child("Icon").putData(imageData, metadata: meta) { (metadata, error) in
+            if error != nil {
+                print("アップロードに失敗しました")
+            } else {
+                //URL型をNSstring型に変換したい
+                self.storageref.child("Icon").downloadURL(completion: { (url, error) in
+                    if  error  != nil {
+                        print("写真の保存に失敗")
+                    }  else {
+                        let imageURL = url?.absoluteString
+                        self.userDataClass.iconMetaData = imageURL!
+                        print("url:" + imageURL!)
+                    }
+                })
             }
         }
+//        DispatchQueue.main.async {
+//
+//        }
     }
     
     //キーボードのDoneボタンを生成

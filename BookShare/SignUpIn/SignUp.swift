@@ -129,18 +129,20 @@ class SignUp: UIViewController,UITextFieldDelegate {
         //画像を保存
         let storageref = Storage.storage().reference(forURL: "gs://bookshare-b78b4.appspot.com").child("User").child(userDataClass.userDataID)
         var data = NSData()
-        data = UIImage(named: "Icon.png")!.jpegData(compressionQuality: 1.0)! as NSData
-        storageref.putData(data as Data, metadata: nil) { (metadata, error) in
+        let meta = StorageMetadata()
+        meta.contentType = "image/jpeg"
+        data = UIImage(named: "Icon")!.jpegData(compressionQuality: 1.0)! as NSData
+        storageref.putData(data as Data, metadata: meta) { (metadata, error) in
             if error != nil {
                 return
             }
-            storageref.downloadURL(completion: { (url, err) in
-                if let err = err {
-                    
-                } else {
-                    print(url)
-                }
-            })
+//            storageref.downloadURL(completion: { (url, err) in
+//                if let err = err {
+//                    
+//                } else {
+//                    print(url)
+//                }
+//            })
         }
         self.dismiss(animated: true, completion: nil)
     }

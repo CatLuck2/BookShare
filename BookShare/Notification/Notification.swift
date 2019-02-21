@@ -41,16 +41,6 @@ class Notification: UIViewController,UITableViewDelegate,UITableViewDataSource {
         tableView.dataSource = self
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//
-//    }
-//
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//
-//    }
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -92,7 +82,6 @@ class Notification: UIViewController,UITableViewDelegate,UITableViewDataSource {
             }
             //tableViewを更新
             self.tableView.reloadData()
-            print(self.notificationArray)
         }
     }
     

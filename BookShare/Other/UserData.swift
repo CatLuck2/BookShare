@@ -19,4 +19,5 @@ class UserData: NSObject {
     var share = String()
     var get = String()
     var profile = String()
+    var iconMetaData = String()
 }

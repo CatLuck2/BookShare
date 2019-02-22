@@ -18,7 +18,8 @@ class SignUp: UIViewController,UITextFieldDelegate {
     
     //UserDataClass
     var userDataClass = UserData.userClass
-    
+    //UserDefault
+    let userDataID = UserDefaults.standard.string(forKey: "userDataID")
     //FireStore
     let db = Firestore.firestore()
     
@@ -103,7 +104,7 @@ class SignUp: UIViewController,UITextFieldDelegate {
     //ユーザーデータを新規作成
     func createUserData() {
         //保存するデータを宣言
-        let userData : [String:String] = [
+        let userData : [String:Any] = [
             "UserName":userNameForm.text!,
             "UserID":userIDForm.text!,
             "UserDataID":self.userDataClass.userDataID,
@@ -113,11 +114,11 @@ class SignUp: UIViewController,UITextFieldDelegate {
             "Good":"0",
             "Share":"0",
             "Get":"0",
-            "Profile":""
-        ]
+            "Profile":"",
+            "Item":[""]]
         
         //ユーザーデータを保存
-        db.collection("User").document(userDataClass.userDataID).setData(userData, completion: { (err) in
+        db.collection("User").document(userDataID!).setData(userData, completion: { (err) in
             if err != nil {
                 print("success")
             } else {

@@ -384,11 +384,12 @@
                                         </prototypes>
                                     </tableView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vi3-C1-ZHK">
-                                        <rect key="frame" x="107" y="581" width="160" height="19"/>
+                                        <rect key="frame" x="95" y="581" width="184" height="38"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="160" id="WoZ-wN-0J7"/>
-                                            <constraint firstAttribute="height" constant="19" id="ftd-7s-89i"/>
+                                            <constraint firstAttribute="width" constant="184" id="WoZ-wN-0J7"/>
+                                            <constraint firstAttribute="height" constant="38" id="ftd-7s-89i"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                         <state key="normal" title="設定を完了する"/>
                                         <connections>
                                             <action selector="finishSetting:" destination="sMS-is-HGi" eventType="touchUpInside" id="CnT-Dh-4Ho"/>
@@ -401,7 +402,7 @@
                                     <constraint firstItem="crO-Xb-hEb" firstAttribute="top" secondItem="tGt-jS-Xy2" secondAttribute="top" id="Drs-Eu-AHw"/>
                                     <constraint firstItem="Vi3-C1-ZHK" firstAttribute="centerX" secondItem="tGt-jS-Xy2" secondAttribute="centerX" id="EiF-D4-4SF"/>
                                     <constraint firstAttribute="trailing" secondItem="crO-Xb-hEb" secondAttribute="trailing" id="KIv-OZ-CG4"/>
-                                    <constraint firstAttribute="bottom" secondItem="Vi3-C1-ZHK" secondAttribute="bottom" constant="67" id="LEY-1H-CRD"/>
+                                    <constraint firstAttribute="bottom" secondItem="Vi3-C1-ZHK" secondAttribute="bottom" constant="48" id="LEY-1H-CRD"/>
                                     <constraint firstItem="1AS-Tp-MTl" firstAttribute="centerX" secondItem="Vi3-C1-ZHK" secondAttribute="centerX" id="YpQ-SC-hig"/>
                                     <constraint firstItem="crO-Xb-hEb" firstAttribute="leading" secondItem="1AS-Tp-MTl" secondAttribute="leading" id="mlr-Ka-BZ9"/>
                                     <constraint firstItem="1AS-Tp-MTl" firstAttribute="top" secondItem="crO-Xb-hEb" secondAttribute="bottom" constant="8" symbolic="YES" id="rpZ-a4-The"/>
@@ -862,7 +863,7 @@
                                         </prototypes>
                                     </tableView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="clK-1u-Grc">
-                                        <rect key="frame" x="138" y="845" width="98" height="28"/>
+                                        <rect key="frame" x="138.5" y="845" width="98" height="28"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="28" id="C9N-2L-xac"/>
                                         </constraints>

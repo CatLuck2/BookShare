@@ -45,7 +45,7 @@ class SignIn: UIViewController,UITextFieldDelegate {
                     self.userDataClass.userID = ud.string(forKey: "userDataID")!
                     //ユーザーデータを取得
                     let readD = readData()
-                    readD.readMyData()
+//                    readD.readMyData()
                     //ホーム画面へ移行
                     let storyboard = UIStoryboard(name: "Main", bundle:Bundle.main)
                     let rootViewController = storyboard.instantiateViewController(withIdentifier: "Main")

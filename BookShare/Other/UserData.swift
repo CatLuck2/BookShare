@@ -20,4 +20,6 @@ class UserData: NSObject {
     var get = String()
     var profile = String()
     var iconMetaData = String()
+    var item = [String]()
+    var itemURL = [URL]()
 }

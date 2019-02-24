@@ -5,6 +5,10 @@
 //  Created by 藤澤洋佑 on 2019/02/17.
 //  Copyright © 2019年 NEKOKICHI. All rights reserved.
 //
+//        DispatchQueue.main.async {
+//
+//        }
+
 
 import UIKit
 import Firebase
@@ -13,21 +17,20 @@ class readData: UIViewController {
 
     //FireStore
     let db = Firestore.firestore()
-    var ref: DocumentReference? = nil
     //Storageパス
-    let storageref = Storage.storage().reference(forURL: "gs://bookshare-b78b4.appspot.com").child("User")
+    let storageref = Storage.storage().reference(forURL: "gs://bookshare-b78b4.appspot.com")
     //UserDataClass
     var userDataClass = UserData.userClass
+//    let readD = readData()
     
     //ユーザーデータを読み込む
-    func readMyData() {
+    func readMyData(collectionView1:UICollectionView) {
         //ユーザーデータ
         self.db.collection("User").getDocuments() { (snapdata, err) in
             //エラー処理
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
-                //                print(snapdata!)
                 //データを順に取り出していく
                 for data in snapdata!.documents{
                     for key in data.data().keys {
@@ -50,38 +53,66 @@ class readData: UIViewController {
                             self.userDataClass.get = data.data()[key]! as! String
                         case "Profile":
                             self.userDataClass.profile = data.data()[key]! as! String
+                        case "Item":
+                            self.userDataClass.item = data.data()[key]! as! [String]
                         default:
                             break
                         }
                     }
                 }
+                //本の画像URLを取得
+                self.readItemData(collectionView2:collectionView1)
             }
         }
-//        DispatchQueue.main.async {
-//
-//        }
     }
     
     //ユーザーアイコン
     func readMyIcon() {
-        self.storageref.child("Icon").downloadURL(completion: { (url, error) in
-            if error != nil {
+        self.storageref.child("User").child("Icon").downloadURL(completion: { (url, err) in
+            if let err = err {
+                print("fail")
             } else {
-                if url == nil {
-                    self.userDataClass.iconMetaData = "failfjawegja@"
-                } else {
-                    self.userDataClass.iconMetaData = url!.absoluteString
-                }
+                self.userDataClass.iconMetaData = url!.absoluteString
             }
         })
     }
-    //            DispatchQueue.main.async {
-    //
-    //            }
     
     //本のデータを読み込む
-    func readItemData() {
-        
+    func readItemData(collectionView2:UICollectionView) {
+        var childString = ""
+        //ユーザーデータ
+        for i in 0...self.userDataClass.item.count-1 {
+            childString = self.userDataClass.item[i]
+            self.storageref.child("Item").child(childString).downloadURL(completion: { (url, err) in
+                if let err = err {
+                    print("Fail")
+                } else {
+                    self.userDataClass.itemURL.append(url!)
+                    if self.userDataClass.item.count == self.userDataClass.itemURL.count {
+                        collectionView2.reloadData()
+                    } else {
+                    }
+                }
+            })
+        }
     }
 
+}
+
+extension DispatchQueue {
+    class func mainSyncSafe(execute work: () -> Void) {
+        if Thread.isMainThread {
+            work()
+        } else {
+            DispatchQueue.main.sync(execute: work)
+        }
+    }
+    
+    class func mainSyncSafe<T>(execute work: () throws -> T) rethrows -> T {
+        if Thread.isMainThread {
+            return try work()
+        } else {
+            return try DispatchQueue.main.sync(execute: work)
+        }
+    }
 }

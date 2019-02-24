@@ -60,10 +60,6 @@ class SettingDataOfBook: UIViewController,UITableViewDataSource,UITableViewDeleg
             vc.settingArray[1] = array[indexPath.row]
         } else if flag == "本の状態" {
             vc.settingArray[2] = array[indexPath.row]
-            print("確認")
-            print(vc.settingArray[2]);
-            print("らりるれろ")
-         print(vc.settingArray);
         }
         self.navigationController?.popViewController(animated: true)
     }

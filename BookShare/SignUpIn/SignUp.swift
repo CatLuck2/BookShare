@@ -68,7 +68,7 @@ class SignUp: UIViewController,UITextFieldDelegate {
                                 self.createUserData()
                                 //ユーザーデータを取得
                                 let readD = readData()
-                                readD.readMyData()
+//                                readD.readMyData()
                                 //ホーム画面に遷移
                                 let storyboard = UIStoryboard(name: "Main", bundle:Bundle.main)
                                 let rootViewController = storyboard.instantiateViewController(withIdentifier: "Main")
@@ -137,13 +137,6 @@ class SignUp: UIViewController,UITextFieldDelegate {
             if error != nil {
                 return
             }
-//            storageref.downloadURL(completion: { (url, err) in
-//                if let err = err {
-//                    
-//                } else {
-//                    print(url)
-//                }
-//            })
         }
         self.dismiss(animated: true, completion: nil)
     }

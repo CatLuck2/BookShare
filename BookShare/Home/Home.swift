@@ -14,21 +14,25 @@ import SDWebImage
 class Home: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource {
     
     @IBOutlet weak var collectionView: UICollectionView!
-    
-    //Firebaseから取得したItemIDを格納する
-    var photos = [String]()
-    //cellForItemAtが実行されたカウント
-    var count_cellfunc = 0
-    
     @IBOutlet weak var sc: UIScrollView!
     
+    //Firebaseから取得したItemIDを格納する
+    var photos = ["",""]
+    //cellForItemAtが実行されたカウント
+    var count_cellfunc = 0
+    //Storageパス
+    let storageref = Storage.storage().reference(forURL: "gs://bookshare-b78b4.appspot.com").child("Item")
     //スクロールビューに配置するView
     var vc = UIView()
-    
+    //readDataのインスタンス
+    let readD = readData()
+    //UserDataのインスタンス
+    var userDataClass = UserData.userClass
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //複数のボタンを設置
         //vcのframe
         vc.frame = CGRect(x: 0, y: 0, width: 600, height: 55)
         //上部のスクロールビューに多数のボタンを配置
@@ -47,19 +51,17 @@ class Home: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource
             //vcに載せる
             vc.addSubview(button)
         }
-        
         //スクロールビューにvcを配置
         sc.addSubview(vc)
         sc.contentSize = vc.bounds.size
 
         collectionView.delegate = self
         collectionView.dataSource = self
-        
-        //ユーザーデータを取得
-//        let readD = readData()
-//        readD.readMyData()
-        //本のデータを取得
-//        downloadImageData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        readD.readMyData(collectionView1:self.collectionView)
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -67,15 +69,14 @@ class Home: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return photos.count
+        return self.userDataClass.item.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        //imageViewを宣言
+        //画像を表示
         let imageView = cell.contentView.viewWithTag(1) as! UIImageView
-        let storageref = Storage.storage().reference(forURL: "gs://bookshare-b78b4.appspot.com").child("userID").child("Item").child(photos[indexPath.row])
-        imageView.sd_setImage(with: storageref)
+        imageView.sd_setImage(with: self.userDataClass.itemURL[indexPath.row], completed: nil)
         return cell
     }
     
@@ -98,22 +99,6 @@ class Home: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource
             button.setTitle("ビジネス", for: .normal)
         default:
             break
-        }
-    }
-    
-    //FirebaseからItemのURLを取得する
-    func downloadImageData() {
-        let ref = Database.database().reference(fromURL: "https://bookshare-b78b4.firebaseio.com/")
-        self.photos = [String]()
-        ref.child("Item").observe(.value) { (snap) in
-            for item in snap.children {
-                let snapdata = item as! DataSnapshot
-                //１つのデータ
-                let item = snapdata.value as! [[String:String]]
-                self.photos.append(item[0]["ItemID"]!)
-            }
-//            self.photosCount = self.photos.count
-            self.collectionView.reloadData()
         }
     }
     

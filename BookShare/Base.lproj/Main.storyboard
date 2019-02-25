@@ -77,11 +77,62 @@
                     <connections>
                         <outlet property="collectionView" destination="O1r-wh-xQK" id="q4H-0j-KnL"/>
                         <outlet property="sc" destination="b6P-xQ-4qd" id="5no-XQ-7m8"/>
+                        <segue destination="dMZ-s1-kAF" kind="presentation" identifier="about" id="zM5-zu-9co"/>
+                        <segue destination="fM4-Tt-kaA" kind="presentation" identifier="howtouse" id="ZvL-MG-s2P"/>
+                        <segue destination="krN-xl-InH" kind="show" identifier="contact" id="Gcf-b7-QRK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3735.1999999999998" y="-644.52773613193403"/>
+        </scene>
+        <!--About-->
+        <scene sceneID="GYN-Mm-Jbq">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="about" storyboardName="About" bundleIdentifier="com.nekokichi.BookShare" id="dMZ-s1-kAF" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SLo-kz-Hbf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4382" y="-738"/>
+        </scene>
+        <!--Howtouse-->
+        <scene sceneID="QhC-8b-K8h">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Howtouse" bundleIdentifier="com.nekokichi.BookShare" id="fM4-Tt-kaA" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qai-LS-Rfh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4396" y="-644"/>
+        </scene>
+        <!--Contact-->
+        <scene sceneID="moK-sk-j7t">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Contact" bundleIdentifier="com.nekokichi.BookShare" id="krN-xl-InH" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2ge-jQ-Pf5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4404" y="-572"/>
+        </scene>
+        <!--About-->
+        <scene sceneID="tUx-fP-EBD">
+            <objects>
+                <viewControllerPlaceholder storyboardName="About" bundleIdentifier="com.nekokichi.BookShare" id="11m-Re-b57" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="evx-4z-gxR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5006" y="-201"/>
+        </scene>
+        <!--Howtouse-->
+        <scene sceneID="bDe-63-7Gg">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Howtouse" bundleIdentifier="com.nekokichi.BookShare" id="LEI-Kz-BCN" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bRi-6T-4M0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4994" y="-130"/>
+        </scene>
+        <!--Contact-->
+        <scene sceneID="HHL-uv-8sz">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Contact" bundleIdentifier="com.nekokichi.BookShare" id="kJY-ut-2wa" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Yk9-iq-IYk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5007" y="-73"/>
         </scene>
         <!--Other Page-->
         <scene sceneID="yyP-aR-A2p">
@@ -384,7 +435,7 @@
                                         </prototypes>
                                     </tableView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vi3-C1-ZHK">
-                                        <rect key="frame" x="95" y="581" width="184" height="38"/>
+                                        <rect key="frame" x="95.5" y="581" width="184" height="38"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="184" id="WoZ-wN-0J7"/>
                                             <constraint firstAttribute="height" constant="38" id="ftd-7s-89i"/>
@@ -715,7 +766,7 @@
                     <navigationItem key="navigationItem" title="マイページ" id="NXb-vY-WgZ">
                         <barButtonItem key="leftBarButtonItem" systemItem="action" id="Esq-Ul-IBu">
                             <connections>
-                                <action selector="signout:" destination="BYZ-38-t0r" id="FpA-2F-1pz"/>
+                                <action selector="menu:" destination="kvu-40-YbK" id="su7-HG-8k4"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="search" id="Izd-Vz-hOI"/>
@@ -732,6 +783,9 @@
                         <outlet property="profile" destination="kLj-eV-Txc" id="QwV-TG-gHG"/>
                         <outlet property="userID" destination="GcJ-VZ-RWW" id="Muc-M2-ECC"/>
                         <outlet property="userName" destination="pmm-H4-y9u" id="40w-hd-Hmm"/>
+                        <segue destination="MO9-Q2-3Ge" kind="presentation" identifier="about" id="C9u-kd-1JN"/>
+                        <segue destination="BPV-TK-xti" kind="presentation" identifier="howtouse" id="TLt-vP-prN"/>
+                        <segue destination="HNq-e6-E3s" kind="show" identifier="contact" id="TEo-G4-flP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zNM-LY-1cu" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -763,13 +817,16 @@
                     <navigationItem key="navigationItem" title="お知らせ" id="shI-KH-oP6">
                         <barButtonItem key="leftBarButtonItem" systemItem="action" id="JP6-5r-BmN">
                             <connections>
-                                <action selector="signout:" destination="BYZ-38-t0r" id="Dyc-OI-egP"/>
+                                <action selector="menu:" destination="mHO-tk-pbg" id="i58-7X-1Ca"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="search" id="bk1-zI-FRU"/>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="YHR-xA-lCY" id="KVb-ll-2vK"/>
+                        <segue destination="uzy-5N-sI4" kind="presentation" identifier="about" id="LxR-D0-zM2"/>
+                        <segue destination="eBb-8U-8G7" kind="presentation" identifier="howtouse" id="Cdy-ai-oKs"/>
+                        <segue destination="tJw-SY-GMc" kind="show" identifier="contact" id="gI2-BC-pXs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cA2-9I-1CH" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -901,7 +958,7 @@
                         <barButtonItem key="backBarButtonItem" title="戻る" id="doc-ua-Eda"/>
                         <barButtonItem key="leftBarButtonItem" systemItem="action" id="Caf-qG-8YY">
                             <connections>
-                                <action selector="signout:" destination="BYZ-38-t0r" id="9D4-LK-HGG"/>
+                                <action selector="menu:" destination="IZC-9Z-PU2" id="TS7-FC-2pr"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="search" id="eAY-g6-Mbi"/>
@@ -913,6 +970,9 @@
                         <outlet property="tableView" destination="W04-gD-EEe" id="kBL-4I-cm2"/>
                         <segue destination="sMS-is-HGi" kind="show" identifier="settingBook" id="15y-WE-T6x"/>
                         <segue destination="1Ub-UA-AP3" kind="show" identifier="settingDelivery" id="uTG-sx-YIN"/>
+                        <segue destination="oIp-R6-xuy" kind="presentation" identifier="about" id="TjY-XL-jXJ"/>
+                        <segue destination="yus-S0-bEa" kind="presentation" identifier="howtouse" id="glK-TQ-vz0"/>
+                        <segue destination="0EA-us-M6v" kind="show" identifier="contact" id="zr7-9x-i8Y"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DEv-fE-jn5" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1262,11 +1322,16 @@
                     <navigationItem key="navigationItem" title="いいねリスト" id="GqT-Gd-Q9Z">
                         <barButtonItem key="leftBarButtonItem" systemItem="action" id="k9U-dU-798">
                             <connections>
-                                <action selector="signout:" destination="BYZ-38-t0r" id="2Ic-jB-gv9"/>
+                                <action selector="menu:" destination="EJK-Tj-zoM" id="DN8-OD-2M9"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="search" id="su4-9r-t3Z"/>
                     </navigationItem>
+                    <connections>
+                        <segue destination="11m-Re-b57" kind="presentation" identifier="about" id="i5k-h7-TKD"/>
+                        <segue destination="LEI-Kz-BCN" kind="presentation" identifier="howtouse" id="6Ju-qK-Agq"/>
+                        <segue destination="kJY-ut-2wa" kind="show" identifier="contact" id="VdL-rA-5i0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jzw-gm-6gR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1420,6 +1485,78 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6DT-yl-qyz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2796" y="-644.52773613193403"/>
+        </scene>
+        <!--About-->
+        <scene sceneID="NsV-uH-cSw">
+            <objects>
+                <viewControllerPlaceholder storyboardName="About" bundleIdentifier="com.nekokichi.BookShare" id="oIp-R6-xuy" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iCx-oO-znj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4911" y="504"/>
+        </scene>
+        <!--Howtouse-->
+        <scene sceneID="HyM-pi-jht">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Howtouse" bundleIdentifier="com.nekokichi.BookShare" id="yus-S0-bEa" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KMV-qw-CnB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4910" y="561"/>
+        </scene>
+        <!--Contact-->
+        <scene sceneID="sq8-89-SYS">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Contact" bundleIdentifier="com.nekokichi.BookShare" id="0EA-us-M6v" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="T7n-4J-Otu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4910" y="616"/>
+        </scene>
+        <!--Contact-->
+        <scene sceneID="Ze7-5c-8YT">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Contact" bundleIdentifier="com.nekokichi.BookShare" id="HNq-e6-E3s" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GSd-CH-jgZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1743" y="551"/>
+        </scene>
+        <!--Howtouse-->
+        <scene sceneID="ZQ1-b8-pFH">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Howtouse" bundleIdentifier="com.nekokichi.BookShare" id="BPV-TK-xti" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EPY-Wb-gc8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1761" y="519"/>
+        </scene>
+        <!--About-->
+        <scene sceneID="3Gk-ux-kxJ">
+            <objects>
+                <viewControllerPlaceholder storyboardName="About" bundleIdentifier="com.nekokichi.BookShare" id="MO9-Q2-3Ge" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CGW-vI-cHg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1780" y="491"/>
+        </scene>
+        <!--Contact-->
+        <scene sceneID="e6u-im-yCI">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Contact" bundleIdentifier="com.nekokichi.BookShare" id="tJw-SY-GMc" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NXN-B7-IkM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3294" y="815"/>
+        </scene>
+        <!--Howtouse-->
+        <scene sceneID="cjF-EZ-JFx">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Howtouse" bundleIdentifier="com.nekokichi.BookShare" id="eBb-8U-8G7" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pAH-v8-jAC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3295" y="773"/>
+        </scene>
+        <!--About-->
+        <scene sceneID="6Ge-He-7cu">
+            <objects>
+                <viewControllerPlaceholder storyboardName="About" bundleIdentifier="com.nekokichi.BookShare" id="uzy-5N-sI4" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HOq-Us-xqJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3295" y="734"/>
         </scene>
     </scenes>
     <resources>

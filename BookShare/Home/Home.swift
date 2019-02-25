@@ -102,18 +102,43 @@ class Home: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource
         }
     }
     
-    //ログアウト
+    //メニュー
     @IBAction func signout(_ sender: Any) {
-        let menu = Menu.menu
-        self.present(menu.menuAlert(), animated: true, completion: nil)
-        //Menuに遷移元のViewControllerを渡す
-        var window: UIWindow?
-        window = UIWindow(frame: UIScreen.main.bounds)
-        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let rootVC = storyboard.instantiateViewController(withIdentifier: "Main")
-//        let vc = self.presentingViewController as! UITabBarController
-//        let vc = UIApplication.shared.keyWindow?.rootViewController as! UITabBarController
-        menu.vc = rootVC as! UITabBarController
+        menuAlert()
+    }
+    
+    //メニュー用のアラート
+    func menuAlert() {
+        //アラート
+        let alert = UIAlertController(title: "メニュー", message: nil, preferredStyle: .actionSheet)
+        //このアプリについて
+        alert.addAction(UIAlertAction(title: "BookShareについて", style: .default, handler: { (action) in
+            alert.dismiss(animated: true, completion: nil)
+            self.go("about")
+        }))
+        //このアプリの使い方
+        alert.addAction(UIAlertAction(title: "使い方", style: .default, handler: { (action) in
+            alert.dismiss(animated: true, completion: nil)
+            self.go("howtouse")
+        }))
+        //お問い合わせ
+        alert.addAction(UIAlertAction(title: "お問い合わせ", style: .default, handler: { (action) in
+            alert.dismiss(animated: true, completion: nil)
+            self.go("contact")
+        }))
+        //サインアウト
+        alert.addAction(UIAlertAction(title: "サインアウト", style: .destructive, handler: { (action) in
+            let signclass = SignOut()
+            signclass.signout()
+        }))
+        //キャンセル
+        alert.addAction(UIAlertAction(title: "キャンセル", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion:  nil)
+    }
+    
+    //遷移
+    func go(_ identifier:String) {
+        self.performSegue(withIdentifier: identifier, sender: nil)
     }
 
 }

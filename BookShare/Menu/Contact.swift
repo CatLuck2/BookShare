@@ -11,11 +11,6 @@ import MessageUI
 
 class Contact: UIViewController,MFMailComposeViewControllerDelegate {
     
-    //共有用のインスタンス
-    static let contactVC = Contact()
-    //遷移元のViewControllerを受け取る
-    var vc = UIViewController()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -46,7 +41,9 @@ class Contact: UIViewController,MFMailComposeViewControllerDelegate {
         } else {
             //アラートで通知
             let alert = UIAlertController(title: "No Mail Accounts", message: "Please set up mail accounts", preferredStyle: .alert)
-            let dismiss = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            let dismiss = UIAlertAction(title: "OK", style: .cancel) { (action) in
+                self.dismiss(animated: true, completion: nil)
+            }
             alert.addAction(dismiss)
             self.present(alert, animated: true, completion: nil)
         }
@@ -58,17 +55,21 @@ class Contact: UIViewController,MFMailComposeViewControllerDelegate {
             //送信失敗
             print(error)
         } else {
-//            switch result {
-//            case .cancelled:
-//                //キャンセル
-//            case .saved:
-//                //下書き保存
-//            case .sent:
-//                //送信成功
-//            default:
-//                break
-//            }
+            switch result {
+            case .cancelled:
+                self.dismiss(animated: true, completion: nil)
+                //キャンセル
+            case .saved:
+                self.dismiss(animated: true, completion: nil)
+                //下書き保存
+            case .sent:
+                self.dismiss(animated: true, completion: nil)
+                //送信成功
+            default:
+                self.dismiss(animated: true, completion: nil)
+            }
             controller.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: true, completion: nil)
         }
     }
     

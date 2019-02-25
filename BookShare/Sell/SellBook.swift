@@ -318,11 +318,6 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
         resetAllSettings()
     }
     
-    //アイテムデータをアップロード
-    func saveItemData(data:[String:Any],collection:String,document:String) {
-        
-    }
-    
     //画像をアップロード
     func saveItemImage(childString:String, image:UIImage) {
         //画像を保存
@@ -387,11 +382,49 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
         return randomCharacters
     }
     
+    @IBAction func menu(_ sender: Any) {
+        menuAlert()
+    }
+    
     //アラート
     func alert(title:String,message:String,actiontitle:String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: actiontitle, style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    //メニュー用のアラート
+    func menuAlert() {
+        //アラート
+        let alert = UIAlertController(title: "メニュー", message: nil, preferredStyle: .actionSheet)
+        //このアプリについて
+        alert.addAction(UIAlertAction(title: "BookShareについて", style: .default, handler: { (action) in
+            alert.dismiss(animated: true, completion: nil)
+            self.go("about")
+        }))
+        //このアプリの使い方
+        alert.addAction(UIAlertAction(title: "使い方", style: .default, handler: { (action) in
+            alert.dismiss(animated: true, completion: nil)
+            self.go("howtouse")
+        }))
+        //お問い合わせ
+        alert.addAction(UIAlertAction(title: "お問い合わせ", style: .default, handler: { (action) in
+            alert.dismiss(animated: true, completion: nil)
+            self.go("contact")
+        }))
+        //サインアウト
+        alert.addAction(UIAlertAction(title: "サインアウト", style: .destructive, handler: { (action) in
+            let signclass = SignOut()
+            signclass.signout()
+        }))
+        //キャンセル
+        alert.addAction(UIAlertAction(title: "キャンセル", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion:  nil)
+    }
+    
+    //遷移
+    func go(_ identifier:String) {
+        self.performSegue(withIdentifier: identifier, sender: nil)
     }
 
 }

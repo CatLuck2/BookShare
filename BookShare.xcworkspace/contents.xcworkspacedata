@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/fujisawayousuke/Desktop/&#x30d5;&#x30a9;&#x30eb;&#x30bf;&#x3099;/&#x30d5;&#x309a;&#x30ed;&#x30af;&#x3099;&#x30e9;&#x30df;&#x30f3;&#x30af;&#x3099;/My Swift/&#x81ea;&#x4f5c;&#x30a2;&#x30d5;&#x309a;&#x30ea;/BookShare/BookShare/Menu/Howtouse.storyboard">
+   </FileRef>
+   <FileRef
       location = "group:BookShare.xcodeproj">
    </FileRef>
    <FileRef

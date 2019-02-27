@@ -19,7 +19,14 @@ class UserData: NSObject {
     var share = String()
     var get = String()
     var profile = String()
+    //ユーザーアイコンの画像URL
     var iconMetaData = String()
+    //ItemID
     var item = [String]()
+    //Itemの画像URL
     var itemURL = [URL]()
+    //全アイテム
+    var allItems:[[String:Any]] = [[:]]
+    //自分のアイテム
+    var myItems:[[String:Any]] = [[:]]
 }

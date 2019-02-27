@@ -80,6 +80,12 @@ class Home: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        //本の詳細画面へ移行
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "godetailbooks")
+        self.present(vc!, animated: true, completion: nil)
+    }
+    
     //スクロールビューのボタンに文字を入れる
     func setTitleForButton(tag:Int, button:UIButton){
         switch tag {

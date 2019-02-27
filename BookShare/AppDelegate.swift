@@ -17,13 +17,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     override init() {
         FirebaseApp.configure()
-        let db = Firestore.firestore()
-        //UserDataのインスタンス
-        var userDataClass = UserData.userClass
-        //ユーザーデータ(ユーザー情報、所持アイテムID)を取得
-        let readD = readData()
-        //アイコンのURLを取得
-//        readD.readMyIcon()
+//        let db = Firestore.firestore()
+//        //UserDataのインスタンス
+//        var userDataClass = UserData.userClass
+//        //ユーザーデータ(ユーザー情報、所持アイテムID)を取得
+//        let readD = readData()
+//        //アイコンのURLを取得
+////        readD.readMyIcon()
     }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {

@@ -23,6 +23,17 @@ class readData: UIViewController {
     var userDataClass = UserData.userClass
 //    let readD = readData()
     
+    //ユーザーアイコンを取得
+    func readMyIcon() {
+        self.storageref.child("User").child("Icon").downloadURL(completion: { (url, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                self.userDataClass.iconMetaData = url!.absoluteString
+            }
+        })
+    }
+    
     //ユーザーデータを読み込む
     func readMyData(collectionView1:UICollectionView) {
         //ユーザーデータ
@@ -60,36 +71,56 @@ class readData: UIViewController {
                         }
                     }
                 }
-                //本の画像URLを取得
+                //本のデータを取得
                 self.readItemData(collectionView2:collectionView1)
             }
         }
     }
     
-    //ユーザーアイコン
-    func readMyIcon() {
-        self.storageref.child("User").child("Icon").downloadURL(completion: { (url, err) in
-            if let err = err {
-                print("fail")
-            } else {
-                self.userDataClass.iconMetaData = url!.absoluteString
-            }
-        })
-    }
-    
     //本のデータを読み込む
     func readItemData(collectionView2:UICollectionView) {
+        //データの総数
+        var amountOfData = 0
+        //1データ内のループ数
+        var amountOfloop = 0
+        //本のデータを取得
+        self.db.collection("Item").getDocuments { (snapdata, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                //取得するデータの数だけUserData - allItemsを初期化する
+                self.userDataClass.allItems = [[String:Any]](repeating: ["0":"","1":"","2":"","3":"","4":""], count: snapdata!.count)
+                //データを順に取り出していく
+                for data in snapdata!.documents{
+                    print("start")
+                    for key in data.data().keys {
+                        self.userDataClass.allItems[amountOfData][key] = data.data()[key]!
+                        amountOfloop += 1
+                    }
+                    amountOfloop = 0
+                    amountOfData += 1
+                    print("end")
+                }
+                //本の画像URLを取得
+                self.readItemImage(collectionView3:collectionView2)
+            }
+        }
+    }
+    
+    //本の画像を読み込む
+    func readItemImage(collectionView3:UICollectionView) {
         var childString = ""
         //ユーザーデータ
         for i in 0...self.userDataClass.item.count-1 {
             childString = self.userDataClass.item[i]
             self.storageref.child("Item").child(childString).downloadURL(completion: { (url, err) in
                 if let err = err {
-                    print("Fail")
+                    print("Error getting downloadURL: \(err)")
                 } else {
+                    print("\(self.userDataClass.item[i]) " + url!.absoluteString)
                     self.userDataClass.itemURL.append(url!)
                     if self.userDataClass.item.count == self.userDataClass.itemURL.count {
-                        collectionView2.reloadData()
+                        collectionView3.reloadData()
                     } else {
                     }
                 }
@@ -99,20 +130,20 @@ class readData: UIViewController {
 
 }
 
-extension DispatchQueue {
-    class func mainSyncSafe(execute work: () -> Void) {
-        if Thread.isMainThread {
-            work()
-        } else {
-            DispatchQueue.main.sync(execute: work)
-        }
-    }
-    
-    class func mainSyncSafe<T>(execute work: () throws -> T) rethrows -> T {
-        if Thread.isMainThread {
-            return try work()
-        } else {
-            return try DispatchQueue.main.sync(execute: work)
-        }
-    }
-}
+//extension DispatchQueue {
+//    class func mainSyncSafe(execute work: () -> Void) {
+//        if Thread.isMainThread {
+//            work()
+//        } else {
+//            DispatchQueue.main.sync(execute: work)
+//        }
+//    }
+//
+//    class func mainSyncSafe<T>(execute work: () throws -> T) rethrows -> T {
+//        if Thread.isMainThread {
+//            return try work()
+//        } else {
+//            return try DispatchQueue.main.sync(execute: work)
+//        }
+//    }
+//}

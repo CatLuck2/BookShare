@@ -61,6 +61,10 @@ class Home: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource
 //        readD.readMyData(collectionView1:self.collectionView)
         readD.readAllItemID(collectionView1: self.collectionView)
         
+//        print(userDataClass.allItemID)
+//        print(userDataClass.allItemURL)
+//        print(userDataClass.allItems)
+        
     }
     
 //    override func viewWillAppear(_ animated: Bool) {
@@ -81,7 +85,7 @@ class Home: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource
         //画像を表示
         let imageView = cell.contentView.viewWithTag(1) as! UIImageView
 //        print(self.userDataClass.itemID)
-        print(self.userDataClass.allItemURL)
+//        print(self.userDataClass.allItemURL)
         imageView.sd_setImage(with: self.userDataClass.allItemURL[indexPath.row], completed: nil)
         return cell
     }

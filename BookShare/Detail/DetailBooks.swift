@@ -122,7 +122,7 @@ class DetailBooks: UIViewController,UITableViewDataSource,UITableViewDelegate{
     func arrangeCellArray() {
         for i in 0...4 {
             //もしデータがあるなら本を追加
-            if 
+            
         }
     }
     

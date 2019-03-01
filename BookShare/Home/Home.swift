@@ -58,7 +58,8 @@ class Home: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource
         collectionView.delegate = self
         collectionView.dataSource = self
         
-        readD.readMyData(collectionView1:self.collectionView)
+//        readD.readMyData(collectionView1:self.collectionView)
+        readD.readAllItemID(collectionView1: self.collectionView)
         
     }
     
@@ -72,7 +73,7 @@ class Home: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.userDataClass.itemID.count
+        return self.userDataClass.allItemID.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -80,8 +81,8 @@ class Home: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource
         //画像を表示
         let imageView = cell.contentView.viewWithTag(1) as! UIImageView
 //        print(self.userDataClass.itemID)
-        print(self.userDataClass.itemURL)
-        imageView.sd_setImage(with: self.userDataClass.itemURL[indexPath.row], completed: nil)
+        print(self.userDataClass.allItemURL)
+        imageView.sd_setImage(with: self.userDataClass.allItemURL[indexPath.row], completed: nil)
         return cell
     }
     
@@ -91,7 +92,7 @@ class Home: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource
         let vc2 = self.storyboard?.instantiateViewController(withIdentifier: "godetailbooks")
         //itemIDに該当するデータを探す
         for i in 0...self.userDataClass.allItems.count-1 {
-            if self.userDataClass.itemID[indexPath.row] == self.userDataClass.allItems[i]["0"]!["ItemID"] {
+            if self.userDataClass.allItemID[indexPath.row] == self.userDataClass.allItems[i]["0"]!["ItemID"] {
                 //該当する本のデータをDetailBookに渡す
                 vc1.itemData = self.userDataClass.allItems[indexPath.row]
             }

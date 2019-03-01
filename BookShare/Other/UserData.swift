@@ -22,11 +22,11 @@ class UserData: NSObject {
     //ユーザーアイコンの画像URL
     var iconMetaData = String()
     //ItemID
-    var item = [String]()
+    var itemID = [String]()
     //Itemの画像URL
     var itemURL = [URL]()
     //全アイテム
-    var allItems:[[String:Any]] = [[:]]
+    var allItems:[[String:[String:String]]] = [[:]]
     //自分のアイテム
-    var myItems:[[String:Any]] = [[:]]
+    var myItems:[[String:[String:String]]] = [[:]]
 }

@@ -199,7 +199,7 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
         //ItemIDの生成
         randomString = createRandomString()
         //ItemIDを追加
-        userDataClass.item.append(randomString)
+        userDataClass.itemID.append(randomString)
         
         //４つの項目が入力されている本をカウント
         var n = 0
@@ -286,7 +286,7 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
             "Share":userDataClass.share,
             "Get":userDataClass.get,
             "Profile":userDataClass.profile,
-            "Item":userDataClass.item]
+            "Item":userDataClass.itemID]
         db.collection("Item").document(randomString).setData(items) { (err) in
             if let _ = err {
                 print("fail")

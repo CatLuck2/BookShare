@@ -57,33 +57,47 @@ class Home: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource
 
         collectionView.delegate = self
         collectionView.dataSource = self
+        
+        readD.readMyData(collectionView1:self.collectionView)
+        
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        readD.readMyData(collectionView1:self.collectionView)
-    }
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//
+//    }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.userDataClass.item.count
+        return self.userDataClass.itemID.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
         //画像を表示
         let imageView = cell.contentView.viewWithTag(1) as! UIImageView
+//        print(self.userDataClass.itemID)
+        print(self.userDataClass.itemURL)
         imageView.sd_setImage(with: self.userDataClass.itemURL[indexPath.row], completed: nil)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        //DetailBookのインスタンス
+        let vc1 = self.storyboard?.instantiateViewController(withIdentifier: "sendDataToDetailBooks") as! DetailBooks
+        let vc2 = self.storyboard?.instantiateViewController(withIdentifier: "godetailbooks")
+        //itemIDに該当するデータを探す
+        for i in 0...self.userDataClass.allItems.count-1 {
+            if self.userDataClass.itemID[indexPath.row] == self.userDataClass.allItems[i]["0"]!["ItemID"] {
+                //該当する本のデータをDetailBookに渡す
+                vc1.itemData = self.userDataClass.allItems[indexPath.row]
+            }
+        }
         //本の詳細画面へ移行
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "godetailbooks")
-        self.present(vc!, animated: true, completion: nil)
+        self.present(vc2!, animated: true, completion: nil)
     }
     
     //スクロールビューのボタンに文字を入れる

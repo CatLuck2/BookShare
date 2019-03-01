@@ -21,7 +21,6 @@ class readData: UIViewController {
     let storageref = Storage.storage().reference(forURL: "gs://bookshare-b78b4.appspot.com")
     //UserDataClass
     var userDataClass = UserData.userClass
-//    let readD = readData()
     
     //ユーザーアイコンを取得
     func readMyIcon() {
@@ -65,7 +64,7 @@ class readData: UIViewController {
                         case "Profile":
                             self.userDataClass.profile = data.data()[key]! as! String
                         case "Item":
-                            self.userDataClass.item = data.data()[key]! as! [String]
+                            self.userDataClass.itemID = data.data()[key]! as! [String]
                         default:
                             break
                         }
@@ -77,7 +76,23 @@ class readData: UIViewController {
         }
     }
     
-    //本のデータを読み込む
+    //自分が出品した本のデータを取得
+    func readMyItemData() {
+        
+    }
+    
+    //自分が出品した本の画像を取得
+    func readMyItemImage() {
+        
+    }
+    
+    
+    //全ての本のIDを取得
+    func readAllItemID() {
+        
+    }
+    
+    //全ての本のデータを読み込む
     func readItemData(collectionView2:UICollectionView) {
         //データの総数
         var amountOfData = 0
@@ -88,39 +103,44 @@ class readData: UIViewController {
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
+//                print(self.userDataClass.itemID)
                 //取得するデータの数だけUserData - allItemsを初期化する
-                self.userDataClass.allItems = [[String:Any]](repeating: ["0":"","1":"","2":"","3":"","4":""], count: snapdata!.count)
+                self.userDataClass.allItems = [[String:[String : String]]](repeating: ["0":["":""],"1":["":""],"2":["":""],"3":["":""],"4":["":""]], count: snapdata!.count)
                 //データを順に取り出していく
                 for data in snapdata!.documents{
-                    print("start")
                     for key in data.data().keys {
-                        self.userDataClass.allItems[amountOfData][key] = data.data()[key]!
+                        self.userDataClass.allItems[amountOfData][key] = data.data()[key]! as! [String : String]
                         amountOfloop += 1
                     }
                     amountOfloop = 0
                     amountOfData += 1
-                    print("end")
+                    if amountOfData == self.userDataClass.itemID.count {
+                        self.readItemImage(collectionView3:collectionView2)
+                    }
                 }
-                //本の画像URLを取得
-                self.readItemImage(collectionView3:collectionView2)
+                
             }
         }
     }
     
-    //本の画像を読み込む
+    //全ての本の画像を読み込む
     func readItemImage(collectionView3:UICollectionView) {
         var childString = ""
         //ユーザーデータ
-        for i in 0...self.userDataClass.item.count-1 {
-            childString = self.userDataClass.item[i]
+        for i in 0...self.userDataClass.itemID.count-1 {
+            childString = self.userDataClass.itemID[i]
             self.storageref.child("Item").child(childString).downloadURL(completion: { (url, err) in
                 if let err = err {
                     print("Error getting downloadURL: \(err)")
                 } else {
-                    print("\(self.userDataClass.item[i]) " + url!.absoluteString)
+//                    print("\(self.userDataClass.itemID[i]) " + url!.absoluteString)
+                    //ダウンロードURLを入れる
                     self.userDataClass.itemURL.append(url!)
-                    if self.userDataClass.item.count == self.userDataClass.itemURL.count {
+                    //もし全てのダウンロードURLを取得したら、collectionViewをリロード
+                    if self.userDataClass.itemID.count == self.userDataClass.itemURL.count {
                         collectionView3.reloadData()
+//                        print(self.userDataClass.itemID)
+//                        print(self.userDataClass.itemURL)
                     } else {
                     }
                 }

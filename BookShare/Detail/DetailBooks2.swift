@@ -27,6 +27,8 @@ class DetailBooks2: UIViewController,UITableViewDataSource,UITableViewDelegate {
         tableView.dataSource = self
         //空のセルを削除
         tableView.tableFooterView = UIView()
+        //NavigationBarのタイトル
+        self.navigationItem.title = bookData["Title"]
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

@@ -24,7 +24,9 @@ class readData: UIViewController {
     
     //ユーザーアイコンを取得
     func readMyIcon() {
-        self.storageref.child("User").child("Icon").downloadURL(completion: { (url, err) in
+        let childString = userDataClass.userDataID
+        print(childString)
+        self.storageref.child("User").child(childString).downloadURL(completion: { (url, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
@@ -70,6 +72,8 @@ class readData: UIViewController {
                         }
                     }
                 }
+                //取得したUserDataIDでアイコンURLを取得
+                self.readMyIcon()
             }
         }
     }

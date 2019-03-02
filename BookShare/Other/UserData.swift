@@ -20,7 +20,7 @@ class UserData: NSObject {
     var get = String()
     var profile = String()
     //ユーザーアイコンの画像URL
-    var iconMetaData = String()
+    var iconMetaData:String!
     //全アイテムのID
     var allItemID = [String]()
     //自分のアイテムID

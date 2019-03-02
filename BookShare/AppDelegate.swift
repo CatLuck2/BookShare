@@ -20,10 +20,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        let db = Firestore.firestore()
 //        //UserDataのインスタンス
 //        var userDataClass = UserData.userClass
-//        //ユーザーデータ(ユーザー情報、所持アイテムID)を取得
-//        let readD = readData()
-//        //アイコンのURLを取得
-//        readD.readMyData()
+        //ユーザーデータ(ユーザー情報、所持アイテムID)を取得
+        let readD = readData()
+        //アイコンのURLを取得
+        readD.readMyData()
     }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {

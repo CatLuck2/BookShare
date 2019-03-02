@@ -67,8 +67,8 @@ class SignUp: UIViewController,UITextFieldDelegate {
                                 //ユーザーデータを作成
                                 self.createUserData()
                                 //ユーザーデータを取得
-//                                let readD = readData()
-//                                readD.readMyData()
+                                let readD = readData()
+                                readD.readMyData()
                                 //ホーム画面に遷移
                                 let storyboard = UIStoryboard(name: "Main", bundle:Bundle.main)
                                 let rootViewController = storyboard.instantiateViewController(withIdentifier: "Main")

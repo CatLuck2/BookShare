@@ -12,6 +12,9 @@ class DetailBooks: UIViewController,UITableViewDataSource,UITableViewDelegate{
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var userIcon: UIImageView!
+    @IBOutlet weak var userLabel: UILabel!
+    @IBOutlet weak var numberOfGood: UILabel!
     
     //tableViewの中身
     var cellArray = ["出品する本","配送情報","発送日の目安","配送料の負担","発送の方法"]
@@ -33,6 +36,19 @@ class DetailBooks: UIViewController,UITableViewDataSource,UITableViewDelegate{
         tableView.dataSource = self
         //空のセルを削除
         tableView.tableFooterView = UIView()
+        
+        //Navigationbarのタイトる
+        self.navigationItem.title = itemData["0"]!["Title"]
+        
+        //userIconを表示
+        if self.userDataClass.iconMetaData != nil {
+            self.userIcon.sd_setImage(with: URL(string: self.userDataClass.iconMetaData!), completed: nil)
+        } else {
+            self.userIcon.image = UIImage(named: "Icon.png")
+        }
+        //uesrLabelを表示
+        userLabel.text = itemData["0"]!["UserName"]
+        
         //cellArrayの中身を整理
         arrangeCellArray()
     }
@@ -97,7 +113,6 @@ class DetailBooks: UIViewController,UITableViewDataSource,UITableViewDelegate{
     //allItemsの中身に応じてcellArrayの中身を整理
     func arrangeCellArray() {
         for i in 0...4 {
-            print(itemData)
             //もしデータがあるなら本を追加
             if itemData["\(i)"]!["Title"] != nil {
                 //cellArrayに本のタイトルを挿入
@@ -106,6 +121,12 @@ class DetailBooks: UIViewController,UITableViewDataSource,UITableViewDelegate{
             } else {
             }
         }
+    }
+    
+    @IBAction func goodButton(_ sender: Any) {
+        //いいね数を+1
+        //FireStoreのGood数を更新
+        
     }
     
     @IBAction func back(_ sender: Any) {

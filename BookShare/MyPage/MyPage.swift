@@ -37,7 +37,7 @@ class MyPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSour
     //FireStore
     let db = Firestore.firestore()
     //Storageパス
-    let storageref = Storage.storage().reference(forURL: "gs://bookshare-b78b4.appspot.com").child("User")
+    let storageref = Storage.storage().reference(forURL: "gs://bookshare-b78b4.appspot.com")
     //localURL
     let localURL = URL(string: "")
     //画像URL
@@ -57,8 +57,9 @@ class MyPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSour
         collectionItem.delegate = self
         collectionItem.dataSource = self
         profile.delegate = self
+        //各ステータスを表示
+        readMyData()
         //自分が持っているアイテムデータを取得
-        
         readD.readMyItemData(collectionView1: collectionItem)
     }
     
@@ -155,17 +156,18 @@ class MyPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSour
     
     //Storageに画像を保存
     func saveIconImage() {
+        let childString = self.userDataClass.userDataID
         //NSDataに変換
         let imageData = iconImage.image!.pngData()!
         //imageDataの拡張子を設定?
         let meta = StorageMetadata()
         meta.contentType = "image/jpeg"
-        self.storageref.child("Icon").putData(imageData, metadata: meta) { (metadata, error) in
+        self.storageref.child("User").child(childString).putData(imageData, metadata: meta) { (metadata, error) in
             if error != nil {
                 print("アップロードに失敗しました")
             } else {
                 //URL型をNSstring型に変換したい
-                self.storageref.child("Icon").downloadURL(completion: { (url, error) in
+                self.storageref.child("User").child(childString).downloadURL(completion: { (url, error) in
                     if  error  != nil {
                         print("写真の保存に失敗")
                     }  else {

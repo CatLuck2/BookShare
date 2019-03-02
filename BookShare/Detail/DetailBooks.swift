@@ -31,6 +31,9 @@ class DetailBooks: UIViewController,UITableViewDataSource,UITableViewDelegate{
         super.viewDidLoad()
         //imageViewのプレースホルダー
         imageView.isHidden = false
+        //アイコンを角丸に
+        imageView.layer.cornerRadius = 40
+        imageView.layer.masksToBounds = true
         
         tableView.delegate = self
         tableView.dataSource = self

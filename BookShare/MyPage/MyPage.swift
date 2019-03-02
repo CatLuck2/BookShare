@@ -32,6 +32,8 @@ class MyPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSour
     let userDataID = UserDefaults.standard.string(forKey: "userDataID")
     //UserDataのインスタンス
     var userDataClass = UserData.userClass
+    //readDataのインスタンス
+    var readD = readData()
     //FireStore
     let db = Firestore.firestore()
     //Storageパス
@@ -55,8 +57,9 @@ class MyPage: UIViewController,UICollectionViewDelegate,UICollectionViewDataSour
         collectionItem.delegate = self
         collectionItem.dataSource = self
         profile.delegate = self
-        //ユーザーデータを取得
-        readMyData()
+        //自分が持っているアイテムデータを取得
+        
+        readD.readMyItemData(collectionView1: collectionItem)
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {

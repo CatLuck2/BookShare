@@ -67,7 +67,7 @@ class SignUp: UIViewController,UITextFieldDelegate {
                                 //ユーザーデータを作成
                                 self.createUserData()
                                 //ユーザーデータを取得
-                                let readD = readData()
+//                                let readD = readData()
 //                                readD.readMyData()
                                 //ホーム画面に遷移
                                 let storyboard = UIStoryboard(name: "Main", bundle:Bundle.main)
@@ -114,8 +114,7 @@ class SignUp: UIViewController,UITextFieldDelegate {
             "Good":"0",
             "Share":"0",
             "Get":"0",
-            "Profile":"",
-            "Item":[""]]
+            "Profile":""]
         
         //ユーザーデータを保存
         db.collection("User").document(userDataID!).setData(userData, completion: { (err) in

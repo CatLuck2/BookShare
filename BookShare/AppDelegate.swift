@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        //ユーザーデータ(ユーザー情報、所持アイテムID)を取得
 //        let readD = readData()
 //        //アイコンのURLを取得
-////        readD.readMyIcon()
+//        readD.readMyData()
     }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {

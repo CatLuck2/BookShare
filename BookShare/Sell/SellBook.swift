@@ -76,6 +76,11 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
         imageView.image = UIImage(named: "placeholder_book.png")
         //空のセルを削除
         tableView.tableFooterView = UIView()
+        
+        print(self.userDataClass.userName)
+        print(self.userDataClass.userID)
+        print(self.userDataClass.userDataID)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -267,7 +272,8 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
                             "UserDataID":books[i][8],
                             "DeliveryBurden":books[i][9],
                             "DeliveryWay":books[i][10],
-                            "DeliveryDay":books[i][11]]
+                            "DeliveryDay":books[i][11],
+                            "ItemID":randomString]
             } else {
                 item = ["?":"?"]
             }
@@ -287,6 +293,8 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
             "Get":userDataClass.get,
             "Profile":userDataClass.profile,
             "Item":userDataClass.myItemID]
+        
+        //アイテムを保存
         db.collection("Item").document(randomString).setData(items) { (err) in
             if let _ = err {
                 print("fail")

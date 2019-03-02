@@ -28,6 +28,8 @@ class Home: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource
     let readD = readData()
     //UserDataのインスタンス
     var userDataClass = UserData.userClass
+    //画面遷移時に必要なindexPath
+    var indexPathRow = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,22 +57,16 @@ class Home: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource
         sc.addSubview(vc)
         sc.contentSize = vc.bounds.size
 
+        //デリゲート
         collectionView.delegate = self
         collectionView.dataSource = self
         
-//        readD.readMyData(collectionView1:self.collectionView)
+        //ユーザーデータを取得
+        readD.readMyData()
+        //全てのItemを取得
         readD.readAllItemID(collectionView1: self.collectionView)
         
-//        print(userDataClass.allItemID)
-//        print(userDataClass.allItemURL)
-//        print(userDataClass.allItems)
-        
     }
-    
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//
-//    }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -91,18 +87,31 @@ class Home: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        indexPathRow = indexPath.row
+        self.performSegue(withIdentifier: "goDetailBooks", sender: nil)
         //DetailBookのインスタンス
-        let vc1 = self.storyboard?.instantiateViewController(withIdentifier: "sendDataToDetailBooks") as! DetailBooks
-        let vc2 = self.storyboard?.instantiateViewController(withIdentifier: "godetailbooks")
-        //itemIDに該当するデータを探す
-        for i in 0...self.userDataClass.allItems.count-1 {
-            if self.userDataClass.allItemID[indexPath.row] == self.userDataClass.allItems[i]["0"]!["ItemID"] {
-                //該当する本のデータをDetailBookに渡す
-                vc1.itemData = self.userDataClass.allItems[indexPath.row]
+//        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+//        let vc1 = storyboard.instantiateViewController(withIdentifier: "DetailBooks") as! DetailBooks
+//        let vc2 = storyboard.instantiateViewController(withIdentifier: "navigation") as! UINavigationController
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        //DetailBooksに遷移時
+        if segue.identifier == "goDetailBooks" {
+            //DetailBooksのインスタンス
+            let vc = segue.destination as! DetailBooks
+            //itemIDに該当するデータを探す
+            for i1 in 0...self.userDataClass.allItems.count-1 {
+                for i2 in 0...4 {
+                    //タップした本のデータが存在し、
+                    if self.userDataClass.allItems[i1]["\(i2)"]!["ItemID"] != nil && self.userDataClass.allItemID[indexPathRow] == self.userDataClass.allItems[i1]["\(i2)"]!["ItemID"]! {
+                        //該当する本のデータをDetailBookに渡す
+                        vc.itemData = self.userDataClass.allItems[i1]
+                    } else {
+                    }
+                }
             }
         }
-        //本の詳細画面へ移行
-        self.present(vc2!, animated: true, completion: nil)
     }
     
     //スクロールビューのボタンに文字を入れる

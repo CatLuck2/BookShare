@@ -33,8 +33,8 @@ class readData: UIViewController {
         })
     }
     
-    //ユーザーデータを読み込む
-    func readMyData(collectionView1:UICollectionView) {
+    //ユーザーデータを取得する
+    func readMyData() {
         //ユーザーデータ
         self.db.collection("User").getDocuments() { (snapdata, err) in
             //エラー処理
@@ -70,14 +70,14 @@ class readData: UIViewController {
                         }
                     }
                 }
-                //本のデータを取得
-                self.readMyItemData(collectionView2:collectionView1)
             }
         }
     }
     
+    
+    
     //自分が出品した本のデータを取得
-    func readMyItemData(collectionView2:UICollectionView) {
+    func readMyItemData(collectionView1:UICollectionView) {
         //データの総数
         var amountOfData = 0
         //1データ内のループ数
@@ -106,7 +106,7 @@ class readData: UIViewController {
                     amountOfData += 1
                     //自分の本のデータを全て取得し終えたら、画像を取得開始
                     if amountOfData == self.userDataClass.myItemID.count {
-                        self.readMyItemImage(collectionView3:collectionView2)
+                        self.readMyItemImage(collectionView2:collectionView1)
                     }
                 }
                 
@@ -115,7 +115,7 @@ class readData: UIViewController {
     }
     
     //自分が出品した本の画像を取得
-    func readMyItemImage(collectionView3:UICollectionView) {
+    func readMyItemImage(collectionView2:UICollectionView) {
         //階層を指定する際の文字列
         var childString = ""
         //本の画像を取得していく
@@ -132,7 +132,7 @@ class readData: UIViewController {
                     self.userDataClass.myItemURL.append(url!)
                     //もし全てのダウンロードURLを取得したら、collectionViewをリロード
                     if self.userDataClass.myItemID.count == self.userDataClass.myItemURL.count {
-                        collectionView3.reloadData()
+                        collectionView2.reloadData()
                         //                        print(self.userDataClass.itemID)
                         //                        print(self.userDataClass.itemURL)
                     } else {
@@ -154,6 +154,8 @@ class readData: UIViewController {
                     //Item階層の各ドキュメントIDを取得
                     self.userDataClass.allItemID.append(data.documentID)
                 }
+                print(self.userDataClass.allItemID)
+                self.readAllItemData(collectionView2: collectionView1)
             }
         }
     }
@@ -176,40 +178,39 @@ class readData: UIViewController {
                         self.userDataClass.allItems[amountOfData][key] = data.data()[key]! as! [String : String]
                     }
                     amountOfData += 1
-                    //全てのデータを取得したら、次は
-                    if self.userDataClass.allItems.count == self.userDataClass.allItemID.count {
-                        self.readAllItemImage(collectionView3: collectionView2)
-                    }
                 }
-                
+                self.readAllItemImage(collectionView3: collectionView2)
             }
         }
     }
     
     //全ての本の画像を読み込む
-    func readAllItemImage(collectionView3:UICollectionView) {//階層を指定する際の文字列
+    func readAllItemImage(collectionView3:UICollectionView) {
+        //階層を指定する際の文字列
         var childString = ""
-        //本の画像を取得していく
-        for i in 0...self.userDataClass.allItemID.count-1 {
-            //itemIDをchildStringに入れていく
-            childString = self.userDataClass.allItemID[i]
-            //取得開始
-            self.storageref.child("Item").child(childString).downloadURL(completion: { (url, err) in
-                if let err = err {
-                    print("Error getting downloadURL: \(err)")
-                } else {
-                    //                    print("\(self.userDataClass.itemID[i]) " + url!.absoluteString)
-                    //ダウンロードURLを入れる
-                    self.userDataClass.allItemURL.append(url!)
-                    //もし全てのダウンロードURLを取得したら、collectionViewをリロード
-                    if self.userDataClass.allItemID.count == self.userDataClass.allItemURL.count {
-                        collectionView3.reloadData()
-                        //                        print(self.userDataClass.itemID)
-                        //                        print(self.userDataClass.itemURL)
+        //ItemIDを１つ以上取得できたかどうか
+        if self.userDataClass.allItemID.count < 1 {
+            return
+        } else {
+            //本の画像を取得していく
+            for i in 0...self.userDataClass.allItemID.count-1 {
+                //itemIDをchildStringに入れていく
+                childString = self.userDataClass.allItemID[i]
+                //取得開始
+                self.storageref.child("Item").child(childString).downloadURL(completion: { (url, err) in
+                    if let err = err {
+                        print("Error getting downloadURL: \(err)")
                     } else {
+                        //ダウンロードURLを入れる
+                        self.userDataClass.allItemURL.append(url!)
+                        //もし全てのダウンロードURLを取得したら、collectionViewをリロード
+                        if self.userDataClass.allItemID.count == self.userDataClass.allItemURL.count {
+                            collectionView3.reloadData()
+                        } else {
+                        }
                     }
-                }
-            })
+                })
+            }
         }
         
     }

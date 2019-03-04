@@ -65,11 +65,23 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
     //配送情報の各項目
     var deliveryInformation = ["","",""]
     //tableViewの中身
-    var cellArray = ["出品する本","本","本を追加","配送情報","配送料の負担","発送の方法","発送日の目安"]
+//    var cellArray = ["出品する本","本","本を追加","配送情報","配送料の負担","発送の方法","発送日の目安"]
+    //セクションのたいとる
+    var sectionTitle = ["出品する本","配送情報"]
+    //セクション1
+    var section0 = ["本","本を追加"]
+    //セクション２
+    var section1 = ["発送日の目安","配送料の負担","発送の方法"]
+    //セクションデータ
+    var sectionData = [[String]]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //sectionDataを初期化
+        sectionData = [section0,section1]
 
+        //tableViewデリゲート
         tableView.delegate = self
         tableView.dataSource = self
         //imageViewのプレースホルダー
@@ -77,34 +89,35 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
         //空のセルを削除
         tableView.tableFooterView = UIView()
         
-        print(self.userDataClass.userName)
-        print(self.userDataClass.userID)
-        print(self.userDataClass.userDataID)
+//        print(self.userDataClass.userName)
+//        print(self.userDataClass.userID)
+//        print(self.userDataClass.userDataID)
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //乱数を生成しておく（乱数が複数生成されるのを防ぐため）
-//        randomString = createRandomString()
-        //UserData.itemにItemのIDを追加
-//        userDataClass.item.append(childString)
         //リロード
         tableView.reloadData()
         imageView.image = imagesOfBook[0]
+        print(self.book)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sectionTitle[section]
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cellArray.count
+        return sectionData[section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = cellArray[indexPath.row]
+        cell.textLabel?.text = sectionData[indexPath.section][indexPath.row]
         //セルのテキストで装飾を分岐
         switch cell.textLabel?.text {
         case "配送情報":
@@ -117,7 +130,7 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
             cell.detailTextLabel?.text = ""
         case "本":
             cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.thin)
-            cell.detailTextLabel?.text = self.books[indexPath.row - 1][0]
+//            cell.detailTextLabel?.text = self.books[indexPath.row - 1][0]
         case "配送料の負担":
             cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.thin)
             cell.detailTextLabel?.text = deliveryInformation[0]
@@ -134,12 +147,16 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //遷移用のViewController変数
+        var vc = UIViewController()
+        //セルのテキスト
+        var cellText = sectionData[indexPath.section][indexPath.row]
         //"本を追加"をタップした場合
-        switch cellArray[indexPath.row] {
+        switch cellText {
         case "本を追加":
-            cellArray[indexPath.row] = "本"
-            if cellArray.count < 10 {
-                cellArray.insert("本を追加", at: cellArray.count - 4)
+            section0[indexPath.row] = "本"
+            if section0.count < 5 {
+                section0.insert("本を追加", at: section0.count)
             }
         case "本":
             let vc = storyboard?.instantiateViewController(withIdentifier: "sellbooks") as! SellBooks
@@ -168,32 +185,165 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
         default:
             break
         }
+        //sectionDataを更新
+        sectionData = [section0,section1]
+        //更新
         tableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        //セルを削除する
+        //選択したセルのテキスト
+        let cellText = sectionData[indexPath.section][indexPath.row]
         if editingStyle == .delete {
             //本1~本５以外には適用しない
-            if cellArray[indexPath.row] == "本" {
-                cellArray.remove(at: indexPath.row)
-                self.books.remove(at: indexPath.row - 1)
-                self.books.append(["","",""])
-                self.imagesOfBook.remove(at: indexPath.row - 1)
-                self.imagesOfBook.append(UIImage(named: "")!)
-                self.filenamesOfBook.remove(at: indexPath.row - 1)
-                self.filenamesOfBook.append("")
-                tableView.deleteRows(at: [indexPath], with: .fade)
-                //もし本のセルが5つ以下になったら
-                if cellArray.count <= 10 {
+            if cellText == "本" {
+                //section0のセルが2つ(本、本を追加)だけかどうか
+                if section0.count < 3 {
                     //既に”本の追加”のセルがあるか
-                    if cellArray.contains("本を追加") == false {
-                        cellArray.insert("本を追加", at: 5)
-                        tableView.reloadData()
-                    }
+//                    if cellArray.contains("本を追加") == false {
+//                        cellArray.insert("本を追加", at: 5)
+//                    }
+                } else {
+                    //section0で該当する要素を削除
+                    self.section0.remove(at: indexPath.row)
+                    //section0に"本を追加"の要素を追加
+                    self.section0.append("本を追加")
+                    //booksの本のデータを削除
+                    self.books.remove(at: indexPath.row - 1)
+                    //booksの本のデータを初期化
+                    self.books.append(["","",""])
+                    //本の表紙画像を削除
+                    self.imagesOfBook.remove(at: indexPath.row - 1)
+                    //プレースホルダー画像で初期化
+                    self.imagesOfBook.append(UIImage(named: "sample.png")!)
+                    //本の表紙画像名を削除
+                    self.filenamesOfBook.remove(at: indexPath.row - 1)
+                    //本の表紙画像名を初期化
+                    self.filenamesOfBook.append("")
+                    //セルを削除
+                    self.tableView.deleteRows(at: [indexPath], with: .fade)
+                    //更新
+                    self.tableView.reloadData()
                 }
             }
-        } else {}
+        } else {
+            
+        }
+    }
+    
+    //storyboardIDで指定したVCを生成
+    func createVC(identifier:String, viewcontroller:UIViewController) {
+        
+    }
+    
+    //セルのテキストフォントを生成
+//    func settingTextFont(size:Int, fontType:UIFont.Weight) -> UIFont {
+//        return U
+//    }
+    
+    //画像をアップロード
+    func saveItemImage(childString:String, image:UIImage) {
+        //画像を保存
+        let storageref = Storage.storage().reference(forURL: "gs://bookshare-b78b4.appspot.com").child("Item").child(childString)
+        var data = NSData()
+        data = image.jpegData(compressionQuality: 1.0)! as NSData
+        let meta = StorageMetadata()
+        meta.contentType = "image/jpeg"
+        //Storageに保存
+        storageref.putData(data as Data, metadata: meta) { (data, error) in
+            if error != nil {
+                print(error)
+            } else {
+            }
+        }
+    }
+    
+    //設定を初期化する
+    func resetAllSettings() {
+        //現設定を全て初期化する
+        books = [["","","","","","","","","","","",""],
+                 ["","","","","","","","","","","",""],
+                 ["","","","","","","","","","","",""],
+                 ["","","","","","","","","","","",""],
+                 ["","","","","","","","","","","",""]]
+        imagesOfBook = [UIImage(named: "sample.png"),
+                        UIImage(named: "sample.png"),
+                        UIImage(named: "sample.png"),
+                        UIImage(named: "sample.png"),
+                        UIImage(named: "sample.png")] as! [UIImage]
+        imageView.image = UIImage(named: "sample.png")
+        filenamesOfBook = ["","","","",""]
+        deliveryInformation = ["","",""]
+        //        cellArray = ["出品する本","本","本を追加","配送情報","配送料の負担","発送の方法","発送日の目安"]
+        tableView.reloadData()
+        //1番上にスクロール
+        let bottomOffset = CGPoint(x: 0, y: 0)
+        scrollView.setContentOffset(bottomOffset, animated: false)
+        //閉じる
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    //乱数を生成
+    func createRandomString() -> String {
+        //ItemIDを生成
+        //乱数の生成に使用する文字
+        let characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        //乱数を格納する配列
+        var randomArray:String!
+        //charactersの中からランダムに選出した要素番号を格納する
+        var len = Int()
+        //乱数(文字)をいくつか追加し、最終的に乱数(文字列)となる変数
+        var randomCharacters = String()
+        //乱数が9文字になるまで続く
+        for _ in 1...9 {
+            //charactersの要素番号をランダムに選出
+            len = Int(arc4random_uniform(UInt32(characters.count)))
+            //aからlen番目の文字をrandomCharactersに追加する
+            //1ループ/1文字、追加される
+            randomCharacters += String(characters[characters.index(characters.startIndex,offsetBy: len)])
+        }
+        return randomCharacters
+    }
+    
+    //アラート
+    func alert(title:String,message:String,actiontitle:String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: actiontitle, style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    //メニュー用のアラート
+    func menuAlert() {
+        //アラート
+        let alert = UIAlertController(title: "メニュー", message: nil, preferredStyle: .actionSheet)
+        //このアプリについて
+        alert.addAction(UIAlertAction(title: "BookShareについて", style: .default, handler: { (action) in
+            alert.dismiss(animated: true, completion: nil)
+            self.go("about")
+        }))
+        //このアプリの使い方
+        alert.addAction(UIAlertAction(title: "使い方", style: .default, handler: { (action) in
+            alert.dismiss(animated: true, completion: nil)
+            self.go("howtouse")
+        }))
+        //お問い合わせ
+        alert.addAction(UIAlertAction(title: "お問い合わせ", style: .default, handler: { (action) in
+            alert.dismiss(animated: true, completion: nil)
+            self.go("contact")
+        }))
+        //サインアウト
+        alert.addAction(UIAlertAction(title: "サインアウト", style: .destructive, handler: { (action) in
+            let signclass = SignOut()
+            signclass.signout()
+        }))
+        //キャンセル
+        alert.addAction(UIAlertAction(title: "キャンセル", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion:  nil)
+    }
+    
+    //遷移
+    func go(_ identifier:String) {
+        self.performSegue(withIdentifier: identifier, sender: nil)
     }
 
     @IBAction func sellBook(_ sender: Any) {
@@ -326,113 +476,8 @@ class SellBook: UIViewController,UITableViewDataSource,UITableViewDelegate {
         resetAllSettings()
     }
     
-    //画像をアップロード
-    func saveItemImage(childString:String, image:UIImage) {
-        //画像を保存
-        let storageref = Storage.storage().reference(forURL: "gs://bookshare-b78b4.appspot.com").child("Item").child(childString)
-        var data = NSData()
-        data = image.jpegData(compressionQuality: 1.0)! as NSData
-        let meta = StorageMetadata()
-        meta.contentType = "image/jpeg"
-        //Storageに保存
-        storageref.putData(data as Data, metadata: meta) { (data, error) in
-            if error != nil {
-                print(error)
-            } else {
-            }
-        }
-    }
-    
-    //設定を初期化する
-    func resetAllSettings() {
-        //現設定を全て初期化する
-        books = [["","","","","","","","","","","",""],
-                 ["","","","","","","","","","","",""],
-                 ["","","","","","","","","","","",""],
-                 ["","","","","","","","","","","",""],
-                 ["","","","","","","","","","","",""]]
-        imagesOfBook = [UIImage(named: "sample.png"),
-                        UIImage(named: "sample.png"),
-                        UIImage(named: "sample.png"),
-                        UIImage(named: "sample.png"),
-                        UIImage(named: "sample.png")] as! [UIImage]
-        imageView.image = UIImage(named: "sample.png")
-        filenamesOfBook = ["","","","",""]
-        deliveryInformation = ["","",""]
-        cellArray = ["出品する本","本","本を追加","配送情報","配送料の負担","発送の方法","発送日の目安"]
-        tableView.reloadData()
-        //1番上にスクロール
-        let bottomOffset = CGPoint(x: 0, y: 0)
-        scrollView.setContentOffset(bottomOffset, animated: false)
-        //閉じる
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    //乱数を生成
-    func createRandomString() -> String {
-        //ItemIDを生成
-        //乱数の生成に使用する文字
-        let characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-        //乱数を格納する配列
-        var randomArray:String!
-        //charactersの中からランダムに選出した要素番号を格納する
-        var len = Int()
-        //乱数(文字)をいくつか追加し、最終的に乱数(文字列)となる変数
-        var randomCharacters = String()
-        //乱数が9文字になるまで続く
-        for _ in 1...9 {
-            //charactersの要素番号をランダムに選出
-            len = Int(arc4random_uniform(UInt32(characters.count)))
-            //aからlen番目の文字をrandomCharactersに追加する
-            //1ループ/1文字、追加される
-            randomCharacters += String(characters[characters.index(characters.startIndex,offsetBy: len)])
-        }
-        return randomCharacters
-    }
-    
     @IBAction func menu(_ sender: Any) {
         menuAlert()
-    }
-    
-    //アラート
-    func alert(title:String,message:String,actiontitle:String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: actiontitle, style: .default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
-    }
-    
-    //メニュー用のアラート
-    func menuAlert() {
-        //アラート
-        let alert = UIAlertController(title: "メニュー", message: nil, preferredStyle: .actionSheet)
-        //このアプリについて
-        alert.addAction(UIAlertAction(title: "BookShareについて", style: .default, handler: { (action) in
-            alert.dismiss(animated: true, completion: nil)
-            self.go("about")
-        }))
-        //このアプリの使い方
-        alert.addAction(UIAlertAction(title: "使い方", style: .default, handler: { (action) in
-            alert.dismiss(animated: true, completion: nil)
-            self.go("howtouse")
-        }))
-        //お問い合わせ
-        alert.addAction(UIAlertAction(title: "お問い合わせ", style: .default, handler: { (action) in
-            alert.dismiss(animated: true, completion: nil)
-            self.go("contact")
-        }))
-        //サインアウト
-        alert.addAction(UIAlertAction(title: "サインアウト", style: .destructive, handler: { (action) in
-            let signclass = SignOut()
-            signclass.signout()
-        }))
-        //キャンセル
-        alert.addAction(UIAlertAction(title: "キャンセル", style: .cancel, handler: nil))
-        self.present(alert, animated: true, completion:  nil)
-    }
-    
-    //遷移
-    func go(_ identifier:String) {
-        self.performSegue(withIdentifier: identifier, sender: nil)
     }
 
 }

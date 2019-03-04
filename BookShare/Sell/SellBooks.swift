@@ -28,13 +28,11 @@ class SellBooks: UIViewController,UITableViewDataSource,UITableViewDelegate,UITe
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         imageView.image = getImage
         tableView.delegate = self
         tableView.dataSource = self
         //空のセルを削除
         tableView.tableFooterView = UIView()
-       
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -44,6 +42,10 @@ class SellBooks: UIViewController,UITableViewDataSource,UITableViewDelegate,UITe
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "本の情報"
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -126,7 +128,9 @@ class SellBooks: UIViewController,UITableViewDataSource,UITableViewDelegate,UITe
         vc.book = settingArray
         vc.books[numberOfBook] = vc.book
         vc.book = ["","",""]
-        if let _ = imageView.image as? UIImage{vc.imagesOfBook[numberOfBook] = imageView.image!} else {}
+        if let _ = imageView.image as? UIImage {
+            vc.imagesOfBook[numberOfBook] = imageView.image!
+        } else {}
         if fileName == "" {fileName = "sample.png"}
         vc.filenamesOfBook[numberOfBook] = fileName
         self.navigationController?.popViewController(animated: true)
@@ -148,10 +152,3 @@ class SellBooks: UIViewController,UITableViewDataSource,UITableViewDelegate,UITe
     }
     
 }
-
-//UIImageのファイル名を取得
-//extension UIImageView {
-//    func getFileName() -> String? {
-//        return self.accessibilityIdentifier
-//    }
-//}

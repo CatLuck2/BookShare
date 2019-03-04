@@ -402,8 +402,20 @@
                                             <outletCollection property="gestureRecognizers" destination="RgL-Qn-rGF" appends="YES" id="4Ug-U2-qzL"/>
                                         </connections>
                                     </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vi3-C1-ZHK">
+                                        <rect key="frame" x="95" y="599" width="184" height="38"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="184" id="WoZ-wN-0J7"/>
+                                            <constraint firstAttribute="height" constant="38" id="ftd-7s-89i"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <state key="normal" title="設定を完了する"/>
+                                        <connections>
+                                            <action selector="finishSetting:" destination="sMS-is-HGi" eventType="touchUpInside" id="CnT-Dh-4Ho"/>
+                                        </connections>
+                                    </button>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1AS-Tp-MTl">
-                                        <rect key="frame" x="0.0" y="368" width="375" height="205"/>
+                                        <rect key="frame" x="0.0" y="377" width="375" height="205"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="205" id="qXz-re-4WK"/>
@@ -435,29 +447,17 @@
                                             </tableViewCell>
                                         </prototypes>
                                     </tableView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vi3-C1-ZHK">
-                                        <rect key="frame" x="95.5" y="581" width="184" height="38"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="184" id="WoZ-wN-0J7"/>
-                                            <constraint firstAttribute="height" constant="38" id="ftd-7s-89i"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                        <state key="normal" title="設定を完了する"/>
-                                        <connections>
-                                            <action selector="finishSetting:" destination="sMS-is-HGi" eventType="touchUpInside" id="CnT-Dh-4Ho"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="crO-Xb-hEb" firstAttribute="leading" secondItem="tGt-jS-Xy2" secondAttribute="leading" id="C0b-le-Jjy"/>
-                                    <constraint firstItem="Vi3-C1-ZHK" firstAttribute="top" secondItem="1AS-Tp-MTl" secondAttribute="bottom" constant="8" id="D0t-Rd-oj7"/>
+                                    <constraint firstItem="Vi3-C1-ZHK" firstAttribute="top" secondItem="1AS-Tp-MTl" secondAttribute="bottom" constant="17" id="D0t-Rd-oj7"/>
                                     <constraint firstItem="crO-Xb-hEb" firstAttribute="top" secondItem="tGt-jS-Xy2" secondAttribute="top" id="Drs-Eu-AHw"/>
                                     <constraint firstItem="Vi3-C1-ZHK" firstAttribute="centerX" secondItem="tGt-jS-Xy2" secondAttribute="centerX" id="EiF-D4-4SF"/>
                                     <constraint firstAttribute="trailing" secondItem="crO-Xb-hEb" secondAttribute="trailing" id="KIv-OZ-CG4"/>
-                                    <constraint firstAttribute="bottom" secondItem="Vi3-C1-ZHK" secondAttribute="bottom" constant="48" id="LEY-1H-CRD"/>
+                                    <constraint firstAttribute="bottom" secondItem="Vi3-C1-ZHK" secondAttribute="bottom" constant="30" id="LEY-1H-CRD"/>
                                     <constraint firstItem="1AS-Tp-MTl" firstAttribute="centerX" secondItem="Vi3-C1-ZHK" secondAttribute="centerX" id="YpQ-SC-hig"/>
                                     <constraint firstItem="crO-Xb-hEb" firstAttribute="leading" secondItem="1AS-Tp-MTl" secondAttribute="leading" id="mlr-Ka-BZ9"/>
-                                    <constraint firstItem="1AS-Tp-MTl" firstAttribute="top" secondItem="crO-Xb-hEb" secondAttribute="bottom" constant="8" symbolic="YES" id="rpZ-a4-The"/>
+                                    <constraint firstItem="1AS-Tp-MTl" firstAttribute="top" secondItem="crO-Xb-hEb" secondAttribute="bottom" constant="17" id="rpZ-a4-The"/>
                                     <constraint firstItem="crO-Xb-hEb" firstAttribute="trailing" secondItem="1AS-Tp-MTl" secondAttribute="trailing" id="sLl-ry-Rgw"/>
                                 </constraints>
                             </scrollView>
@@ -887,8 +887,19 @@
                                             <constraint firstAttribute="height" constant="360" id="V5Y-J5-3qJ"/>
                                         </constraints>
                                     </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="clK-1u-Grc">
+                                        <rect key="frame" x="138" y="881" width="98" height="28"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="28" id="C9N-2L-xac"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <state key="normal" title="出品する"/>
+                                        <connections>
+                                            <action selector="sellBook:" destination="IZC-9Z-PU2" eventType="touchUpInside" id="Bkm-Rs-vQN"/>
+                                        </connections>
+                                    </button>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="W04-gD-EEe">
-                                        <rect key="frame" x="0.0" y="368" width="375" height="446"/>
+                                        <rect key="frame" x="0.0" y="396" width="375" height="446"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="446" id="Jv2-xu-ebO"/>
@@ -920,28 +931,17 @@
                                             </tableViewCell>
                                         </prototypes>
                                     </tableView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="clK-1u-Grc">
-                                        <rect key="frame" x="138.5" y="845" width="98" height="28"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="28" id="C9N-2L-xac"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                        <state key="normal" title="出品する"/>
-                                        <connections>
-                                            <action selector="sellBook:" destination="IZC-9Z-PU2" eventType="touchUpInside" id="Bkm-Rs-vQN"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="v2o-lM-SBk" secondAttribute="trailing" id="14u-3U-AKJ"/>
-                                    <constraint firstAttribute="bottom" secondItem="clK-1u-Grc" secondAttribute="bottom" constant="94" id="1jP-gP-rr1"/>
+                                    <constraint firstAttribute="bottom" secondItem="clK-1u-Grc" secondAttribute="bottom" constant="58" id="1jP-gP-rr1"/>
                                     <constraint firstItem="v2o-lM-SBk" firstAttribute="leading" secondItem="W04-gD-EEe" secondAttribute="leading" id="8zn-v9-Nak"/>
                                     <constraint firstItem="clK-1u-Grc" firstAttribute="centerX" secondItem="GOj-Ky-j7J" secondAttribute="centerX" id="VIg-8I-mIp"/>
                                     <constraint firstItem="v2o-lM-SBk" firstAttribute="top" secondItem="GOj-Ky-j7J" secondAttribute="top" id="cbh-fI-gOH"/>
                                     <constraint firstItem="v2o-lM-SBk" firstAttribute="trailing" secondItem="W04-gD-EEe" secondAttribute="trailing" id="dwN-CU-UVr"/>
                                     <constraint firstItem="W04-gD-EEe" firstAttribute="centerX" secondItem="clK-1u-Grc" secondAttribute="centerX" id="m8e-fW-GJh"/>
-                                    <constraint firstItem="clK-1u-Grc" firstAttribute="top" secondItem="W04-gD-EEe" secondAttribute="bottom" constant="31" id="mP7-4g-vXH"/>
-                                    <constraint firstItem="W04-gD-EEe" firstAttribute="top" secondItem="v2o-lM-SBk" secondAttribute="bottom" constant="8" symbolic="YES" id="rqc-77-cvI"/>
+                                    <constraint firstItem="clK-1u-Grc" firstAttribute="top" secondItem="W04-gD-EEe" secondAttribute="bottom" constant="39" id="mP7-4g-vXH"/>
+                                    <constraint firstItem="W04-gD-EEe" firstAttribute="top" secondItem="v2o-lM-SBk" secondAttribute="bottom" constant="36" id="rqc-77-cvI"/>
                                     <constraint firstItem="v2o-lM-SBk" firstAttribute="leading" secondItem="GOj-Ky-j7J" secondAttribute="leading" id="xlH-l8-ulf"/>
                                 </constraints>
                             </scrollView>
@@ -1136,7 +1136,7 @@
                                         <constraints>
                                             <constraint firstAttribute="width" constant="48" id="yVY-vo-9pc"/>
                                         </constraints>
-                                        <state key="normal" image="Good.png"/>
+                                        <state key="normal" image="good_button.png"/>
                                         <connections>
                                             <action selector="goodButton:" destination="7X7-gs-c39" eventType="touchUpInside" id="DaO-R0-kiy"/>
                                         </connections>
@@ -1151,7 +1151,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="x2O-9c-GZb">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="x2O-9c-GZb">
                                         <rect key="frame" x="48" y="393" width="78" height="78"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="78" id="6jd-Fg-o5b"/>
@@ -1662,8 +1662,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Good.png" width="32" height="32"/>
         <image name="good.png" width="24" height="24"/>
+        <image name="good_button.png" width="32" height="32"/>
         <image name="home.png" width="24" height="24"/>
         <image name="notification.png" width="24" height="24"/>
         <image name="person.png" width="24" height="24"/>

@@ -22,7 +22,6 @@ class DetailBooks2: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         tableView.delegate = self
         tableView.dataSource = self
         //空のセルを削除
@@ -33,6 +32,10 @@ class DetailBooks2: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "本の情報"
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

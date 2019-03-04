@@ -18,6 +18,14 @@ class DetailBooks: UIViewController,UITableViewDataSource,UITableViewDelegate{
     
     //tableViewの中身
     var cellArray = ["出品する本","配送情報","発送日の目安","配送料の負担","発送の方法"]
+    //セクションのたいとる
+    var sectionTitle = ["出品する本","配送情報"]
+    //セクション1
+    var section0 = ["本","本を追加"]
+    //セクション２
+    var section1 = ["発送日の目安","配送料の負担","発送の方法"]
+    //セクションデータ
+    var sectionData = [[String]]()
     //配送情報の各項目
     var deliveryInformation = ["","",""]
     //ホームで選択した本のデータ
@@ -29,11 +37,13 @@ class DetailBooks: UIViewController,UITableViewDataSource,UITableViewDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //imageViewのプレースホルダー
-        imageView.isHidden = false
+        
+        //sectionDataを初期化
+        sectionData = [section0,section1]
+        
         //アイコンを角丸に
-        imageView.layer.cornerRadius = 40
-        imageView.layer.masksToBounds = true
+        imageView.layer.cornerRadius = 30
+        imageView.clipsToBounds = true
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -57,11 +67,15 @@ class DetailBooks: UIViewController,UITableViewDataSource,UITableViewDelegate{
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sectionTitle[section]
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cellArray.count
+        return sectionData[section].count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
